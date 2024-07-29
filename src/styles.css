@@ -1,0 +1,76 @@
+/* styles.css or App.css */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure the header is above other content */
+  background-color: inherit; /* Background color can be inherited from theme */
+  color: inherit; /* Text color can be inherited from theme */
+  height: 60px; /* Set the height of the header */
+}
+
+.sidebar {
+  position: fixed;
+  top: 60px; /* Adjust based on the height of the header */
+  left: 0;
+  width: 135px; /* Adjust as needed */
+  height: calc(100vh - 60px); /* Full height minus the header height */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+  background-color: inherit; /* Background color can be inherited from theme */
+  color: inherit; /* Text color can be inherited from theme */
+  z-index: 1000; /* Ensure the sidebar is above other content */
+}
+
+.footer {
+  /* height: 60px; 풋터의 높이 */
+  position: relative;
+  /* position: fixed; */
+  bottom: 0;
+  width: 100%;
+  background-color: inherit; /* Background color can be inherited from theme */
+  color: inherit; /* Text color can be inherited from theme */
+  z-index: 1000; /* Ensure footer is above other content */
+}
+
+.main {
+  margin-top: 60px; /* Adjust this value based on the header height */
+  margin-left: 135px;
+  min-height: calc(100vh - 60px); /* 풋터의 높이에 따라 조절 */
+  padding-bottom: 60px; /* 풋터 높이와 동일하게 설정 */
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-grow-1 {
+  flex: 1;
+}
+
+.vh-100 {
+  height: 100vh;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.sidebar {
+  height: 100vh;
+  padding-top: 1rem;
+}
+
+.sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
