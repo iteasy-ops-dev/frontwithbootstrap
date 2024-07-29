@@ -12,7 +12,9 @@ const config = {
 			signup: "/signup",
 			ping: "/health",
 			functions: "/functions",
-			get: "/get",
+			logs: "/logs",
+			users: "/users",
+			update_active: "/update_active",
 			run: "/run",
 			erpparser: "/erp-parser",
 		}

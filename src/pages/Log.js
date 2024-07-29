@@ -24,7 +24,7 @@ const Log = () => {
 
   const fetchData = () => {
     callApi(
-      config.api.path.get,
+      config.api.path.logs,
       config.api.method.GET,
       null,
       null,
@@ -50,7 +50,7 @@ const Log = () => {
 
   return (
     <>
-      <h1 className="my-4">Log</h1>
+      <h1 className="my-4">Logs</h1>
       <Form onSubmit={handleSubmit} className="mb-3">
         <Form.Group>
           <Form.Label>Type</Form.Label>
