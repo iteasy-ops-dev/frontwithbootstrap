@@ -27,7 +27,7 @@ const NavbarComponent = () => {
         <NavLink to="/user" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-people-fill"></i> User</NavLink>
       </Nav.Item>
       <Nav.Item className="mb-3">
-        <NavLink to="/manage" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-pc-display-horizontal"></i> Manage</NavLink>
+        <NavLink to="/manage" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-terminal-fill"></i> Manage</NavLink>
       </Nav.Item>
     </Nav>
   );
