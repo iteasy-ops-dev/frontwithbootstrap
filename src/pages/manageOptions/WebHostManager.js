@@ -317,6 +317,9 @@ const DeleteFields = ({ formData, onChange }) => {
 
 	return (
 		<Form>
+			<Alert key="warning" variant="warning">
+				WARM: 수동으로 생성된 계정에 대해서 오류가 날 수 있습니다.
+			</Alert>
 			<Row className="mb-3">
 				<Col>
 					<InputGroup className="mb-3">

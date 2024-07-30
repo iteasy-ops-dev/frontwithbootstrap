@@ -13,6 +13,7 @@ import WebHostManager from './manageOptions/WebHostManager';
 const Manage = () => {
   const { data, loading, error, callApi } = useApi();
   const { functions, getUserEmail } = useAuth();
+  const invalidState = functions === null || functions === undefined
   const worker = getUserEmail();
 
   const [name] = useState(worker);
@@ -54,6 +55,7 @@ const Manage = () => {
 
   return (
     <>
+      <h1 className="my-4">Manage</h1>
       <Form onSubmit={handleSubmit}>
         <InputGroup className="mb-3">
           <InputGroup.Text>Worker</InputGroup.Text>
@@ -65,21 +67,25 @@ const Manage = () => {
             required
           />
         </InputGroup>
-
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Type</InputGroup.Text>
-          <Form.Select
-            value={type}
-            required
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value=''>Choose Type</option>
-            {functions && functions.data.map((f) => (
-              <option key={f} value={f}>{f}</option>
-            ))}
-          </Form.Select>
-        </InputGroup>
-
+        {invalidState ?
+          <Alert key="danger" variant="danger">
+            Network Error: Try Re-Login !
+          </Alert>
+          :
+          <InputGroup className="mb-3">
+            <InputGroup.Text>Type</InputGroup.Text>
+            <Form.Select
+              value={type}
+              required
+              onChange={(e) => setType(e.target.value)}
+            >
+              <option value=''>Choose Type</option>
+              {functions && functions.data.map((f) => (
+                <option key={f} value={f}>{f}</option>
+              ))}
+            </Form.Select>
+          </InputGroup>
+        }
         {type !== '' &&
           <>
             <InputGroup className="mb-3">

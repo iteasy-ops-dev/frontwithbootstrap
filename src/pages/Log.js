@@ -10,17 +10,15 @@ const Log = () => {
 
   const [type, setType] = useState('');
   const [name, setName] = useState('');
+  const [ips, setIps] = useState('');
   // const [account, setAccount] = useState('');
   const [status, setStatus] = useState('');
   const [duration, setDuration] = useState('');
   const [comparison, setComparison] = useState('');
 
-  const [show, setShow] = useState(false);
+  const [showPayload, setShowPayload] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
-
-  useEffect(() => {
-    fetchData();
-  }, [type, status, comparison]);
 
   const fetchData = () => {
     callApi(
@@ -28,23 +26,38 @@ const Log = () => {
       config.api.method.GET,
       null,
       null,
-      { type, name, status, duration, comparison } // account 삭제
+      { type, name, status, duration, comparison, ips } // account 삭제
     );
   }
+
+  useEffect(() => {
+    fetchData();
+  }, [type, status, comparison]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     fetchData();
   }
 
-  const handleShow = (log) => {
+  const handlePayloadShow = (log) => {
     console.log('Selected log:', log); // 디버깅을 위해 로그를 출력합니다.
     setSelectedLog(log);
-    setShow(true);
+    setShowPayload(true);
   }
 
-  const handleClose = () => {
-    setShow(false);
+  const handlePayloadClose = () => {
+    setShowPayload(false);
+    setSelectedLog(null);
+  }
+
+  const handleOptionsShow = (log) => {
+    console.log('Selected log:', log); // 디버깅을 위해 로그를 출력합니다.
+    setSelectedLog(log);
+    setShowOptions(true);
+  }
+
+  const handleOptionsClose = () => {
+    setShowOptions(false);
     setSelectedLog(null);
   }
 
@@ -71,6 +84,16 @@ const Log = () => {
             placeholder="Enter Worker"
             value={name}
             onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>IPs</Form.Label>
+          <Form.Control
+            as="textarea"
+            value={ips}
+
+            placeholder='ex) 192.168.0.1, 192.168.0.2:2222'
+            onChange={(e) => setIps(e.target.value)}
           />
         </Form.Group>
         <Form.Group>
@@ -119,6 +142,7 @@ const Log = () => {
               <th>Status</th>
               <th>Duration</th>
               <th>Timestamp</th>
+              <th>Options</th>
               <th>Payload</th>
             </tr>
           </thead>
@@ -132,7 +156,12 @@ const Log = () => {
                   <td>{log.Duration} s</td>
                   <td>{new Date(log.Timestamp * 1000).toLocaleString()}</td>
                   <td>
-                    <Button variant="link" onClick={() => handleShow(log)}>
+                    <Button variant="link" onClick={() => handleOptionsShow(log)}>
+                      ⚙️
+                    </Button>
+                  </td>
+                  <td>
+                    <Button variant="link" onClick={() => handlePayloadShow(log)}>
                       📝
                     </Button>
                   </td>
@@ -142,9 +171,9 @@ const Log = () => {
           </tbody>
         </Table>
       )}
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={showPayload} onHide={handlePayloadClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Log Details</Modal.Title>
+          <Modal.Title>Log Details-Payload</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedLog ? (
@@ -157,7 +186,32 @@ const Log = () => {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handlePayloadClose}>
+            닫기
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showOptions} onHide={handleOptionsClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Log Details-Options</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedLog ? (
+            <>
+              {Object.entries(selectedLog.Options).map(([key, value]) => (
+                <p key={key}><strong>{key}:</strong> {value}</p>
+              ))}
+              {Object.entries(selectedLog.IPs).map(([key, value]) => (
+                <p key={key}><strong>IP {key}:</strong> {value}</p>
+              ))}
+            </>
+          ) : (
+            <Spinner animation="border" />
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleOptionsClose}>
             닫기
           </Button>
         </Modal.Footer>

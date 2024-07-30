@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Alert, Button, Spinner, Form, Modal } from 'react-bootstrap';
+import { Table, Button, Spinner } from 'react-bootstrap';
 import config from '../config';
 import useApi from '../hooks/useApi';
+import { useAuth } from '../AuthContext';
 
 const User = () => {
+  const { getUserEmail } = useAuth();
+  const isAdmin = getUserEmail() === "iteasy.ops.dev@gmail.com"
   const [view, setView] = useState(true)
   const usersApi = useApi();
   const userApi = useApi();
@@ -48,9 +51,11 @@ const User = () => {
                 <tr>
                   <td>{user.Email}</td>
                   <td>{user.IsActive ? "🟢" : "🔴"}
-                    <Button variant="link" onClick={() => handleChangeButtonClick(user)} size="sm" disabled={usersApi.loading}>
-                      {usersApi.loading ? <Spinner as="span" animation="border" size="sm" /> : '변경'}
-                    </Button>
+                    {isAdmin &&
+                      <Button variant="link" onClick={() => handleChangeButtonClick(user)} size="sm" disabled={usersApi.loading}>
+                        {usersApi.loading ? <Spinner as="span" animation="border" size="sm" /> : '변경'}
+                      </Button>
+                    }
                   </td>
                   <td>{user.Verified ? "🟢" : "🔴"}</td>
                   <td>{new Date(user.AtDate * 1000).toLocaleString()}</td>
