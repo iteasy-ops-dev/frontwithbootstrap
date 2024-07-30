@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Alert, Button, Spinner, Form, Modal } from 'react-bootstrap';
+import { InputGroup, Table, Alert, Button, Spinner, Form, Modal, Row, Col } from 'react-bootstrap';
 import config from '../config';
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
@@ -65,69 +65,89 @@ const Log = () => {
     <>
       <h1 className="my-4">Logs</h1>
       <Form onSubmit={handleSubmit} className="mb-3">
-        <Form.Group>
-          <Form.Label>Type</Form.Label>
-          <Form.Select
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-          >
-            <option value=''>All</option>
-            {functions && functions.data.map((f) => (
-              <option key={f} value={f}>{f}</option>
-            ))}
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Worker</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Worker"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>IPs</Form.Label>
-          <Form.Control
-            as="textarea"
-            value={ips}
-
-            placeholder='ex) 192.168.0.1, 192.168.0.2:2222'
-            onChange={(e) => setIps(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Status</Form.Label>
-          <Form.Select
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            <option value="true">성공</option>
-            <option value="false">실패</option>
-          </Form.Select>
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Duration</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Enter Duration"
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Comparison</Form.Label>
-          <Form.Select
-            value={comparison}
-            onChange={(e) => setComparison(e.target.value)}
-          >
-            <option value="">All</option>
-            <option value="gt">Greater than</option>
-            <option value="lt">Less than</option>
-            <option value="gte">Greater than or equal to</option>
-            <option value="lte">Less than or equal to</option>
-          </Form.Select>
-        </Form.Group>
+        <Row>
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Type</InputGroup.Text>
+              <Form.Select
+                value={type}
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option value=''>All</option>
+                {functions && functions.data.map((f) => (
+                  <option key={f} value={f}>{f}</option>
+                ))}
+              </Form.Select>
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Worker</InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Enter Worker"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>IPs</InputGroup.Text>
+              <Form.Control
+                as="textarea"
+                value={ips}
+                required
+                placeholder='ex) 192.168.0.1, 192.168.0.2:2222'
+                onChange={(e) => setIps(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row>
+          <InputGroup className="mb-3">
+            <InputGroup.Text>Status</InputGroup.Text>
+            <Form.Select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              <option value="true">성공</option>
+              <option value="false">실패</option>
+            </Form.Select>
+          </InputGroup>
+        </Row>
+        <Row>
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Duration</InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Enter Duration"
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Comparison</InputGroup.Text>
+              <Form.Select
+                value={comparison}
+                onChange={(e) => setComparison(e.target.value)}
+              >
+                <option value="">All</option>
+                <option value="gt">Greater than</option>
+                <option value="lt">Less than</option>
+                <option value="gte">Greater than or equal to</option>
+                <option value="lte">Less than or equal to</option>
+              </Form.Select>
+            </InputGroup>
+          </Col>
+        </Row>
         <Button variant="primary" type="submit" className="mt-3" disabled={loading}>
           {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Search'}
         </Button>
@@ -137,32 +157,32 @@ const Log = () => {
         <Table striped bordered hover className="mt-3">
           <thead>
             <tr>
-              <th>Type</th>
-              <th>Worker</th>
-              <th>Status</th>
-              <th>Duration</th>
-              <th>Timestamp</th>
-              <th>Options</th>
-              <th>Payload</th>
+              <th style={{ textAlign: 'center' }}>Type</th>
+              <th style={{ textAlign: 'center' }}>Worker</th>
+              <th style={{ textAlign: 'center' }}>Status</th>
+              <th style={{ textAlign: 'center' }}>Duration</th>
+              <th style={{ textAlign: 'center' }}>Timestamp</th>
+              <th style={{ textAlign: 'center' }}>Options</th>
+              <th style={{ textAlign: 'center' }}>Payload</th>
             </tr>
           </thead>
           <tbody>
             {data.data.map((log) => (
               <React.Fragment key={log.ID}>
                 <tr>
-                  <td>{log.Type}</td>
-                  <td>{log.Name}</td>
-                  <td>{log.Status ? '🟢' : '🔴'}</td>
-                  <td>{log.Duration} s</td>
-                  <td>{new Date(log.Timestamp * 1000).toLocaleString()}</td>
-                  <td>
+                  <td style={{ textAlign: 'center' }}>{log.Type}</td>
+                  <td style={{ textAlign: 'center' }}>{log.Name}</td>
+                  <td style={{ textAlign: 'center' }}>{log.Status ? '🟢' : '🔴'}</td>
+                  <td style={{ textAlign: 'center' }}>{log.Duration} s</td>
+                  <td style={{ textAlign: 'center' }}>{new Date(log.Timestamp * 1000).toLocaleString()}</td>
+                  <td style={{ textAlign: 'center' }}>
                     <Button variant="link" onClick={() => handleOptionsShow(log)}>
-                      ⚙️
+                      <i class="bi bi-info-circle-fill"></i>
                     </Button>
                   </td>
-                  <td>
+                  <td style={{ textAlign: 'center' }}>
                     <Button variant="link" onClick={() => handlePayloadShow(log)}>
-                      📝
+                      <i class="bi bi-info-circle-fill"></i>
                     </Button>
                   </td>
                 </tr>

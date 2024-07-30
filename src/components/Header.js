@@ -21,10 +21,10 @@ const Header = () => {
         <>
           <Nav>
             <Nav.Item className={`text-${theme === "dark" ? "light" : "dark"}`}>
-              Logged in as: {getUserEmail()}
+            <i class="bi bi-person-circle"></i> {getUserEmail()}
             </Nav.Item>
           </Nav>
-          <Button variant={`outline-${theme === "dark" ? "light" : "dark"}`} onClick={handleLogout}>Logout</Button>
+          <Button variant={`outline-${theme === "dark" ? "light" : "dark"}`} onClick={handleLogout}><i class="bi bi-escape"></i> Logout</Button>
         </>
       )}
     </Navbar>

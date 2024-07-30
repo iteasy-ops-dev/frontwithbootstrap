@@ -39,26 +39,26 @@ const User = () => {
         <Table striped bordered hover className="mt-3">
           <thead>
             <tr>
-              <th>Email</th>
-              <th>Active</th>
-              <th>Verified</th>
-              <th>Join</th>
+              <th style={{ textAlign: 'center' }}>Email</th>
+              <th style={{ textAlign: 'center' }}>Active</th>
+              <th style={{ textAlign: 'center' }}>Verified</th>
+              <th style={{ textAlign: 'center' }}>Join</th>
             </tr>
           </thead>
           <tbody>
             {usersApi.data.data.map((user) => (
               <React.Fragment key={user.ID}>
                 <tr>
-                  <td>{user.Email}</td>
-                  <td>{user.IsActive ? "🟢" : "🔴"}
+                  <td style={{ textAlign: 'center' }}>{user.Email}</td>
+                  <td style={{ textAlign: 'center' }}>{user.IsActive ? "🟢" : "🔴"}
                     {isAdmin &&
                       <Button variant="link" onClick={() => handleChangeButtonClick(user)} size="sm" disabled={usersApi.loading}>
-                        {usersApi.loading ? <Spinner as="span" animation="border" size="sm" /> : '변경'}
+                        {usersApi.loading ? <Spinner as="span" animation="border" size="sm" /> : <i class="bi bi-arrow-repeat"></i>}
                       </Button>
                     }
                   </td>
-                  <td>{user.Verified ? "🟢" : "🔴"}</td>
-                  <td>{new Date(user.AtDate * 1000).toLocaleString()}</td>
+                  <td style={{ textAlign: 'center' }}>{user.Verified ? "🟢" : "🔴"}</td>
+                  <td style={{ textAlign: 'center' }}>{new Date(user.AtDate * 1000).toLocaleString()}</td>
                 </tr>
               </React.Fragment>
             ))}

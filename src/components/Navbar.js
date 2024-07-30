@@ -18,16 +18,16 @@ const NavbarComponent = () => {
     <Nav className={`col-md-2 d-none d-md-block bg-${theme} sidebar`}>
       <div className="sidebar-sticky"></div>
       <Nav.Item className="mb-3">
-        <NavLink to="/home" className={({ isActive }) => getNavLinkClassName(isActive)}>Home</NavLink>
+        <NavLink to="/home" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-house-fill"></i> Home</NavLink>
       </Nav.Item>
       <Nav.Item className="mb-3">
-        <NavLink to="/log" className={({ isActive }) => getNavLinkClassName(isActive)}>Log</NavLink>
+        <NavLink to="/log" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-file-earmark-post"></i> Log</NavLink>
       </Nav.Item>
       <Nav.Item className="mb-3">
-        <NavLink to="/user" className={({ isActive }) => getNavLinkClassName(isActive)}>User</NavLink>
+        <NavLink to="/user" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-people-fill"></i> User</NavLink>
       </Nav.Item>
       <Nav.Item className="mb-3">
-        <NavLink to="/manage" className={({ isActive }) => getNavLinkClassName(isActive)}>Manage</NavLink>
+        <NavLink to="/manage" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-pc-display-horizontal"></i> Manage</NavLink>
       </Nav.Item>
     </Nav>
   );
