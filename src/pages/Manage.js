@@ -151,7 +151,7 @@ const Manage = () => {
             <Accordion.Header>{data.data.Status ? "성공 ✅" : "실패 ❌: 아래 로그 확인하세요."}</Accordion.Header>
             <Accordion.Body>
               ⏰ Duration... {data.data.Duration} s
-              <pre>
+              <pre style={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
                 {data.data.Payload}
               </pre>
             </Accordion.Body>
