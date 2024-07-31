@@ -26,7 +26,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 
 # Copy custom Nginx configuration file (optional)
 # If you have a custom nginx.conf, you can uncomment the below line and ensure you have a nginx.conf in your project root
-# COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 80
 EXPOSE 80
