@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <Navbar bg={theme} variant={theme} className="header justify-content-between">
-      <Navbar.Brand>ITEASY Ops Dev</Navbar.Brand>
+      <Navbar.Brand>ITEASY Service Ops</Navbar.Brand>
       {isAuthenticated && (
         <Dropdown align="end">
           <Dropdown.Toggle variant={`outline-${theme === "dark" ? "light" : "dark"}`} id="dropdown-basic">

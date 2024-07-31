@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <div>
       <h1>Home</h1>
-      <p>Welcome to the Admin Dashboard</p>
+      <p>Welcome to the ITEASY Service Ops Center Platform.</p>
     </div>
   );
 };
