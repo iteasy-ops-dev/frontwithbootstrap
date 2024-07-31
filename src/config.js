@@ -1,5 +1,6 @@
 // src/config.js
 const config = {
+	admin: "iteasy.ops.dev@gmail.com",
   api: {
 		baseUrl: "http://localhost:8080",
 		method: {

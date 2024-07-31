@@ -1,3 +1,5 @@
+import config from '../config'
+
 const validateStatus = (message = null) => {
 	let status = true
 	if (!message) {
@@ -10,7 +12,7 @@ const validateStatus = (message = null) => {
 
 export const validateEmail = (email) => {
 	const emailRegex = /^[a-zA-Z0-9._%+-]+@iteasy\.co\.kr$/;
-	const excludedEmail = 'iteasy.ops.dev@gmail.com';
+	const excludedEmail = config.admin;
 	if (!emailRegex.test(email) && email !== excludedEmail) {
 		return validateStatus('이메일 도메인이 @iteasy.co.kr 이여야합니다.')
 	}

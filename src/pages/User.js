@@ -6,7 +6,7 @@ import { useAuth } from '../AuthContext';
 
 const User = () => {
   const { getUserEmail } = useAuth();
-  const isAdmin = getUserEmail() === "iteasy.ops.dev@gmail.com"
+  const isAdmin = getUserEmail() === config.admin
   const [view, setView] = useState(true)
   const usersApi = useApi();
   const userApi = useApi();
@@ -31,7 +31,8 @@ const User = () => {
     }
   };
 
-
+  const filteredUsers = usersApi.data ? usersApi.data.data.filter(user => user.Email !== config.admin) : [];
+  
   return (
     <>
       <h1 className="my-4">Users</h1>
@@ -46,7 +47,7 @@ const User = () => {
             </tr>
           </thead>
           <tbody>
-            {usersApi.data.data.map((user) => (
+            {filteredUsers.map((user) => (
               <React.Fragment key={user.ID}>
                 <tr>
                   <td style={{ textAlign: 'center' }}>{user.Email}</td>

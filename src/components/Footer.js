@@ -1,9 +1,10 @@
 import React from 'react';
-import { useTheme } from '../ThemeContext';
 import { Navbar, Nav, Button } from 'react-bootstrap';
+import { useTheme } from '../ThemeContext';
+import config from '../config'
 
 const Footer = () => {
-  const adminEmail = "iteasy.ops.dev@gmail.com";
+  const adminEmail = config.admin;
   const adminName = "ITEASY Service Ops Center";
   const { theme, toggleTheme } = useTheme();
 
