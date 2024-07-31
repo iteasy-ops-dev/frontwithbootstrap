@@ -1,8 +1,7 @@
 const config = {
-	admin: "iteasy.ops.dev@gmail.com",
+	admin: process.env.REACT_APP_ADMIN,
   api: {
-		baseUrl: "http://localhost/api",
-		// baseUrl: "http://localhost:8080",
+		baseUrl: process.env.REACT_APP_API_URL,
 		method: {
 			GET: "GET",
 			POST: "POST"
@@ -23,7 +22,7 @@ const config = {
 		}
 	},
 	jwt: {
-		key: "token"
+		key: process.env.REACT_APP_JWT_KEY
 	}
 };
 
