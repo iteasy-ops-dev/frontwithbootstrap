@@ -21,10 +21,10 @@ const NavbarComponent = () => {
         <NavLink to="/home" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-house-fill"></i> Home</NavLink>
       </Nav.Item>
       <Nav.Item className="mb-3">
-        <NavLink to="/log" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-file-earmark-post"></i> Log</NavLink>
+        <NavLink to="/logs" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-file-earmark-post"></i> Logs</NavLink>
       </Nav.Item>
       <Nav.Item className="mb-3">
-        <NavLink to="/user" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-people-fill"></i> User</NavLink>
+        <NavLink to="/users" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-people-fill"></i> Users</NavLink>
       </Nav.Item>
       <Nav.Item className="mb-3">
         <NavLink to="/manage" className={({ isActive }) => getNavLinkClassName(isActive)}><i class="bi bi-terminal-fill"></i> Manage</NavLink>

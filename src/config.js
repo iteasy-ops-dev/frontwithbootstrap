@@ -10,6 +10,8 @@ const config = {
 			login: "/login",
 			logout: "/logout",
 			signup: "/signup",
+			resetPassword: "reset_password",
+			updatePassword: "update_password",
 			ping: "/health",
 			functions: "/functions",
 			logs: "/logs",

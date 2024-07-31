@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Form, Alert, Spinner } from 'react-bootstrap';
+import { InputGroup, Button, Form, Alert, Spinner, Row, Col } from 'react-bootstrap';
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
 import config from '../config'
@@ -29,48 +29,48 @@ const Login = () => {
     );
   };
 
-  const handleSignup = () => {
-    navigate('/signup'); // Redirect to signup page
-  };
-
   return (
     <>
       <h1 className="my-4">Login</h1>
       <Form onSubmit={handleSubmit} className="mb-3">
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            required
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            required
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit" className="mt-3" disabled={loading}>
+        <Row className="mb-3">
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Email</InputGroup.Text>
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                required
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Password</InputGroup.Text>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+        <Button variant="primary" type="submit" disabled={loading}>
           {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Login'}
         </Button>
       </Form>
       {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
-      {data && (
-        <div className="mt-3">
-          <pre>{JSON.stringify(data, null, 2)}</pre>
-        </div>
-      )}
-      <Button variant="link" onClick={handleSignup}>
+      <Button variant="link" onClick={() => navigate('/signup')}>
         Don't have an account? Sign up
+      </Button>
+      <Button variant="link" onClick={() => navigate('/reset-password')}>
+        Forgot Password?
       </Button>
     </>
   );

@@ -50,14 +50,14 @@ const User = () => {
               <React.Fragment key={user.ID}>
                 <tr>
                   <td style={{ textAlign: 'center' }}>{user.Email}</td>
-                  <td style={{ textAlign: 'center' }}>{user.IsActive ? "🟢" : "🔴"}
+                  <td style={{ textAlign: 'center' }}>{user.IsActive ? <i class="bi bi-person-fill-check"></i> : <i class="bi bi-ban-fill"></i>}
                     {isAdmin &&
                       <Button variant="link" onClick={() => handleChangeButtonClick(user)} size="sm" disabled={usersApi.loading}>
                         {usersApi.loading ? <Spinner as="span" animation="border" size="sm" /> : <i class="bi bi-arrow-repeat"></i>}
                       </Button>
                     }
                   </td>
-                  <td style={{ textAlign: 'center' }}>{user.Verified ? "🟢" : "🔴"}</td>
+                  <td style={{ textAlign: 'center' }}>{user.Verified ? <i class="bi bi-person-fill-check"></i> : <i class="bi bi-question-circle-fill"></i>}</td>
                   <td style={{ textAlign: 'center' }}>{new Date(user.AtDate * 1000).toLocaleString()}</td>
                 </tr>
               </React.Fragment>
