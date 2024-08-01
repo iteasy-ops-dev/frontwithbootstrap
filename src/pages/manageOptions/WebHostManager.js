@@ -28,7 +28,7 @@ const WebHostManager = ({ handleOptionChange }) => {
 
 	useEffect(() => {
 		if (data) {
-			console.log(data.data.Info)
+			// console.log(data.data.Info)
 			const {
 				UserID,
 				UserPass,

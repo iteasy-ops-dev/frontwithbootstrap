@@ -68,7 +68,7 @@ const Profile = () => {
 				<Row >
 					<Col>
 						<InputGroup >
-							<InputGroup.Text>Password</InputGroup.Text>
+							<InputGroup.Text>Change Password</InputGroup.Text>
 							<Form.Control
 								type="password"
 								placeholder="Password"

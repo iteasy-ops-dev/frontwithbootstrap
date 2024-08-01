@@ -17,7 +17,7 @@ const User = () => {
       config.api.method.GET,
     );
 
-    console.log("users: ", usersApi.data)
+    // console.log("users: ", usersApi.data)
   }, [view])
 
   const handleChangeButtonClick = (user) => {

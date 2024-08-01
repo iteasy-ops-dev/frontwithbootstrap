@@ -40,7 +40,7 @@ const Log = () => {
   }
 
   const handlePayloadShow = (log) => {
-    console.log('Selected log:', log); // 디버깅을 위해 로그를 출력합니다.
+    // console.log('Selected log:', log); // 디버깅을 위해 로그를 출력합니다.
     setSelectedLog(log);
     setShowPayload(true);
   }
@@ -51,7 +51,7 @@ const Log = () => {
   }
 
   const handleOptionsShow = (log) => {
-    console.log('Selected log:', log); // 디버깅을 위해 로그를 출력합니다.
+    // console.log('Selected log:', log); // 디버깅을 위해 로그를 출력합니다.
     setSelectedLog(log);
     setShowOptions(true);
   }
