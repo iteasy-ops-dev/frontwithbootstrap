@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Spinner, Button, Form, Alert, Row, Col, InputGroup } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import useApi from '../hooks/useApi';
 import config from '../config';
 import {
 	validatePassword,
-	validateconfirmPassword,
+	validateConfirmPassword,
 } from "../utils/validators";
 
 const Profile = () => {
-	const { getUserEmail } = useAuth();
-	const email = getUserEmail();
+	const { getUserToken } = useAuth();
+	const email = getUserToken().email;
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [validateErrors, setValidateError] = useState([]);
@@ -30,7 +30,7 @@ const Profile = () => {
 		let v = validatePassword(password);
 		if (!v.status) errors.push(v.message);
 
-		v = validateconfirmPassword(password, confirmPassword);
+		v = validateConfirmPassword(password, confirmPassword);
 		if (!v.status) errors.push(v.message);
 
 		if (errors.length > 0) {

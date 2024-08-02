@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import Cookies from 'js-cookie'; // Install this library via npm or yarn
 import config from './config'
 import useApi from './hooks/useApi';
-import { getEmailFromToken } from './utils/jwtUtils';
+import { getUserFromToken } from './utils/jwtUtils';
 
 const AuthContext = createContext();
 
@@ -30,15 +30,15 @@ export const AuthProvider = ({ children }) => {
     setIsAuthenticated(false);
   };
 
-  const getUserEmail = () => {
+  const getUserToken = () => {
     const token = Cookies.get(config.jwt.key);
-    return token ? getEmailFromToken(token) : null;
+    return token ? getUserFromToken(token) : null;
   };
 
   return (
     <AuthContext.Provider
       value={{
-        functions, isAuthenticated, login, logout, getUserEmail
+        functions, isAuthenticated, login, logout, getUserToken
       }}>
       {children}
     </AuthContext.Provider>

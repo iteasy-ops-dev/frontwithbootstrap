@@ -3,74 +3,106 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* Ensure the header is above other content */
-  background-color: inherit; /* Background color can be inherited from theme */
-  color: inherit; /* Text color can be inherited from theme */
-  height: 60px; /* Set the height of the header */
+  z-index: 1000;
+  background-color: #fff; /* 명시적으로 설정 */
+  color: #000; /* 명시적으로 설정 */
+  height: 60px;
 }
 
 .sidebar {
   position: fixed;
-  top: 60px; /* Adjust based on the height of the header */
+  top: 60px;
   left: 0;
-  width: 135px; /* Adjust as needed */
-  height: calc(100vh - 60px); /* Full height minus the header height */
-  overflow-y: auto; /* Enable vertical scrolling if needed */
-  background-color: inherit; /* Background color can be inherited from theme */
-  color: inherit; /* Text color can be inherited from theme */
-  z-index: 1000; /* Ensure the sidebar is above other content */
-}
-
-.footer {
-  /* height: 60px; 풋터의 높이 */
-  position: relative;
-  /* position: fixed; */
-  bottom: 0;
-  width: 100%;
-  background-color: inherit; /* Background color can be inherited from theme */
-  color: inherit; /* Text color can be inherited from theme */
-  z-index: 1000; /* Ensure footer is above other content */
+  width: 135px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background-color: #f4f4f4; /* 명시적으로 설정 */
+  color: #333; /* 명시적으로 설정 */
+  z-index: 800;
+  transition: width 0.3s ease;
 }
 
 .main {
-  margin-top: 60px; /* Adjust this value based on the header height */
+  margin-top: 60px;
   margin-left: 135px;
-  min-height: calc(100vh - 60px); /* 풋터의 높이에 따라 조절 */
-  padding-bottom: 60px; /* 풋터 높이와 동일하게 설정 */
+  margin-right: 75px;
+  min-height: calc(100vh - 60px);
+  padding-bottom: 60px;
+  overflow-y: auto;
+  transition: margin-left 0.3s ease;
 }
 
-.d-flex {
-  display: flex;
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff; /* 명시적으로 설정 */
+  color: #000; /* 명시적으로 설정 */
+  z-index: 900;
+  padding-bottom: 60px;
 }
 
-.flex-column {
-  flex-direction: column;
+.header-title {
+  margin-bottom: 20px;
+  color: #343a40;
 }
 
-.flex-grow-1 {
-  flex: 1;
+.header-description {
+  color: #6c757d;
 }
 
-.vh-100 {
-  height: 100vh;
+.card-header {
+  /* font-size: 1.25rem; */
+  font-weight: bold;
+  text-align: center;
+  background-color: #f8f9fa; /* Bootstrap의 기본 배경색 */
 }
 
-.bg-light {
-  background-color: #f8f9fa !important;
+.card-body {
+  background-color: #ffffff; /* 기본 배경색 */
 }
 
-.bg-dark {
-  background-color: #343a40 !important;
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+  }
+
+  .sidebar.show {
+    width: 135px;
+  }
+
+  .main {
+    margin-left: 60px;
+  }
+
+  .sidebar.show ~ .main {
+    margin-left: 135px;
+  }
 }
 
-.sidebar {
-  height: 100vh;
-  padding-top: 1rem;
-}
+@media (max-width: 480px) {
+  .sidebar {
+    width: 50px;
+  }
 
-.sidebar-sticky {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-}
+  .sidebar.show {
+    width: 120px;
+  }
 
+  .main {
+    margin-left: 50px;
+    padding-bottom: 20px;
+  }
+
+  .sidebar.show ~ .main {
+    margin-left: 120px;
+  }
+
+  .header, .footer {
+    height: 50px;
+  }
+
+  .main, .sidebar {
+    font-size: 0.9em;
+  }
+}

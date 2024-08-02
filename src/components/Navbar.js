@@ -18,7 +18,7 @@ const NavbarComponent = () => {
   };
 
   return (
-    <div className={`bg-${theme} sidebar`}>
+    <div className={`bg-${theme} sidebar ${isCollapsed ? '' : 'show'}`}>
       <div className="d-md-none d-flex justify-content-center">
         <Button variant={`outline-${theme === 'light' ? "dark" : "light"}`} className=" d-md-none" onClick={toggleCollapse}><i className="bi bi-list"></i></Button>
       </div>
@@ -27,16 +27,31 @@ const NavbarComponent = () => {
       >
         <div className="sidebar-sticky"></div>
         <Nav.Item className="mb-3">
-          <NavLink to="/home" className={({ isActive }) => getNavLinkClassName(isActive)}><i className="bi bi-house-fill"></i> Home</NavLink>
+          
         </Nav.Item>
         <Nav.Item className="mb-3">
-          <NavLink to="/logs" className={({ isActive }) => getNavLinkClassName(isActive)}><i className="bi bi-file-earmark-post"></i> Logs</NavLink>
+          <NavLink to="/home" className={({ isActive }) => getNavLinkClassName(isActive)}>
+            <i className="bi bi-house-fill"></i>
+            <span className="nav-text"> Home</span>
+          </NavLink>
         </Nav.Item>
         <Nav.Item className="mb-3">
-          <NavLink to="/users" className={({ isActive }) => getNavLinkClassName(isActive)}><i className="bi bi-people-fill"></i> Users</NavLink>
+          <NavLink to="/logs" className={({ isActive }) => getNavLinkClassName(isActive)}>
+            <i className="bi bi-file-earmark-post"></i>
+            <span className="nav-text"> Logs</span>
+          </NavLink>
         </Nav.Item>
         <Nav.Item className="mb-3">
-          <NavLink to="/manage" className={({ isActive }) => getNavLinkClassName(isActive)}><i className="bi bi-terminal-fill"></i> Manage</NavLink>
+          <NavLink to="/users" className={({ isActive }) => getNavLinkClassName(isActive)}>
+            <i className="bi bi-people-fill"></i>
+            <span className="nav-text"> Users</span>
+          </NavLink>
+        </Nav.Item>
+        <Nav.Item className="mb-3">
+          <NavLink to="/manage" className={({ isActive }) => getNavLinkClassName(isActive)}>
+            <i className="bi bi-terminal-fill"></i>
+            <span className="nav-text"> Manage</span>
+          </NavLink>
         </Nav.Item>
       </Nav>
     </div>

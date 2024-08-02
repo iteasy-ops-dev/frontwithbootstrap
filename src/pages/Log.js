@@ -63,7 +63,8 @@ const Log = () => {
 
   return (
     <>
-      <h1 className="my-4">Logs</h1>
+      <h1 className="header-title">Logs</h1>
+      <p className="header-description">Here you can view server management history.</p>
       <Form onSubmit={handleSubmit} className="mb-3">
         <Row>
           <Col>

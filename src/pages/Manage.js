@@ -9,14 +9,14 @@ import ChangeSslForm from './manageOptions/ChangeSslForm';
 import InstallApacheForm from './manageOptions/InstallApacheForm';
 import PackageManager from './manageOptions/PackageManager';
 import WebHostManager from './manageOptions/WebHostManager';
+import { validateEmptyObject } from "../utils/validators";
 
 const Manage = () => {
   const { data, loading, error, callApi } = useApi();
-  const { functions, getUserEmail } = useAuth();
+  const { functions, getUserToken } = useAuth();
   const invalidState = functions === null || functions === undefined
-  const worker = getUserEmail();
 
-  const [name] = useState(worker);
+  const [name] = useState(getUserToken().email);
   const [type, setType] = useState('');
   const [ips, setIps] = useState('');
   const [account, setAccount] = useState('');
@@ -34,7 +34,11 @@ const Manage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission behavior
-
+    let v = validateEmptyObject(options)
+    if (!v.status) {
+      alert(v.message)
+      return;
+    }
     const payload = {
       type,
       name,
@@ -55,7 +59,8 @@ const Manage = () => {
 
   return (
     <>
-      <h1 className="my-4">Manage</h1>
+      <h1 className="header-title">Manage</h1>
+      <p className="header-description">You can manage the server.</p>
       <Form onSubmit={handleSubmit}>
         <InputGroup className="mb-3">
           <InputGroup.Text>Worker</InputGroup.Text>

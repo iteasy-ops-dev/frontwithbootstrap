@@ -8,6 +8,7 @@ const config = {
 		},
 		path: {
 			login: "/login",
+			extend_extension: "/extend_extension",
 			logout: "/logout",
 			signup: "/signup",
 			resetPassword: "reset_password",

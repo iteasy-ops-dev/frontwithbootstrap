@@ -5,8 +5,8 @@ import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
 
 const User = () => {
-  const { getUserEmail } = useAuth();
-  const isAdmin = getUserEmail() === config.admin
+  const { getUserToken } = useAuth();
+  const isAdmin = getUserToken().email === config.admin
   const [view, setView] = useState(true)
   const usersApi = useApi();
   const userApi = useApi();
@@ -35,7 +35,8 @@ const User = () => {
   
   return (
     <>
-      <h1 className="my-4">Users</h1>
+      <h1 className="header-title">Users</h1>
+      <p className="header-description">Here you can check the registered users and their status.</p>
       {usersApi.data && (
         <Table striped bordered hover className="mt-3">
           <thead>

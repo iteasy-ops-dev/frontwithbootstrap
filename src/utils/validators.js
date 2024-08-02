@@ -27,9 +27,16 @@ export const validatePassword = (password) => {
 	return validateStatus()
 }
 
-export const validateconfirmPassword = (p1, p2) => {
+export const validateConfirmPassword = (p1, p2) => {
 	if (p1 !== p2) {
 		return validateStatus('패스워드가 일치하지 않습니다.')
+	}
+	return validateStatus()
+}
+
+export const validateEmptyObject = (obj) => {
+	if (Object.entries(obj).length === 0) {
+		return validateStatus("옵션이 비어 있습니다.")
 	}
 	return validateStatus()
 }

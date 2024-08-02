@@ -6,7 +6,7 @@ import config from '../config';
 import {
   validateEmail,
   validatePassword,
-  validateconfirmPassword,
+  validateConfirmPassword,
 } from "../utils/validators";
 
 const Signup = () => {
@@ -34,7 +34,7 @@ const Signup = () => {
     v = validatePassword(password);
     if (!v.status) errors.push(v.message);
 
-    v = validateconfirmPassword(password, confirmPassword);
+    v = validateConfirmPassword(password, confirmPassword);
     if (!v.status) errors.push(v.message);
 
     if (errors.length > 0) {
