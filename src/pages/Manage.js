@@ -9,6 +9,7 @@ import ChangeSslForm from './manageOptions/ChangeSslForm';
 import InstallApacheForm from './manageOptions/InstallApacheForm';
 import PackageManager from './manageOptions/PackageManager';
 import WebHostManager from './manageOptions/WebHostManager';
+import AccountManager from './manageOptions/AccountManager';
 import { validateEmptyObject } from "../utils/validators";
 
 const Manage = () => {
@@ -48,7 +49,7 @@ const Manage = () => {
       options,
     };
 
-    // console.log("payload: ", payload);
+    console.log("payload: ", payload);
 
     try {
       await callApi(config.api.path.run, config.api.method.POST, payload);
@@ -138,6 +139,7 @@ const Manage = () => {
         {type === "install_apache" && <InstallApacheForm />}
         {type === "package_manager" && <PackageManager handleOptionChange={handleOptionChange} />}
         {type === "webhost_manager" && <WebHostManager handleOptionChange={handleOptionChange} />}
+        {type === "account_manager" && <AccountManager handleOptionChange={handleOptionChange} />}
         {/* 추가 옵션 확장 */}
         <br />
         {type !== '' &&

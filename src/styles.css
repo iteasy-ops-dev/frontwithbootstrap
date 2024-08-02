@@ -8,6 +8,9 @@
   color: #000; /* 명시적으로 설정 */
   height: 60px;
 }
+.navbar-brand {
+  margin-left: 2%;
+}
 
 .sidebar {
   position: fixed;
