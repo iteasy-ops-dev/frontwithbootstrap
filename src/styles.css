@@ -8,15 +8,34 @@
   color: #000; /* 명시적으로 설정 */
   height: 60px;
 }
+
 .navbar-brand {
   margin-left: 2%;
+}
+
+.dropdown {
+  margin-right: 2%;
+}
+
+.login-form {
+  max-width: 70%;
+}
+
+.bi {
+  margin-right: 5px;
+  margin-left: 3px;
+}
+
+.bi-list {
+  margin-right: 3px;
+  margin-left: 3px;
 }
 
 .sidebar {
   position: fixed;
   top: 60px;
   left: 0;
-  width: 135px;
+  width: 140px;
   height: calc(100vh - 60px);
   overflow-y: auto;
   background-color: #f4f4f4; /* 명시적으로 설정 */
@@ -26,9 +45,9 @@
 }
 
 .main {
-  margin-top: 60px;
-  margin-left: 135px;
-  margin-right: 75px;
+  margin-top: 80px;
+  margin-left: 170px;
+  margin-right: 40px;
   min-height: calc(100vh - 60px);
   padding-bottom: 60px;
   overflow-y: auto;

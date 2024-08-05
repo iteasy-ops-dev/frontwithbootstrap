@@ -4,18 +4,20 @@ import config from '../config';
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
 
-const Log = () => {
+const Logs = () => {
   const { data, loading, error, callApi } = useApi();
   const { functions } = useAuth();
 
   const [type, setType] = useState('');
   const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [ips, setIps] = useState('');
   // const [account, setAccount] = useState('');
   const [status, setStatus] = useState('');
   const [duration, setDuration] = useState('');
   const [comparison, setComparison] = useState('');
 
+  const [showUser, setShowUser] = useState(false);
   const [showPayload, setShowPayload] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
@@ -26,7 +28,7 @@ const Log = () => {
       config.api.method.GET,
       null,
       null,
-      { type, name, status, duration, comparison, ips } // account 삭제
+      { type, name, email, status, duration, comparison, ips } // account 삭제
     );
   }
 
@@ -36,7 +38,19 @@ const Log = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("이거 되나요")
     fetchData();
+  }
+
+  const handleUserShow = (log) => {
+    // console.log('Selected log:', log); // 디버깅을 위해 로그를 출력합니다.
+    setSelectedLog(log);
+    setShowUser(true);
+  }
+
+  const handleUserClose = () => {
+    setShowUser(false);
+    setSelectedLog(null);
   }
 
   const handlePayloadShow = (log) => {
@@ -85,12 +99,23 @@ const Log = () => {
         <Row>
           <Col>
             <InputGroup className="mb-3">
-              <InputGroup.Text>Worker</InputGroup.Text>
+              <InputGroup.Text>Name</InputGroup.Text>
               <Form.Control
                 type="text"
-                placeholder="Enter Worker"
+                placeholder="Enter Worker Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Email</InputGroup.Text>
+              <Form.Control
+                type="text"
+                placeholder="Enter Worker Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </InputGroup>
           </Col>
@@ -102,7 +127,6 @@ const Log = () => {
               <Form.Control
                 as="textarea"
                 value={ips}
-                required
                 placeholder='ex) 192.168.0.1, 192.168.0.2:2222'
                 onChange={(e) => setIps(e.target.value)}
               />
@@ -172,7 +196,12 @@ const Log = () => {
               <React.Fragment key={log.ID}>
                 <tr>
                   <td style={{ textAlign: 'center' }}>{log.Type}</td>
-                  <td style={{ textAlign: 'center' }}>{log.Name}</td>
+                  <td style={{ textAlign: 'center' }}>
+                    <Button variant="link" onClick={() => handleUserShow(log)}>
+                      {log.Name}
+                    </Button>
+                    {/* {log.Name} */}
+                  </td>
                   <td style={{ textAlign: 'center' }}>{log.Status ? '🟢' : '🔴'}</td>
                   <td style={{ textAlign: 'center' }}>{log.Duration} s</td>
                   <td style={{ textAlign: 'center' }}>{new Date(log.Timestamp * 1000).toLocaleString()}</td>
@@ -192,6 +221,27 @@ const Log = () => {
           </tbody>
         </Table>
       )}
+
+      <Modal show={showUser} onHide={handleUserClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>User Details</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedLog ? (
+            <>
+              <p>Email: {selectedLog.Email}</p>
+            </>
+          ) : (
+            <Spinner animation="border" />
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleUserClose}>
+            닫기
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <Modal show={showPayload} onHide={handlePayloadClose}>
         <Modal.Header closeButton>
           <Modal.Title>Log Details-Payload</Modal.Title>
@@ -241,4 +291,4 @@ const Log = () => {
   );
 };
 
-export default Log;
+export default Logs;

@@ -59,8 +59,8 @@ const Header = () => {
 
   const handleExpirationExtension = () => {
     callApi(
-      config.api.path.extend_extension, 
-      config.api.method.GET
+      config.api.path.extend_extension,
+      config.api.method.POST
     );
   };
 
@@ -78,13 +78,13 @@ const Header = () => {
       {isAuthenticated && (
         <Dropdown align="end">
           <Dropdown.Toggle variant={`outline-${theme === "dark" ? "light" : "dark"}`} id="dropdown-basic">
-            {getUserToken().email}
+            <i class="bi bi-person-circle"></i>{getUserToken().name}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item onClick={handleProfile}><i className="bi bi-person-circle"></i> Profile</Dropdown.Item>
+            <Dropdown.Item onClick={handleProfile}><i className="bi bi-person-circle"></i>Profile</Dropdown.Item>
             <Dropdown.Divider />
-            <Dropdown.Item onClick={handleExpirationExtension}><i class="bi bi-hourglass-split"></i> {timeLeft}</Dropdown.Item>
-            <Dropdown.Item onClick={handleLogout}><i className="bi bi-power"></i> Logout</Dropdown.Item>
+            <Dropdown.Item onClick={handleExpirationExtension}><i class="bi bi-hourglass-split"></i>{timeLeft}</Dropdown.Item>
+            <Dropdown.Item onClick={handleLogout}><i className="bi bi-power"></i>Logout</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       )}

@@ -12,6 +12,7 @@ import {
 const Profile = () => {
 	const { getUserToken } = useAuth();
 	const email = getUserToken().email;
+	const name = getUserToken().name;
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [validateErrors, setValidateError] = useState([]);
@@ -50,13 +51,24 @@ const Profile = () => {
 		<div className="container mt-4">
 			<h2>Profile</h2>
 			<Form onSubmit={handleSubmit}>
-				<Row >
+				<Row>
+					<Col>
+						<InputGroup >
+							<InputGroup.Text>Name</InputGroup.Text>
+							<Form.Control
+								type="name"
+								value={name}
+								readOnly
+								disabled
+								required
+							/>
+						</InputGroup>
+					</Col>
 					<Col>
 						<InputGroup >
 							<InputGroup.Text>Email</InputGroup.Text>
 							<Form.Control
 								type="email"
-								placeholder="Enter email"
 								value={email}
 								readOnly
 								disabled

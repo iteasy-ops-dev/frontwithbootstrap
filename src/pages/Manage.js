@@ -17,7 +17,8 @@ const Manage = () => {
   const { functions, getUserToken } = useAuth();
   const invalidState = functions === null || functions === undefined
 
-  const [name] = useState(getUserToken().email);
+  const [name] = useState(getUserToken().name);
+  const [email] = useState(getUserToken().email);
   const [type, setType] = useState('');
   const [ips, setIps] = useState('');
   const [account, setAccount] = useState('');
@@ -42,6 +43,7 @@ const Manage = () => {
     }
     const payload = {
       type,
+      email,
       name,
       ips: ips.split(/[\n,]+/).map(ip => ip.trim()).filter(ip => ip),
       account,
@@ -63,16 +65,32 @@ const Manage = () => {
       <h1 className="header-title">Manage</h1>
       <p className="header-description">You can manage the server.</p>
       <Form onSubmit={handleSubmit}>
-        <InputGroup className="mb-3">
-          <InputGroup.Text>Worker</InputGroup.Text>
-          <Form.Control
-            type="text"
-            value={name}
-            readOnly
-            disabled
-            required
-          />
-        </InputGroup>
+        <Row>
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Name</InputGroup.Text>
+              <Form.Control
+                type="text"
+                value={name}
+                readOnly
+                disabled
+                required
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Email</InputGroup.Text>
+              <Form.Control
+                type="text"
+                value={email}
+                readOnly
+                disabled
+                required
+              />
+            </InputGroup>
+          </Col>
+        </Row>
         {invalidState ?
           <Alert key="danger" variant="danger">
             Network Error: Try Re-Login !

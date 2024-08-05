@@ -4,8 +4,9 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Log from './pages/Log';
-import User from './pages/User';
+import Dashboard from './pages/Dashboard';
+import Logs from './pages/Logs';
+import Users from './pages/Users';
 import Manage from './pages/Manage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -42,9 +43,10 @@ function App() {
             <div className={`main flex-grow-1 p-3`}>
               <Routes>
                 <Route path="/home" element={<ProtectedRoute element={<Home />} redirectTo="/login" />} />
+                <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} redirectTo="/login" />} />
                 <Route path="/profile" element={<ProtectedRoute element={<Profile />} redirectTo="/login" />} />
-                <Route path="/logs" element={<ProtectedRoute element={<Log />} redirectTo="/login" />} />
-                <Route path="/users" element={<ProtectedRoute element={<User />} redirectTo="/login" />} />
+                <Route path="/logs" element={<ProtectedRoute element={<Logs />} redirectTo="/login" />} />
+                <Route path="/users" element={<ProtectedRoute element={<Users />} redirectTo="/login" />} />
                 <Route path="/manage" element={<ProtectedRoute element={<Manage />} redirectTo="/login" />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/verify" element={<Login />} />

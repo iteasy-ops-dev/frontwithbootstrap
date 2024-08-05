@@ -4,7 +4,7 @@ import { Button, Form, Alert, Spinner, InputGroup, Row, Col } from 'react-bootst
 import useApi from '../hooks/useApi';
 import config from '../config';
 import {
-  validateEmail
+	validateEmail
 } from "../utils/validators";
 
 const ResetPassword = () => {
@@ -16,8 +16,8 @@ const ResetPassword = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-    let v = validateEmail(email);
-    if (!v.status) {
+		let v = validateEmail(email);
+		if (!v.status) {
 			setValidationError(v.message);
 			return
 		} else {
@@ -31,11 +31,11 @@ const ResetPassword = () => {
 	};
 
 	useEffect(() => {
-    if (data && data.status === 200) {
+		if (data && data.status === 200) {
 			alert('임시 비밀번호가 이메일로 전송되었습니다.');
 			navigate('/login');
 		}
-  }, [data, navigate]);
+	}, [data, navigate]);
 
 	return (
 		<>
@@ -43,7 +43,7 @@ const ResetPassword = () => {
 			<Form onSubmit={handleSubmit} className="mb-3">
 				<Row className="mb-3">
 					<Col>
-						<InputGroup className="mb-3">
+						<InputGroup className="mb-3 login-form">
 							<InputGroup.Text>Email</InputGroup.Text>
 							<Form.Control
 								type="email"
@@ -58,12 +58,12 @@ const ResetPassword = () => {
 				<Button variant="primary" type="submit" disabled={loading}>
 					{loading ? <Spinner as="span" animation="border" size="sm" /> : 'Reset Password'}
 				</Button>
-				<Button variant="link" onClick={() => navigate('/login')}>
-					Login
-				</Button>
 			</Form>
 			{validationError && <Alert variant="danger" className="mt-3">{validationError}</Alert>}
 			{error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+			<Button variant="link" onClick={() => navigate('/login')}>
+				Back to Login
+			</Button>
 		</>
 	);
 };

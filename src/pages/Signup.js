@@ -4,6 +4,7 @@ import { Button, Form, Alert, Spinner, InputGroup, Row, Col } from 'react-bootst
 import useApi from '../hooks/useApi';
 import config from '../config';
 import {
+  validateKoreanName,
   validateEmail,
   validatePassword,
   validateConfirmPassword,
@@ -11,6 +12,7 @@ import {
 
 const Signup = () => {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [validateErrors, setValidateError] = useState([]);
@@ -31,6 +33,9 @@ const Signup = () => {
     let v = validateEmail(email);
     if (!v.status) errors.push(v.message);
 
+    v = validateKoreanName(name);
+    if (!v.status) errors.push(v.message);
+
     v = validatePassword(password);
     if (!v.status) errors.push(v.message);
 
@@ -41,10 +46,12 @@ const Signup = () => {
       setValidateError(errors);
     } else {
       setValidateError('');
+      // console.log({ name, email, password })
+
       await callApi(
         config.api.path.signup,
         config.api.method.POST,
-        { email, password }
+        { name, email, password }
       );
     }
   };
@@ -55,7 +62,7 @@ const Signup = () => {
       <Form onSubmit={handleSubmit} className="mb-3">
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3 login-form">
               <InputGroup.Text>Email</InputGroup.Text>
               <Form.Control
                 type="email"
@@ -69,7 +76,21 @@ const Signup = () => {
         </Row>
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3 login-form">
+              <InputGroup.Text>Name</InputGroup.Text>
+              <Form.Control
+                type="name"
+                placeholder="Enter name"
+                value={name}
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row className="mb-3">
+          <Col>
+            <InputGroup className="mb-3 login-form">
               <InputGroup.Text>Password</InputGroup.Text>
               <Form.Control
                 type="password"
@@ -83,7 +104,7 @@ const Signup = () => {
         </Row>
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3 login-form">
               <InputGroup.Text>Confirm Password</InputGroup.Text>
               <Form.Control
                 type="password"
@@ -104,7 +125,7 @@ const Signup = () => {
         <Alert key={index} variant="danger" className="mt-3">{err}</Alert>
       ))}
       <Button variant="link" onClick={() => navigate('/login')}>
-        Login
+        Back to Login
       </Button>
     </>
   );

@@ -41,6 +41,7 @@ const User = () => {
         <Table striped bordered hover className="mt-3">
           <thead>
             <tr>
+              <th style={{ textAlign: 'center' }}>Name</th>
               <th style={{ textAlign: 'center' }}>Email</th>
               <th style={{ textAlign: 'center' }}>Active</th>
               <th style={{ textAlign: 'center' }}>Verified</th>
@@ -51,6 +52,7 @@ const User = () => {
             {filteredUsers.map((user) => (
               <React.Fragment key={user.ID}>
                 <tr>
+                  <td style={{ textAlign: 'center' }}>{user.Name}</td>
                   <td style={{ textAlign: 'center' }}>{user.Email}</td>
                   <td style={{ textAlign: 'center' }}>{user.IsActive ? <i class="bi bi-person-fill-check"></i> : <i class="bi bi-ban-fill"></i>}
                     {isAdmin &&

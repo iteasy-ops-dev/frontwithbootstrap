@@ -40,3 +40,12 @@ export const validateEmptyObject = (obj) => {
 	}
 	return validateStatus()
 }
+
+export const validateKoreanName = (name) => {
+	// 한글 음절 유니코드 범위: \uAC00 - \uD7A3
+	const koreanNameRegex = /^[가-힣]+$/;
+	if (!koreanNameRegex.test(name)) {
+		return validateStatus('이름은 정확한 한글로만 구성되어야 합니다.')
+	}
+	return validateStatus()
+}
