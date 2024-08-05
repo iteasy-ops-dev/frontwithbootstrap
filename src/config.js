@@ -9,6 +9,7 @@ const config = {
 		path: {
 			login: "/login",
 			extend_extension: "/extend_extension",
+			dashboad: "/dashboad",
 			logout: "/logout",
 			signup: "/signup",
 			resetPassword: "reset_password",

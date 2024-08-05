@@ -39,6 +39,13 @@ const ResetPassword = () => {
 
 	return (
 		<>
+			<img
+				alt=""
+				height="20px"
+				width="120px"
+				src="/logo_iteasy.png"
+			/>{' '}
+			Service Ops Center
 			<h1 className="my-4">Reset Password</h1>
 			<Form onSubmit={handleSubmit} className="mb-3">
 				<Row className="mb-3">

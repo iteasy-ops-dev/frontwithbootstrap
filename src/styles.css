@@ -18,7 +18,7 @@
 }
 
 .login-form {
-  max-width: 70%;
+  max-width: 500px;
 }
 
 .bi {
@@ -74,14 +74,13 @@
 }
 
 .card-header {
-  /* font-size: 1.25rem; */
+  font-size: 1.25rem;
   font-weight: bold;
   text-align: center;
-  background-color: #f8f9fa; /* Bootstrap의 기본 배경색 */
 }
 
 .card-body {
-  background-color: #ffffff; /* 기본 배경색 */
+  text-align: center;
 }
 
 @media (max-width: 768px) {

@@ -38,7 +38,6 @@ const Logs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("이거 되나요")
     fetchData();
   }
 

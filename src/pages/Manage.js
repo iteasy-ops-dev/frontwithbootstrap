@@ -6,7 +6,6 @@ import { Form, Button, Alert, Spinner, InputGroup, Row, Col, Accordion } from 'r
 import ChangePasswordForm from './manageOptions/ChangePasswordForm';
 import ChangeSshPortForm from './manageOptions/ChangeSshPortForm';
 import ChangeSslForm from './manageOptions/ChangeSslForm';
-import InstallApacheForm from './manageOptions/InstallApacheForm';
 import PackageManager from './manageOptions/PackageManager';
 import WebHostManager from './manageOptions/WebHostManager';
 import AccountManager from './manageOptions/AccountManager';
@@ -154,7 +153,6 @@ const Manage = () => {
         {type === "change_password" && <ChangePasswordForm handleOptionChange={handleOptionChange} />}
         {type === "change_ssh_port" && <ChangeSshPortForm />}
         {type === "change_ssl" && <ChangeSslForm />}
-        {type === "install_apache" && <InstallApacheForm />}
         {type === "package_manager" && <PackageManager handleOptionChange={handleOptionChange} />}
         {type === "webhost_manager" && <WebHostManager handleOptionChange={handleOptionChange} />}
         {type === "account_manager" && <AccountManager handleOptionChange={handleOptionChange} />}

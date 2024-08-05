@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, InputGroup, Accordion, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
+import { Form, InputGroup, Accordion, Row, Col, Button, Spinner, Alert, Container } from 'react-bootstrap';
 import config from '../../config';
 import useApi from '../../hooks/useApi';
 
@@ -70,7 +70,7 @@ const WebHostManager = ({ handleOptionChange }) => {
 					</Accordion.Body>
 				</Accordion.Item>
 				<Accordion.Item eventKey="1">
-					<Accordion.Header>TEST</Accordion.Header>
+					<Accordion.Header>TEST: 작업의뢰 파싱을 테스트 합니다.</Accordion.Header>
 					<Accordion.Body>
 						<InputGroup className="mb-3">
 							<InputGroup.Text>작업의뢰 URL</InputGroup.Text>
@@ -92,7 +92,7 @@ const WebHostManager = ({ handleOptionChange }) => {
 				setupType={setupType}
 				onChange={handleChange}
 			/>
-
+			<br />
 			{setupType === "true" && <SetupFields formData={formData} onChange={handleChange} />}
 			{setupType === "false" && <DeleteFields formData={formData} onChange={handleChange} />}
 		</>
@@ -103,18 +103,20 @@ export default WebHostManager;
 
 const OptionSelect = ({ setupType, onChange }) => {
 	return (
-		<InputGroup className="mb-3">
-			<InputGroup.Text>Type</InputGroup.Text>
-			<Form.Select
-				name="setup"
-				value={setupType}
-				onChange={onChange}
-			>
-				<option value="">Options</option>
-				<option value="true">생성</option>
-				<option value="false">삭제</option>
-			</Form.Select>
-		</InputGroup>
+		<>
+			<InputGroup className="mb-3">
+				<InputGroup.Text>Type</InputGroup.Text>
+				<Form.Select
+					name="setup"
+					value={setupType}
+					onChange={onChange}
+				>
+					<option value="">Options</option>
+					<option value="true">생성</option>
+					<option value="false">삭제</option>
+				</Form.Select>
+			</InputGroup>
+		</>
 	);
 };
 
@@ -129,7 +131,7 @@ const SetupFields = ({ formData, onChange }) => {
 	const handleCbandOptionsToggle = () => setShowCbandOptions(prev => !prev);
 
 	return (
-		<Form>
+		<>
 			<Row className="mb-3">
 				<Col>
 					<InputGroup className="mb-3">
@@ -139,7 +141,7 @@ const SetupFields = ({ formData, onChange }) => {
 							name="user_id"
 							value={formData.user_id || ""}
 							onChange={onChange}
-							placeholder="iteasy"
+							placeholder="Enter Account"
 						/>
 					</InputGroup>
 				</Col>
@@ -151,7 +153,7 @@ const SetupFields = ({ formData, onChange }) => {
 							name="user_pass"
 							value={formData.user_pass || ""}
 							onChange={onChange}
-							placeholder="iteasy"
+							placeholder="Enter Password"
 						/>
 					</InputGroup>
 				</Col>
@@ -165,7 +167,7 @@ const SetupFields = ({ formData, onChange }) => {
 							name="vhost_domain"
 							value={formData.vhost_domain || ""}
 							onChange={onChange}
-							placeholder="example.com"
+							placeholder="Enter vhost"
 						/>
 					</InputGroup>
 				</Col>
@@ -176,7 +178,7 @@ const SetupFields = ({ formData, onChange }) => {
 							type="text"
 							name="listen_port"
 							onChange={onChange}
-							placeholder="80"
+							placeholder="Default Port: 80"
 						/>
 					</InputGroup>
 				</Col>
@@ -197,7 +199,7 @@ const SetupFields = ({ formData, onChange }) => {
 								name="cband_limit"
 								value={formData.cband_limit || ""}
 								onChange={onChange}
-								placeholder="3"
+								placeholder="Enter Cband limit(GB)"
 							/>
 						</InputGroup>
 					)}
@@ -219,13 +221,12 @@ const SetupFields = ({ formData, onChange }) => {
 								name="disk_quota"
 								value={formData.disk_quota || ""}
 								onChange={onChange}
-								placeholder="unlimited"
+								placeholder="Enter Qouta(GB)"
 							/>
 						</InputGroup>
 					)}
 				</Col>
 			</Row>
-
 			<Row className="mb-3">
 				<Col>
 					<Form.Check
@@ -244,7 +245,7 @@ const SetupFields = ({ formData, onChange }) => {
 											type="text"
 											name="mysql_root_user"
 											onChange={onChange}
-											placeholder="root"
+											placeholder="Enter Root Account"
 										/>
 									</InputGroup>
 								</Col>
@@ -255,7 +256,7 @@ const SetupFields = ({ formData, onChange }) => {
 											type="text"
 											name="mysql_root_password"
 											onChange={onChange}
-											placeholder="mysql_root_password"
+											placeholder="Enter Root Password"
 										/>
 									</InputGroup>
 								</Col>
@@ -269,7 +270,7 @@ const SetupFields = ({ formData, onChange }) => {
 											name="db_user"
 											value={formData.db_user || ""}
 											onChange={onChange}
-											placeholder="db_user"
+											placeholder="Enter Create DB Account"
 										/>
 									</InputGroup>
 								</Col>
@@ -281,7 +282,7 @@ const SetupFields = ({ formData, onChange }) => {
 											name="db_password"
 											value={formData.db_password || ""}
 											onChange={onChange}
-											placeholder="db_password"
+											placeholder="Enter Create DB Account Password"
 										/>
 									</InputGroup>
 								</Col>
@@ -296,7 +297,7 @@ const SetupFields = ({ formData, onChange }) => {
 											name="db_name"
 											value={formData.db_name || ""}
 											onChange={onChange}
-											placeholder="db_name"
+											placeholder="Enter Create DB Name"
 										/>
 									</InputGroup>
 								</Col>
@@ -305,7 +306,7 @@ const SetupFields = ({ formData, onChange }) => {
 					)}
 				</Col>
 			</Row>
-		</Form>
+		</>
 	);
 };
 
@@ -316,7 +317,7 @@ const DeleteFields = ({ formData, onChange }) => {
 	const handleDbOptionsToggle = () => setShowDbOptions(prev => !prev);
 
 	return (
-		<Form>
+		<>
 			<Alert key="warning" variant="warning">
 				WARM: 수동으로 생성된 계정에 대해서 오류가 날 수 있습니다.
 			</Alert>
@@ -329,7 +330,7 @@ const DeleteFields = ({ formData, onChange }) => {
 							name="user_id"
 							value={formData.user_id || ""}
 							onChange={onChange}
-							placeholder="iteasy"
+							placeholder="Enter Account"
 						/>
 					</InputGroup>
 				</Col>
@@ -356,7 +357,7 @@ const DeleteFields = ({ formData, onChange }) => {
 									type="text"
 									name="mysql_root_user"
 									onChange={onChange}
-									placeholder="root"
+									placeholder="Enter DB Root Account"
 								/>
 							</InputGroup>
 						</Col>
@@ -367,7 +368,7 @@ const DeleteFields = ({ formData, onChange }) => {
 									type="text"
 									name="mysql_root_password"
 									onChange={onChange}
-									placeholder="mysql_root_password"
+									placeholder="Enter DB Root Password"
 								/>
 							</InputGroup>
 						</Col>
@@ -381,7 +382,7 @@ const DeleteFields = ({ formData, onChange }) => {
 									name="db_user"
 									value={formData.db_user || ""}
 									onChange={onChange}
-									placeholder="db_user"
+									placeholder="Enter DB User"
 								/>
 							</InputGroup>
 						</Col>
@@ -393,13 +394,13 @@ const DeleteFields = ({ formData, onChange }) => {
 									name="db_name"
 									value={formData.db_name || ""}
 									onChange={onChange}
-									placeholder="db_name"
+									placeholder="Enter DB Name"
 								/>
 							</InputGroup>
 						</Col>
 					</Row>
 				</>
 			)}
-		</Form>
+		</>
 	);
 };
