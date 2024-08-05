@@ -51,7 +51,7 @@ const Manage = () => {
       options,
     };
 
-    console.log("payload: ", payload);
+    // console.log("payload: ", payload);
 
     try {
       await callApi(config.api.path.run, config.api.method.POST, payload);
