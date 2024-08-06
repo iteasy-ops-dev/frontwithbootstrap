@@ -6,6 +6,7 @@ import { Form, Button, Alert, Spinner, InputGroup, Row, Col, Accordion } from 'r
 import ChangePasswordForm from './manageOptions/ChangePasswordForm';
 import ChangeSshPortForm from './manageOptions/ChangeSshPortForm';
 import ChangeSslForm from './manageOptions/ChangeSslForm';
+import PruneFirewall from './manageOptions/PruneFirewall';
 import PackageManager from './manageOptions/PackageManager';
 import WebHostManager from './manageOptions/WebHostManager';
 import AccountManager from './manageOptions/AccountManager';
@@ -102,7 +103,7 @@ const Manage = () => {
               required
               onChange={(e) => setType(e.target.value)}
             >
-              <option value=''>Choose Type</option>
+              <option value=''>- Choose Type</option>
               {functions && functions.data.map((f) => (
                 <option key={f} value={f}>{f}</option>
               ))}
@@ -151,7 +152,8 @@ const Manage = () => {
 
         {/* 추가 옵션 확장 */}
         {type === "change_password" && <ChangePasswordForm handleOptionChange={handleOptionChange} />}
-        {type === "change_ssh_port" && <ChangeSshPortForm />}
+        {type === "prune_firewall" && <PruneFirewall />}
+        {type === "change_ssh_port" && <ChangeSshPortForm handleOptionChange={handleOptionChange} />}
         {type === "change_ssl" && <ChangeSslForm />}
         {type === "package_manager" && <PackageManager handleOptionChange={handleOptionChange} />}
         {type === "webhost_manager" && <WebHostManager handleOptionChange={handleOptionChange} />}

@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Stack, Card, Table, Alert } from 'react-bootstrap';
+import { Row, Col, Stack, Card, Table, Alert } from 'react-bootstrap';
 import config from '../config';
 import useApi from '../hooks/useApi';
+import { getChartData } from "../utils/chartUtils";
+
+import { Doughnut, Bar } from 'react-chartjs-2';
+import 'chart.js/auto';
 
 const Dashboard = () => {
   const { data, loading, error, callApi } = useApi();
   const [overall, setOverall] = useState()
   const [types, setTypes] = useState()
+
+  const [chartTotalCount, setChartTotalCount] = useState({})
+  const [chartTotalDuration, setChartTotalDuration] = useState({})
+  const [chartBarData, setChartBarData] = useState({})
+
 
   useEffect(() => {
     callApi(
@@ -19,98 +28,117 @@ const Dashboard = () => {
     if (data && data.data) {
       setOverall(data.data.overall[0]);
       setTypes(data.data.types);
+
+      const o = data.data.overall[0]
+      const t = data.data.types
+
+      // console.log("overall: ")
+      // console.log(overall)
+      // console.log("types: ")
+      // console.log(types)
+
+      setChartTotalCount(
+        getChartData(
+          ['Success Count', 'Failure Count'],
+          [o.successCount, o.failureCount]
+        )
+      )
+
+      setChartTotalDuration(
+        getChartData(
+          ['Success Duration', 'Failure Duration'],
+          [o.successDuration, o.failureDuration]
+        )
+      )
+
+      setChartBarData(
+        getChartData(
+          t.map((item) => item._id),
+          t.map((item) => item.totalCount)
+        )
+      )
     }
   }, [data]);
 
   return (
     <>
       <h1 className="header-title">Dashboard</h1>
-      <p className="header-description">Welcome to the ITEASY Service Ops Center Platform.</p>
+      <p className="header-description">Here you can monitor the overall activity of the API..</p>
+
       {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
       {overall && (
         <>
-          <Row className="mb-4">
+          <Row>
             <Col>
-              <Card>
-                <Card.Header>Total</Card.Header>
+              <Card className="text-center">
+                <Card.Header>Total Count</Card.Header>
                 <Card.Body>
-                  <Stack gap={3}>
-                    {[
-                      `Count: ${overall.totalCount}`,
-                      `Duration: ${overall.totalDuration}`
-                    ].map((item, index) => (
-                      <Card key={index} className="p-3">
-                        <Card.Body>{item}</Card.Body>
-                      </Card>
-                    ))}
-                  </Stack>
+                  <Card.Title>{overall.totalCount} ea</Card.Title>
+                  <Doughnut data={chartTotalCount} options={config.chart.doughnutOptions} />
                 </Card.Body>
               </Card>
             </Col>
             <Col>
               <Card>
-                <Card.Header>Success</Card.Header>
+                <Card.Header>Total Duration</Card.Header>
                 <Card.Body>
-                  <Stack gap={3}>
-                    {[
-                      `Count: ${overall.successCount}`,
-                      `Duration: ${overall.successDuration}`
-                    ].map((item, index) => (
-                      <Card key={index} className="p-3">
-                        <Card.Body>{item}</Card.Body>
-                      </Card>
-                    ))}
-                  </Stack>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col>
-              <Card>
-                <Card.Header>Failure</Card.Header>
-                <Card.Body>
-                  <Stack gap={3}>
-                    {[
-                      `Count: ${overall.failureCount}`,
-                      `Duration: ${overall.failureDuration}`
-                    ].map((item, index) => (
-                      <Card key={index} className="p-3">
-                        <Card.Body>{item}</Card.Body>
-                      </Card>
-                    ))}
-                  </Stack>
+                  <Card.Title>{overall.totalDuration} s</Card.Title>
+                  <Doughnut data={chartTotalDuration} options={config.chart.doughnutOptions} />
                 </Card.Body>
               </Card>
             </Col>
           </Row>
+          <br />
+          <Row>
+            <Col>
+              <Card className="text-center">
+                <Card.Header>API calls by type</Card.Header>
+                <Card.Body>
+                  <Bar data={chartBarData} />
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+          <br />
         </>
       )}
       {types && (
-        <Table striped bordered hover className="mt-3">
-          <thead>
-            <tr>
-              <th style={{ textAlign: 'center' }}>Run Type</th>
-              <th style={{ textAlign: 'center' }}>Total Count</th>
-              <th style={{ textAlign: 'center' }}>Total Duration</th>
-              <th style={{ textAlign: 'center' }}>Success Count</th>
-              <th style={{ textAlign: 'center' }}>Success Duration</th>
-              <th style={{ textAlign: 'center' }}>Failure Count</th>
-              <th style={{ textAlign: 'center' }}>Failure Duration</th>
-            </tr>
-          </thead>
-          <tbody>
-            {types.map((type) => (
-              <tr key={type._id}>
-                <td style={{ textAlign: 'center' }}>{type._id}</td>
-                <td style={{ textAlign: 'center' }}>{type.totalCount}</td>
-                <td style={{ textAlign: 'center' }}>{type.totalDuration}</td>
-                <td style={{ textAlign: 'center' }}>{type.successCount}</td>
-                <td style={{ textAlign: 'center' }}>{type.successDuration}</td>
-                <td style={{ textAlign: 'center' }}>{type.failureCount}</td>
-                <td style={{ textAlign: 'center' }}>{type.failureDuration}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <Row>
+          <Col>
+            <Card>
+              <Card.Header>Detailed information by API type</Card.Header>
+              <Card.Body>
+                <Table striped bordered hover className="mt-3">
+                  <thead>
+                    <tr>
+                      <th style={{ textAlign: 'center' }}>Run Type</th>
+                      <th style={{ textAlign: 'center' }}>Total Count</th>
+                      <th style={{ textAlign: 'center' }}>Total Duration</th>
+                      <th style={{ textAlign: 'center' }}>Success Count</th>
+                      <th style={{ textAlign: 'center' }}>Success Duration</th>
+                      <th style={{ textAlign: 'center' }}>Failure Count</th>
+                      <th style={{ textAlign: 'center' }}>Failure Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {types.map((type) => (
+                      <tr key={type._id}>
+                        <td style={{ textAlign: 'center' }}>{type._id}</td>
+                        <td style={{ textAlign: 'center' }}>{type.totalCount}</td>
+                        <td style={{ textAlign: 'center' }}>{type.totalDuration}</td>
+                        <td style={{ textAlign: 'center' }}>{type.successCount}</td>
+                        <td style={{ textAlign: 'center' }}>{type.successDuration}</td>
+                        <td style={{ textAlign: 'center' }}>{type.failureCount}</td>
+                        <td style={{ textAlign: 'center' }}>{type.failureDuration}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
       )}
     </>
   );

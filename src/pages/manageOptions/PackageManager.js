@@ -20,8 +20,8 @@ const PackageManager = ({ handleOptionChange }) => {
 	return (
 		<>
 			<h4>Options</h4>
-			<Accordion defaultActiveKey="0">
-				<Accordion.Item eventKey="0">
+			<Accordion>
+				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>
 					<Accordion.Body>
 						👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.package_manager' target='_blank'>Repository</a>

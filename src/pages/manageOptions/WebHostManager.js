@@ -62,15 +62,37 @@ const WebHostManager = ({ handleOptionChange }) => {
 	return (
 		<>
 			<h4>Options</h4>
-			<Accordion>
+			<Accordion defaultActiveKey="0">
 				<Accordion.Item eventKey="0">
+					<Accordion.Header>❗️ 필독</Accordion.Header>
+					<Accordion.Body>
+						1. 현재 테스트 중입니다.<br />
+						2. 범용적으로 사용가능하나 쓰리웨이 작업의뢰에 적합합니다.<br />
+						3. 범용적으로 사용가능하나 RedHat계열만 가능합니다.<br />
+						4. 쓰리웨이 한정으로 아래 ERP 파싱이 가능합니다.<br />
+						5. 고객의 실서버에 테스트하기 전, 아래와 같은 내용으로 테스트가 가능합니다.<br />
+						<br />
+						- Test Server Info<br />
+						- Test Server IP ➡️ 10.10.30.212<br />
+						- Test Server Port ➡️ 22<br />
+						- Test Server Account ➡️ ksidc<br />
+						- Test Server Password ➡️ 범용비번<br />
+						- Test Server DB Root ➡️ root<br />
+						- Test Server DB Password ➡️ 범용비번<br />
+						- Test Erp Paring URL <br />
+						➡️ https://admin.ksidc.net/service/request_info/?mem_idx=40396&idx=226533<br />
+						<br />
+						6. 문의사항, 버그, 이슈에 대해서는 아래 메일로 문의해주세요.<br />
+					</Accordion.Body>
+				</Accordion.Item>
+				<Accordion.Item eventKey="1">
 					<Accordion.Header>Info</Accordion.Header>
 					<Accordion.Body>
 						👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.webhost_manager' target='_blank'>Repository</a>
 					</Accordion.Body>
 				</Accordion.Item>
-				<Accordion.Item eventKey="1">
-					<Accordion.Header>TEST: 작업의뢰 파싱을 테스트 합니다.</Accordion.Header>
+				<Accordion.Item eventKey="2">
+					<Accordion.Header>ERP Parsing</Accordion.Header>
 					<Accordion.Body>
 						<InputGroup className="mb-3">
 							<InputGroup.Text>작업의뢰 URL</InputGroup.Text>
@@ -111,7 +133,7 @@ const OptionSelect = ({ setupType, onChange }) => {
 					value={setupType}
 					onChange={onChange}
 				>
-					<option value="">Options</option>
+					<option value="">- Options</option>
 					<option value="true">생성</option>
 					<option value="false">삭제</option>
 				</Form.Select>

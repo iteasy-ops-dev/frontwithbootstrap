@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, InputGroup, Accordion, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
+import { Form, InputGroup, Accordion, Row, Col } from 'react-bootstrap';
 
 const AccountManager = ({ handleOptionChange }) => {
 	const [action, setAction] = useState("");
@@ -19,7 +19,7 @@ const AccountManager = ({ handleOptionChange }) => {
 		<>
 			<h4>Options</h4>
 			<Accordion>
-				<Accordion.Item eventKey="0">
+				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>
 					<Accordion.Body>
 						👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.account_manager.git' target='_blank'>Repository</a>
@@ -51,7 +51,7 @@ const OptionSelect = ({ action, onChange }) => {
 				value={action}
 				onChange={onChange}
 			>
-				<option value="">Options</option>
+				<option value="">- Options</option>
 				<option value="create">생성</option>
 				<option value="update">수정</option>
 				<option value="delete">삭제</option>

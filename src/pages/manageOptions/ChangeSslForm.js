@@ -1,7 +1,7 @@
 const ChangeSslForm = () => {
 	return (
 		<>
-			ChangeSslForm
+			구성중
 		</>
 	)
 }
