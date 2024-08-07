@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Card, Row, Col, Button } from 'react-bootstrap';
+import { Card, Row, Col, Button, Form, Modal } from 'react-bootstrap';
 
 const LockPage = () => {
-	const { getUserToken } = useAuth();
+	const { getUserToken, logout } = useAuth();
 	const navigate = useNavigate();
 	const token = getUserToken();
 
 	const [timeLeft, setTimeLeft] = useState('');
+
+	const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리
+	const [lockPassword, setLockPassword] = useState(''); // 입력 필드의 값을 관리
+	const [attempts, setAttempts] = useState(0);
 
 	useEffect(() => {
 		const updateRemainingTime = () => {
@@ -32,9 +36,34 @@ const LockPage = () => {
 		return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
 	}, [token]);
 
-	const handleUnlock = () => {
-		navigate(-1); // 이전 페이지로 이동
+	const handleShowModal = () => {
+		setShowModal(true)
 	};
+
+	const handleLogout = () => {
+		logout();
+		navigate('/login');
+	};
+
+	const handleUnlock = () => {
+		if (attempts >= 5) {
+			handleLogout();
+			return;
+		}
+
+		const storedPassword = localStorage.getItem('lockPassword');
+
+		if (lockPassword === storedPassword) {
+			setLockPassword('');
+			navigate("/home"); // 이전 페이지로 이동
+		} else {
+			setAttempts(prev => prev + 1);
+			setLockPassword('');
+			alert('비밀번호가 틀렸습니다.');
+		}
+	}
+
+	const handleModalClose = () => setShowModal(false);
 
 	return (
 		<>
@@ -48,13 +77,41 @@ const LockPage = () => {
 								Token expiration time:
 								<p><i class="bi bi-hourglass-split"></i>{timeLeft}</p>
 							</Card.Text>
-							<Button variant="secondary" onClick={handleUnlock}>
+							<Button variant="secondary" onClick={handleShowModal}>
 								<i class="bi bi-unlock"></i>unlock
+							</Button>
+							<Button variant="link" onClick={handleLogout}>
+								<i className="bi bi-power"></i>logout
 							</Button>
 						</Card.Body>
 					</Card>
 				</Col>
 			</Row>
+
+			<Modal show={showModal} onHide={handleModalClose}>
+				<Modal.Header closeButton onHide={handleModalClose}>
+					<Modal.Title>Lock Password</Modal.Title>
+				</Modal.Header>
+
+				<Modal.Body>
+					<Form>
+						<Form.Group>
+							<Form.Control
+								type="text"
+								placeholder="Enter Lock Password."
+								value={lockPassword}
+								onChange={(e) => setLockPassword(e.target.value)}
+							/>
+						</Form.Group>
+					</Form>
+				</Modal.Body>
+
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleUnlock}>
+						<i class="bi bi-unlock"></i>unlock
+					</Button>
+				</Modal.Footer>
+			</Modal>
 		</>
 
 	);

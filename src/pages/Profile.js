@@ -44,16 +44,19 @@ const Profile = () => {
 				{ email, password }
 			);
 		}
-
 	};
 
+	const handlerResetLockPassword = () => {
+		localStorage.removeItem('lockPassword')
+	}
+
 	return (
-		<div className="container mt-4">
+		<>
 			<h2>Profile</h2>
-			<Form onSubmit={handleSubmit}>
-				<Row>
+			<Form onSubmit={handleSubmit} className="mb-3">
+				<Row className="mb-3">
 					<Col>
-						<InputGroup >
+						<InputGroup className="mb-3">
 							<InputGroup.Text>Name</InputGroup.Text>
 							<Form.Control
 								type="name"
@@ -65,7 +68,7 @@ const Profile = () => {
 						</InputGroup>
 					</Col>
 					<Col>
-						<InputGroup >
+						<InputGroup className="mb-3">
 							<InputGroup.Text>Email</InputGroup.Text>
 							<Form.Control
 								type="email"
@@ -77,9 +80,9 @@ const Profile = () => {
 						</InputGroup>
 					</Col>
 				</Row>
-				<Row >
+				<Row className="mb-3">
 					<Col>
-						<InputGroup >
+						<InputGroup>
 							<InputGroup.Text>Change Password</InputGroup.Text>
 							<Form.Control
 								type="password"
@@ -91,9 +94,9 @@ const Profile = () => {
 						</InputGroup>
 					</Col>
 				</Row>
-				<Row >
+				<Row>
 					<Col>
-						<InputGroup >
+						<InputGroup>
 							<InputGroup.Text>Confirm Password</InputGroup.Text>
 							<Form.Control
 								type="password"
@@ -108,13 +111,14 @@ const Profile = () => {
 				<Button variant="primary" type="submit" className="mt-3" disabled={loading}>
 					{loading ? <Spinner as="span" animation="border" size="sm" /> : 'Update Password'}
 				</Button>
+				<Button variant="link" onClick={handlerResetLockPassword}>Reset lock password</Button>
 			</Form>
 			{error && <Alert variant="danger" className="mt-3">{error}</Alert>}
 			{validateErrors.length > 0 && validateErrors.map((err, index) => (
 				<Alert key={index} variant="danger" className="mt-3">{err}</Alert>
 			))}
 			{data && data.status === 200 && <Alert variant="success" className="mt-3">비밀번호 업데이트 완료!</Alert>}
-		</div>
+		</>
 	);
 };
 
