@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Card, Row, Col, Button, Form, Modal } from 'react-bootstrap';
+import { useAuth } from '../AuthContext';
+import config from '../config';
 
 const LockPage = () => {
 	const { getUserToken, logout } = useAuth();
@@ -51,7 +52,7 @@ const LockPage = () => {
 			return;
 		}
 
-		const storedPassword = localStorage.getItem('lockPassword');
+		const storedPassword = localStorage.getItem(config.localStorage.lockPassword);
 
 		if (lockPassword === storedPassword) {
 			setLockPassword('');

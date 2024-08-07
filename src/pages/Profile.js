@@ -47,7 +47,7 @@ const Profile = () => {
 	};
 
 	const handlerResetLockPassword = () => {
-		localStorage.removeItem('lockPassword')
+		localStorage.removeItem(config.localStorage.lockPassword)
 	}
 
 	return (
@@ -108,10 +108,16 @@ const Profile = () => {
 						</InputGroup>
 					</Col>
 				</Row>
-				<Button variant="primary" type="submit" className="mt-3" disabled={loading}>
-					{loading ? <Spinner as="span" animation="border" size="sm" /> : 'Update Password'}
-				</Button>
-				<Button variant="link" onClick={handlerResetLockPassword}>Reset lock password</Button>
+				<Row className="mb-3">
+					<Col>
+						<Button variant="primary" type="submit" className="mt-3" disabled={loading}>
+							{loading ? <Spinner as="span" animation="border" size="sm" /> : 'Update Password'}
+						</Button>
+					</Col>
+					<Col>
+						<Button variant="link" className="mt-3" onClick={handlerResetLockPassword}>Reset lock password</Button>
+					</Col>
+				</Row>
 			</Form>
 			{error && <Alert variant="danger" className="mt-3">{error}</Alert>}
 			{validateErrors.length > 0 && validateErrors.map((err, index) => (

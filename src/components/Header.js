@@ -66,7 +66,7 @@ const Header = () => {
   };
 
   const handleLock = () => {
-    const storedPassword = localStorage.getItem('lockPassword');
+    const storedPassword = localStorage.getItem(config.localStorage.lockPassword);
     if (storedPassword) {
       navigate('/lock'); // 비밀번호가 있으면 잠금 페이지로 이동
     } else {
@@ -80,7 +80,7 @@ const Header = () => {
     // 저장 버튼 클릭 시 처리할 작업
     setShowModal(false); // 모달을 닫음
     setLockPassword(lockPassword)
-    localStorage.setItem('lockPassword', lockPassword)
+    localStorage.setItem(config.localStorage.lockPassword, lockPassword)
     navigate('/lock')
   };
 
