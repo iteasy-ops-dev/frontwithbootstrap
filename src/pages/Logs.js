@@ -527,10 +527,14 @@ const Logs = () => {
             </tbody>
           </Table>
         ) : (
-          <p className="mt-3">No logs available.</p>
+          <Alert key="warning" variant="warning">
+            No logs available.
+          </Alert>
         )
       ) : (
-        <p className="mt-3">No data available.</p>
+        <Alert key="warning" variant="warning">
+          No data available.
+        </Alert>
       )}
 
       <Modal show={showUser} onHide={handleUserClose}>
