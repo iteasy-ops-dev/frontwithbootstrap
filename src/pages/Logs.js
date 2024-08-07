@@ -384,9 +384,15 @@ const Logs = () => {
                 onChange={(e) => setType(e.target.value)}
               >
                 <option value=''>All</option>
-                {functions && functions.data.map((f) => (
-                  <option key={f} value={f}>{f}</option>
-                ))}
+                {functions && (
+                  functions.length > 0 ? (
+                    functions.data.map((f) => (
+                      <option key={f} value={f}>{f}</option>
+                    ))
+                  ) : (
+                    <option value="">No data available</option>
+                  )
+                )}
               </Form.Select>
             </InputGroup>
           </Col>
@@ -478,7 +484,7 @@ const Logs = () => {
       {loading ? (
         <Spinner animation="border" className="mt-3" />
       ) : data ? (
-        data.data.length > 0 ? (
+        data.data !== null ? (
           <Table striped bordered hover className="mt-3">
             <thead>
               <tr>

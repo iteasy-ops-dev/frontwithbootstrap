@@ -170,7 +170,7 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (data && data.data) {
+    if (data && data.data && data.data.overall !== null) {
       setOverall(data.data.overall[0]);
       setTypes(data.data.types);
 
@@ -204,14 +204,14 @@ const Dashboard = () => {
     <>
       <h1 className="header-title">Dashboard</h1>
       <p className="header-description">Here you can monitor the overall activity of the API..</p>
-      
+
       {/* 데이터 로딩 중에 스피너 표시 */}
       {loading && <Spinner animation="border" />}
-      
+
       {/* 데이터가 없거나 에러 발생 시 에러 메시지 표시 */}
       {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
 
-      {overall && (
+      {data && overall ? (
         <>
           <Row>
             <Col>
@@ -246,8 +246,13 @@ const Dashboard = () => {
           </Row>
           <br />
         </>
-      )}
-      {types ? (
+      )
+        :
+        (
+          <p>No data available</p>
+        )
+      }
+      {data && types ? (
         <Row>
           <Col>
             <Card>
