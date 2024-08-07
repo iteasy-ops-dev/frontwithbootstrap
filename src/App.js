@@ -11,6 +11,7 @@ import Manage from './pages/Manage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
 import ResetPassword from './pages/ResetPassword';
 import { ThemeProvider } from './ThemeContext';
 import { AuthProvider, useAuth } from './AuthContext';
@@ -30,15 +31,26 @@ const ProtectedRoute = ({ element, redirectTo }) => {
 
 function App() {
   const location = useLocation();
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup' || location.pathname === '/reset-password';
+  const isAuthPage = ['/login', '/signup', '/reset-password'].includes(location.pathname);
+  const isNotFoundPage = location.pathname !== '/' && ![
+    '/home', 
+    '/dashboard', 
+    '/profile', 
+    '/logs', 
+    '/users', 
+    '/manage', 
+    '/login', 
+    '/signup', 
+    '/reset-password'
+  ].includes(location.pathname);
 
   return (
     <AuthProvider>
       <ThemeProvider>
         <div className="d-flex flex-column vh-100">
-          {!isAuthPage && <Header />}
+          {!isAuthPage && !isNotFoundPage && <Header />}
           <div className="d-flex flex-grow-1">
-            {!isAuthPage && <Navbar />}
+            {!isAuthPage && !isNotFoundPage && <Navbar />}
 
             <div className={`main flex-grow-1 p-3`}>
               <Routes>
@@ -53,10 +65,11 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/" element={<Navigate to="/home" />} />
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </div>
           </div>
-          {!isAuthPage && <Footer />}
+          {!isAuthPage && !isNotFoundPage && <Footer />}
         </div>
       </ThemeProvider>
     </AuthProvider>
