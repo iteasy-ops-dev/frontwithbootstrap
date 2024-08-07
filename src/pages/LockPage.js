@@ -48,7 +48,7 @@ const LockPage = () => {
 								Token expiration time:
 								<p><i class="bi bi-hourglass-split"></i>{timeLeft}</p>
 							</Card.Text>
-							<Button variant="primary" onClick={handleUnlock}>
+							<Button variant="secondary" onClick={handleUnlock}>
 								<i class="bi bi-unlock"></i>unlock
 							</Button>
 						</Card.Body>
