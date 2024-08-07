@@ -21,19 +21,12 @@ RUN npm run build
 # Step 2: Serve the app with Nginx
 FROM nginx:stable-alpine
 
-# Create necessary directories
-# RUN mkdir -p /etc/letsencrypt/live/youngchan.pe.kr
-
 # Copy the build output to Nginx's web directory
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Copy custom Nginx configuration file (optional)
 # If you have a custom nginx.conf, you can uncomment the below line and ensure you have a nginx.conf in your project root
 COPY ./nginx/conf.d/nginx.conf /etc/nginx/nginx.conf
-
-# Copy SSL certificates
-# COPY fullchain.pem /etc/letsencrypt/live/youngchan.pe.kr/fullchain.pem
-# COPY private.key /etc/letsencrypt/live/youngchan.pe.kr/privkey.pem
 
 # Expose port 80 and 443 for HTTPS
 EXPOSE 80
