@@ -37,6 +37,7 @@ const useApi = () => {
         params, // URL 파라미터 설정
       });
       setData(response); // 응답 데이터 설정
+
       // console.log('response: ',response)
       // console.log('setData: ',data)
     } catch (err) {

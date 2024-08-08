@@ -16,6 +16,7 @@ const Login = () => {
     if (data && data.status === 200) {
       login();
       navigate('/home'); // Redirect to home after login
+      localStorage.removeItem(config.localStorage.lockPassword)
     }
   }, [data, login, navigate]);
 

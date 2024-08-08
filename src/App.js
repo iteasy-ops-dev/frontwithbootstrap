@@ -12,6 +12,7 @@
 // import Signup from './pages/Signup';
 // import Profile from './pages/Profile';
 // import NotFound from './pages/NotFound';
+// import LockPage from './pages/LockPage';
 // import ResetPassword from './pages/ResetPassword';
 // import { ThemeProvider } from './ThemeContext';
 // import { AuthProvider, useAuth } from './AuthContext';
@@ -31,7 +32,7 @@
 
 // function App() {
 //   const location = useLocation();
-//   const isAuthPage = ['/login', '/signup', '/reset-password'].includes(location.pathname);
+//   const isAuthPage = ['/login', '/signup', '/reset-password', '/lock'].includes(location.pathname);
 //   const isNotFoundPage = location.pathname !== '/' && ![
 //     '/home', 
 //     '/dashboard', 
@@ -41,7 +42,7 @@
 //     '/manage', 
 //     '/login', 
 //     '/signup', 
-//     '/reset-password'
+//     '/reset-password',
 //   ].includes(location.pathname);
 
 //   return (
@@ -51,7 +52,6 @@
 //           {!isAuthPage && !isNotFoundPage && <Header />}
 //           <div className="d-flex flex-grow-1">
 //             {!isAuthPage && !isNotFoundPage && <Navbar />}
-
 //             <div className={`main flex-grow-1 p-3`}>
 //               <Routes>
 //                 <Route path="/home" element={<ProtectedRoute element={<Home />} redirectTo="/login" />} />
@@ -61,9 +61,9 @@
 //                 <Route path="/users" element={<ProtectedRoute element={<Users />} redirectTo="/login" />} />
 //                 <Route path="/manage" element={<ProtectedRoute element={<Manage />} redirectTo="/login" />} />
 //                 <Route path="/login" element={<Login />} />
-//                 <Route path="/verify" element={<Login />} />
 //                 <Route path="/signup" element={<Signup />} />
 //                 <Route path="/reset-password" element={<ResetPassword />} />
+//                 <Route path="/lock" element={<LockPage />} /> {/* 잠금 페이지 라우트 추가 */}
 //                 <Route path="/" element={<Navigate to="/home" />} />
 //                 <Route path="*" element={<NotFound />} />
 //               </Routes>
@@ -78,6 +78,8 @@
 
 // export default App;
 
+
+// App.js
 import React from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/Header';
@@ -99,18 +101,19 @@ import { AuthProvider, useAuth } from './AuthContext';
 
 import './styles.css';
 
-// ProtectedRoute component to handle redirection based on authentication
 const ProtectedRoute = ({ element, redirectTo }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLocked } = useAuth();
   
+  if (isLocked) {
+    return <Navigate to="/lock" />;
+  }
+
   if (!isAuthenticated && redirectTo) {
     return <Navigate to={redirectTo} />;
   }
   
   return element;
 };
-
-
 
 function App() {
   const location = useLocation();
@@ -145,7 +148,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/lock" element={<LockPage />} /> {/* 잠금 페이지 라우트 추가 */}
+                <Route path="/lock" element={<LockPage />} />
                 <Route path="/" element={<Navigate to="/home" />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

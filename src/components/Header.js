@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const { theme } = useTheme();
-  const { isAuthenticated, logout, getUserToken } = useAuth();
+  const { isAuthenticated, logout, getUserToken, lock } = useAuth();
   const { data, loading, error, callApi } = useApi();
   const navigate = useNavigate(); // Hook for navigation
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리
@@ -68,6 +68,7 @@ const Header = () => {
   const handleLock = () => {
     const storedPassword = localStorage.getItem(config.localStorage.lockPassword);
     if (storedPassword) {
+      lock()
       navigate('/lock'); // 비밀번호가 있으면 잠금 페이지로 이동
     } else {
       setShowModal(true)
