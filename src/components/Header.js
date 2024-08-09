@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const Header = () => {
   const { theme } = useTheme();
   const { isAuthenticated, logout, getUserToken, lock } = useAuth();
-  const { data, loading, error, callApi } = useApi();
+  const { data, callApi } = useApi();
   const navigate = useNavigate(); // Hook for navigation
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리
   const [lockPassword, setLockPassword] = useState(''); // 입력 필드의 값을 관리

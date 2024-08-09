@@ -24,7 +24,7 @@ const config = {
 		}
 	},
 	jwt: {
-		key: process.env.REACT_APP_JWT_KEY || "token"
+		key: process.env.REACT_APP_JWT_KEY || "OPST"
 	},
 	chart: {
 		bgColor: {
