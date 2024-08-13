@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
   const { isAuthenticated, logout, getUserToken, lock } = useAuth();
   const { data, callApi } = useApi();
   const navigate = useNavigate(); // Hook for navigation
@@ -123,8 +125,8 @@ const Header = () => {
         )}
       </Navbar>
 
-      <Modal show={showModal} onHide={handleModalClose}>
-          <Modal.Header closeButton onHide={handleModalClose}>
+      <Modal data-bs-theme={`${theme}`} show={showModal} onHide={handleModalClose}>
+          <Modal.Header className={`${textColorClass}`}closeButton onHide={handleModalClose}>
             <Modal.Title>Lock Password</Modal.Title>
           </Modal.Header>
 
@@ -151,11 +153,13 @@ const Header = () => {
           </Modal.Footer>
       </Modal>
 
-      <Modal show={showExtendModal} onHide={handleExtendModalClose}>
-        <Modal.Header closeButton>
+      <Modal data-bs-theme={`${theme}`} how={showExtendModal} onHide={handleExtendModalClose}>
+        <Modal.Header className={`${textColorClass}`} closeButton>
           <Modal.Title>세션 연장</Modal.Title>
         </Modal.Header>
+
         <Modal.Body>세션이 곧 만료됩니다. 연장하시겠습니까?</Modal.Body>
+
         <Modal.Footer>
           <Button variant="secondary" onClick={handleExtendModalClose}>
             취소

@@ -4,8 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import { Card, Row, Col, Button, Form, Modal } from 'react-bootstrap';
 import { useAuth } from '../AuthContext';
 import config from '../config';
+import { useTheme } from '../ThemeContext';
 
 const LockPage = () => {
+  const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
   const { getUserToken, unlock, logout } = useAuth();
   const navigate = useNavigate();
   const token = getUserToken();
@@ -70,11 +74,11 @@ const LockPage = () => {
     <>
       <Row>
         <Col>
-          <Card>
-            <Card.Header><i className="bi bi-lock"></i>Lock</Card.Header>
+          <Card className={`text-center bg-${theme}`}>
+            <Card.Header className={`${textColorClass}`}><i className="bi bi-lock"></i>Lock</Card.Header>
             <Card.Body>
-              <Card.Title><i className="bi bi-person-circle"></i>{token.name}</Card.Title>
-              <Card.Text>
+              <Card.Title className={`${textColorClass}`}><i className="bi bi-person-circle"></i>{token.name}</Card.Title>
+              <Card.Text className={`${textColorClass}`}>
                 Token expiration time:
                 <p><i className="bi bi-hourglass-split"></i>{timeLeft}</p>
               </Card.Text>
@@ -89,8 +93,8 @@ const LockPage = () => {
         </Col>
       </Row>
 
-      <Modal show={showModal} onHide={handleModalClose}>
-        <Modal.Header closeButton onHide={handleModalClose}>
+      <Modal data-bs-theme={`${theme}`} show={showModal} onHide={handleModalClose}>
+        <Modal.Header className={`${textColorClass}`} closeButton onHide={handleModalClose}>
           <Modal.Title>Lock Password</Modal.Title>
         </Modal.Header>
 

@@ -55,13 +55,13 @@ const Manage = () => {
       options,
     };
 
-    console.log("payload: ", payload);
+    // console.log("payload: ", payload);
 
-    // try {
-    //   await callApi(config.api.path.run, config.api.method.POST, payload);
-    // } catch (error) {
-    //   console.error('API call failed:', error);
-    // }
+    try {
+      await callApi(config.api.path.run, config.api.method.POST, payload);
+    } catch (error) {
+      console.error('API call failed:', error);
+    }
   };
 
   return (

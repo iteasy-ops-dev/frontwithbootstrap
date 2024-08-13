@@ -84,7 +84,7 @@ const Profile = () => {
 				</Row>
 				<Row className="mb-3">
 					<Col>
-						<InputGroup>
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 							<InputGroup.Text>Change Password</InputGroup.Text>
 							<Form.Control
 								type="password"
@@ -98,7 +98,7 @@ const Profile = () => {
 				</Row>
 				<Row>
 					<Col>
-						<InputGroup>
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 							<InputGroup.Text>Confirm Password</InputGroup.Text>
 							<Form.Control
 								type="password"
