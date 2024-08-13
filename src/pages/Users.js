@@ -66,8 +66,8 @@ const User = () => {
           </thead>
           <tbody>
             {filteredUsers.length > 0 ? (
-              filteredUsers.map((user) => (
-                <React.Fragment key={user.ID}>
+              filteredUsers.map((user, index) => (
+                <React.Fragment key={index}>
                   <tr>
                     <td style={{ textAlign: 'center' }}>{user.Name}</td>
                     <td style={{ textAlign: 'center' }}>{user.Email}</td>

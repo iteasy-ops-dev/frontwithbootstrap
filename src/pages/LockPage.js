@@ -79,8 +79,8 @@ const LockPage = () => {
             <Card.Body>
               <Card.Title className={`${textColorClass}`}><i className="bi bi-person-circle"></i>{token.name}</Card.Title>
               <Card.Text className={`${textColorClass}`}>
-                Token expiration time:
-                <p><i className="bi bi-hourglass-split"></i>{timeLeft}</p>
+                Token expiration time:<br/>
+                <i className="bi bi-hourglass-split"></i>{timeLeft}
               </Card.Text>
               <Button variant="secondary" onClick={handleShowModal}>
                 <i className="bi bi-unlock"></i>unlock
