@@ -8,8 +8,10 @@ import {
 	validatePassword,
 	validateConfirmPassword,
 } from "../utils/validators";
+import { useTheme } from '../ThemeContext';
 
 const Profile = () => {
+	const { theme } = useTheme();
 	const { getUserToken } = useAuth();
 	const email = getUserToken().email;
 	const name = getUserToken().name;
@@ -56,7 +58,7 @@ const Profile = () => {
 			<Form onSubmit={handleSubmit} className="mb-3">
 				<Row className="mb-3">
 					<Col>
-						<InputGroup className="mb-3">
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 							<InputGroup.Text>Name</InputGroup.Text>
 							<Form.Control
 								type="name"
@@ -68,7 +70,7 @@ const Profile = () => {
 						</InputGroup>
 					</Col>
 					<Col>
-						<InputGroup className="mb-3">
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 							<InputGroup.Text>Email</InputGroup.Text>
 							<Form.Control
 								type="email"

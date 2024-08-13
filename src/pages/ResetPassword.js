@@ -6,8 +6,12 @@ import config from '../config';
 import {
 	validateEmail
 } from "../utils/validators";
+import { useTheme } from '../ThemeContext';
 
 const ResetPassword = () => {
+	const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
 	const [email, setEmail] = useState('');
 	const [validationError, setValidationError] = useState('');
 	const { data, loading, error, callApi } = useApi();
@@ -46,11 +50,11 @@ const ResetPassword = () => {
 				src="/logo_iteasy.png"
 			/>{' '}
 			Service Ops Center
-			<h1 className="my-4">Reset Password</h1>
+			<h1 className={`my-4 ${textColorClass}`}>Reset Password</h1>
 			<Form onSubmit={handleSubmit} className="mb-3">
 				<Row className="mb-3">
 					<Col>
-						<InputGroup className="mb-3 login-form">
+						<InputGroup className="mb-3 login-form" data-bs-theme={`${theme}`}>
 							<InputGroup.Text>Email</InputGroup.Text>
 							<Form.Control
 								type="email"

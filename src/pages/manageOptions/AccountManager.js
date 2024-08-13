@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Form, InputGroup, Accordion, Row, Col } from 'react-bootstrap';
+import { useTheme } from '../../ThemeContext';
 
 const AccountManager = ({ handleOptionChange }) => {
 	const [action, setAction] = useState("");
@@ -43,8 +44,9 @@ const AccountManager = ({ handleOptionChange }) => {
 export default AccountManager
 
 const OptionSelect = ({ action, onChange }) => {
+	const { theme } = useTheme();
 	return (
-		<InputGroup className="mb-3">
+		<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 			<InputGroup.Text>Type</InputGroup.Text>
 			<Form.Select
 				name="action"
@@ -62,6 +64,7 @@ const OptionSelect = ({ action, onChange }) => {
 
 
 const CreateFields = ({ onChange }) => {
+	const { theme } = useTheme();
 	const [showOptions, setShowOptions] = useState(false);
 	const handleOptionsToggle = () => setShowOptions(prev => !prev);
 
@@ -69,7 +72,7 @@ const CreateFields = ({ onChange }) => {
 		<>
 			<Row className="mb-3">
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>계정</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -79,7 +82,7 @@ const CreateFields = ({ onChange }) => {
 					</InputGroup>
 				</Col>
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>비밀번호</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -103,7 +106,7 @@ const CreateFields = ({ onChange }) => {
 				<>
 					<Row className="mb-3">
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>홈(option)</InputGroup.Text>
 								<Form.Control
 									type="text"
@@ -116,7 +119,7 @@ const CreateFields = ({ onChange }) => {
 					</Row>
 					<Row>
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>쉘(option)</InputGroup.Text>
 								<Form.Control
 									type="text"
@@ -127,7 +130,7 @@ const CreateFields = ({ onChange }) => {
 							</InputGroup>
 						</Col>
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>그룹(option)</InputGroup.Text>
 								<Form.Control
 									type="text"
@@ -140,7 +143,7 @@ const CreateFields = ({ onChange }) => {
 					</Row>
 					<Row>
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>설명(option)</InputGroup.Text>
 								<Form.Control
 									as="textarea"
@@ -157,6 +160,7 @@ const CreateFields = ({ onChange }) => {
 }
 
 const UpdateFields = ({ onChange }) => {
+	const { theme } = useTheme();
 	const [showOptions, setShowOptions] = useState(false);
 	const handleOptionsToggle = () => setShowOptions(prev => !prev);
 
@@ -164,7 +168,7 @@ const UpdateFields = ({ onChange }) => {
 		<>
 			<Row className="mb-3">
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>계정</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -174,7 +178,7 @@ const UpdateFields = ({ onChange }) => {
 					</InputGroup>
 				</Col>
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>수정할 비밀번호</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -198,7 +202,7 @@ const UpdateFields = ({ onChange }) => {
 				<>
 					<Row>
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>쉘(option)</InputGroup.Text>
 								<Form.Control
 									type="text"
@@ -209,7 +213,7 @@ const UpdateFields = ({ onChange }) => {
 							</InputGroup>
 						</Col>
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>그룹(option)</InputGroup.Text>
 								<Form.Control
 									type="text"
@@ -226,11 +230,12 @@ const UpdateFields = ({ onChange }) => {
 	)
 }
 const DeleteFields = ({ onChange }) => {
+	const { theme } = useTheme();
 	return (
 		<>
 			<Row className="mb-3">
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>계정</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -240,7 +245,7 @@ const DeleteFields = ({ onChange }) => {
 					</InputGroup>
 				</Col>
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>홈디렉토리</InputGroup.Text>
 						<Form.Select
 							name="remove_home"

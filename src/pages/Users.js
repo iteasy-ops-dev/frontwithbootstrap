@@ -3,8 +3,12 @@ import { Table, Button, Spinner, Alert, Modal } from 'react-bootstrap';
 import config from '../config';
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
+import { useTheme } from '../ThemeContext';
 
 const User = () => {
+  const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
   const { getUserToken } = useAuth();
   const isAdmin = getUserToken().email === config.admin;
   const [view, setView] = useState(true);
@@ -39,8 +43,8 @@ const User = () => {
 
   return (
     <>
-      <h1 className="header-title">Users</h1>
-      <p className="header-description">Here you can check the registered users and their status.</p>
+      <h1 className={`header-title ${textColorClass}`}>Users</h1>
+      <p className={`header-description ${textColorClass}`}>Here you can check the registered users and their status.</p>
 
       {/* 데이터 로딩 중에 스피너 표시 */}
       {usersApi.loading && <Spinner animation="border" />}
@@ -49,7 +53,7 @@ const User = () => {
       {usersApi.error && <Alert variant="danger" className="mt-3">{usersApi.error}</Alert>}
 
       {usersApi.data && (
-        <Table striped bordered hover className="mt-3">
+        <Table striped bordered hover className="mt-3" variant={`${theme}`}>
           <thead>
             <tr>
               <th style={{ textAlign: 'center' }}>Name</th>

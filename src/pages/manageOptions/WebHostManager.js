@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Form, InputGroup, Accordion, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
 import config from '../../config';
 import useApi from '../../hooks/useApi';
+import { useTheme } from '../../ThemeContext';
 
 const WebHostManager = ({ handleOptionChange }) => {
+	const { theme } = useTheme();
 	const [setupType, setSetupType] = useState("");
 	const [url, setUrl] = useState('');
 	const { data, loading, error, callApi } = useApi();
@@ -94,7 +96,7 @@ const WebHostManager = ({ handleOptionChange }) => {
 				<Accordion.Item eventKey="2">
 					<Accordion.Header>ERP Parsing</Accordion.Header>
 					<Accordion.Body>
-						<InputGroup className="mb-3">
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 							<InputGroup.Text>작업의뢰 URL</InputGroup.Text>
 							<Form.Control
 								type="text"
@@ -124,9 +126,10 @@ const WebHostManager = ({ handleOptionChange }) => {
 export default WebHostManager;
 
 const OptionSelect = ({ setupType, onChange }) => {
+	const { theme } = useTheme();
 	return (
 		<>
-			<InputGroup className="mb-3">
+			<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 				<InputGroup.Text>Type</InputGroup.Text>
 				<Form.Select
 					name="setup"
@@ -143,6 +146,7 @@ const OptionSelect = ({ setupType, onChange }) => {
 };
 
 const SetupFields = ({ formData, onChange }) => {
+	const { theme } = useTheme();
 	const [showDbOptions, setShowDbOptions] = useState(false);
 	const [showQuotaOptions, setShowQuotaOptions] = useState(false);
 	const [showCbandOptions, setShowCbandOptions] = useState(false);
@@ -156,7 +160,7 @@ const SetupFields = ({ formData, onChange }) => {
 		<>
 			<Row className="mb-3">
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>생성 계정</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -168,7 +172,7 @@ const SetupFields = ({ formData, onChange }) => {
 					</InputGroup>
 				</Col>
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>계정 비밀번호</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -182,7 +186,7 @@ const SetupFields = ({ formData, onChange }) => {
 			</Row>
 			<Row className="mb-3">
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>vhost</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -194,7 +198,7 @@ const SetupFields = ({ formData, onChange }) => {
 					</InputGroup>
 				</Col>
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>listen Port</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -214,7 +218,7 @@ const SetupFields = ({ formData, onChange }) => {
 						onChange={handleCbandOptionsToggle}
 					/>
 					{showCbandOptions && (
-						<InputGroup className="mb-3">
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 							<InputGroup.Text>Cband_limit</InputGroup.Text>
 							<Form.Control
 								type="text"
@@ -236,7 +240,7 @@ const SetupFields = ({ formData, onChange }) => {
 						onChange={handleQuotaOptionsToggle}
 					/>
 					{showQuotaOptions && (
-						<InputGroup className="mb-3">
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 							<InputGroup.Text>Quota Limit</InputGroup.Text>
 							<Form.Control
 								type="text"
@@ -261,7 +265,7 @@ const SetupFields = ({ formData, onChange }) => {
 						<>
 							<Row className="mb-3">
 								<Col>
-									<InputGroup className="mb-3">
+									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 										<InputGroup.Text>db admin</InputGroup.Text>
 										<Form.Control
 											type="text"
@@ -272,7 +276,7 @@ const SetupFields = ({ formData, onChange }) => {
 									</InputGroup>
 								</Col>
 								<Col>
-									<InputGroup className="mb-3">
+									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 										<InputGroup.Text>db admin 비밀번호</InputGroup.Text>
 										<Form.Control
 											type="text"
@@ -285,7 +289,7 @@ const SetupFields = ({ formData, onChange }) => {
 							</Row>
 							<Row className="mb-3">
 								<Col>
-									<InputGroup className="mb-3">
+									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 										<InputGroup.Text>db 계정</InputGroup.Text>
 										<Form.Control
 											type="text"
@@ -297,7 +301,7 @@ const SetupFields = ({ formData, onChange }) => {
 									</InputGroup>
 								</Col>
 								<Col>
-									<InputGroup className="mb-3">
+									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 										<InputGroup.Text>db 계정 비밀번호</InputGroup.Text>
 										<Form.Control
 											type="text"
@@ -312,7 +316,7 @@ const SetupFields = ({ formData, onChange }) => {
 							</Row>
 							<Row>
 								<Col>
-									<InputGroup className="mb-3">
+									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 										<InputGroup.Text>db 이름</InputGroup.Text>
 										<Form.Control
 											type="text"
@@ -333,6 +337,7 @@ const SetupFields = ({ formData, onChange }) => {
 };
 
 const DeleteFields = ({ formData, onChange }) => {
+	const { theme } = useTheme();
 	const [showDbOptions, setShowDbOptions] = useState(false);
 
 	// Handler for toggling database options visibility
@@ -345,7 +350,7 @@ const DeleteFields = ({ formData, onChange }) => {
 			</Alert>
 			<Row className="mb-3">
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>삭제할 계정</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -373,7 +378,7 @@ const DeleteFields = ({ formData, onChange }) => {
 				<>
 					<Row className="mb-3">
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>db admin</InputGroup.Text>
 								<Form.Control
 									type="text"
@@ -384,7 +389,7 @@ const DeleteFields = ({ formData, onChange }) => {
 							</InputGroup>
 						</Col>
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>db admin 비밀번호</InputGroup.Text>
 								<Form.Control
 									type="text"
@@ -397,7 +402,7 @@ const DeleteFields = ({ formData, onChange }) => {
 					</Row>
 					<Row className="mb-3">
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>db 계정</InputGroup.Text>
 								<Form.Control
 									type="text"
@@ -409,7 +414,7 @@ const DeleteFields = ({ formData, onChange }) => {
 							</InputGroup>
 						</Col>
 						<Col>
-							<InputGroup className="mb-3">
+							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 								<InputGroup.Text>db 이름</InputGroup.Text>
 								<Form.Control
 									type="text"

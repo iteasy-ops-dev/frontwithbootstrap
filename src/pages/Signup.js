@@ -9,8 +9,12 @@ import {
   validatePassword,
   validateConfirmPassword,
 } from "../utils/validators";
+import { useTheme } from '../ThemeContext';
 
 const Signup = () => {
+  const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -65,11 +69,11 @@ const Signup = () => {
         src="/logo_iteasy.png"
       />{' '}
       Service Ops Center
-      <h1 className="my-4">Signup</h1>
+      <h1 className={`my-4 ${textColorClass}`}>Signup</h1>
       <Form onSubmit={handleSubmit} className="mb-3">
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3 login-form">
+            <InputGroup className="mb-3 login-form" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Email</InputGroup.Text>
               <Form.Control
                 type="email"
@@ -83,7 +87,7 @@ const Signup = () => {
         </Row>
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3 login-form">
+            <InputGroup className="mb-3 login-form" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Name</InputGroup.Text>
               <Form.Control
                 type="name"
@@ -97,7 +101,7 @@ const Signup = () => {
         </Row>
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3 login-form">
+            <InputGroup className="mb-3 login-form" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Password</InputGroup.Text>
               <Form.Control
                 type="password"
@@ -111,7 +115,7 @@ const Signup = () => {
         </Row>
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3 login-form">
+            <InputGroup className="mb-3 login-form" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Confirm Password</InputGroup.Text>
               <Form.Control
                 type="password"

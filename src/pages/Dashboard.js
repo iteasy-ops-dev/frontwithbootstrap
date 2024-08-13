@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Card, Table, Alert, Spinner } from 'react-bootstrap';
+import { Doughnut, Bar } from 'react-chartjs-2';
+import 'chart.js/auto';
 import config from '../config';
 import useApi from '../hooks/useApi';
 import { getChartData } from "../utils/chartUtils";
-import { Doughnut, Bar } from 'react-chartjs-2';
-import 'chart.js/auto';
+import { useTheme } from '../ThemeContext';
 
 const Dashboard = () => {
+  const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
   const { data, loading, error, callApi } = useApi();
   const [overall, setOverall] = useState();
   const [types, setTypes] = useState();
@@ -52,8 +56,8 @@ const Dashboard = () => {
 
   return (
     <>
-      <h1 className="header-title">Dashboard</h1>
-      <p className="header-description">Here you can monitor the overall activity of the API.</p>
+      <h1 className={`header-title ${textColorClass}`}>Dashboard</h1>
+      <p className={`header-description ${textColorClass}`}>Here you can monitor the overall activity of the API.</p>
 
       {/* 데이터 로딩 중에 스피너 표시 */}
       {loading && <Spinner animation="border" />}
@@ -66,19 +70,20 @@ const Dashboard = () => {
         <>
           <Row>
             <Col>
-              <Card className="text-center">
-                <Card.Header>Total Count</Card.Header>
+              {/* <Card className="text-center"> */}
+              <Card className={`text-center bg-${theme}`}>
+                <Card.Header className={`${textColorClass}`}>Total Count</Card.Header>
                 <Card.Body>
-                  <Card.Title>{overall.totalCount} ea</Card.Title>
+                  <Card.Title className={`${textColorClass}`}>{overall.totalCount} ea</Card.Title>
                   <Doughnut data={chartTotalCount} options={config.chart.doughnutOptions} />
                 </Card.Body>
               </Card>
             </Col>
             <Col>
-              <Card>
-                <Card.Header>Total Duration</Card.Header>
+              <Card className={`text-center bg-${theme}`}>
+                <Card.Header className={`${textColorClass}`}>Total Duration</Card.Header>
                 <Card.Body>
-                  <Card.Title>{overall.totalDuration} s</Card.Title>
+                  <Card.Title className={`${textColorClass}`}>{overall.totalDuration} s</Card.Title>
                   <Doughnut data={chartTotalDuration} options={config.chart.doughnutOptions} />
                 </Card.Body>
               </Card>
@@ -87,8 +92,8 @@ const Dashboard = () => {
           <br />
           <Row>
             <Col>
-              <Card className="text-center">
-                <Card.Header>API calls by type</Card.Header>
+              <Card className={`text-center bg-${theme}`}>
+                <Card.Header className={`${textColorClass}`}>API calls by type</Card.Header>
                 <Card.Body>
                   <Bar data={chartBarData} />
                 </Card.Body>
@@ -109,10 +114,10 @@ const Dashboard = () => {
       {data && types ? (
         <Row>
           <Col>
-            <Card>
-              <Card.Header>Detailed information by API type</Card.Header>
+            <Card className={`text-center bg-${theme}`}>
+              <Card.Header className={`${textColorClass}`}>Detailed information by API type</Card.Header>
               <Card.Body>
-                <Table striped bordered hover className="mt-3">
+                <Table striped bordered hover className="mt-3" variant={`${theme}`}>
                   <thead>
                     <tr>
                       <th style={{ textAlign: 'center' }}>Run Type</th>

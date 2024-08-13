@@ -11,8 +11,12 @@ import PackageManager from './manageOptions/PackageManager';
 import WebHostManager from './manageOptions/WebHostManager';
 import AccountManager from './manageOptions/AccountManager';
 import { validateEmptyObject } from "../utils/validators";
+import { useTheme } from '../ThemeContext';
 
 const Manage = () => {
+  const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
   const { data, loading, error, callApi } = useApi();
   const { functions, getUserToken } = useAuth();
   const invalidState = functions === null || functions === undefined
@@ -62,12 +66,12 @@ const Manage = () => {
 
   return (
     <>
-      <h1 className="header-title">Manage</h1>
-      <p className="header-description">You can manage the server.</p>
+      <h1 className={`header-title ${textColorClass}`}>Manage</h1>
+      <p className={`header-description ${textColorClass}`}>You can manage the server.</p>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Name</InputGroup.Text>
               <Form.Control
                 type="text"
@@ -79,7 +83,7 @@ const Manage = () => {
             </InputGroup>
           </Col>
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Email</InputGroup.Text>
               <Form.Control
                 type="text"
@@ -96,7 +100,7 @@ const Manage = () => {
             Network Error: Try Re-Login !
           </Alert>
           :
-          <InputGroup className="mb-3">
+          <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
             <InputGroup.Text>Type</InputGroup.Text>
             <Form.Select
               value={type}
@@ -112,7 +116,7 @@ const Manage = () => {
         }
         {type !== '' &&
           <>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>IPs</InputGroup.Text>
               <Form.Control
                 as="textarea"
@@ -124,7 +128,7 @@ const Manage = () => {
             </InputGroup>
             <Row>
               <Col>
-                <InputGroup className="mb-3">
+                <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
                   <InputGroup.Text>Account</InputGroup.Text>
                   <Form.Control
                     type="text"
@@ -136,7 +140,7 @@ const Manage = () => {
                 </InputGroup>
               </Col>
               <Col>
-                <InputGroup className="mb-3">
+                <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
                   <InputGroup.Text>Password</InputGroup.Text>
                   <Form.Control
                     type="password"

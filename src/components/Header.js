@@ -12,6 +12,7 @@ const Header = () => {
   const { data, callApi } = useApi();
   const navigate = useNavigate(); // Hook for navigation
   const [showModal, setShowModal] = useState(false); // 모달 표시 여부를 관리
+  const [showExtendModal, setShowExtendModal] = useState(false); // 세션 연장 모달 표시 여부를 관리
   const [lockPassword, setLockPassword] = useState(''); // 입력 필드의 값을 관리
 
   const [expirationTime, setExpirationTime] = useState(null);
@@ -33,9 +34,14 @@ const Header = () => {
           const minutes = Math.floor(remainingTime / 60);
           const seconds = remainingTime % 60;
           setTimeLeft(`${minutes}m ${seconds}s`);
+          
+          // 남은 시간이 5분 이하일 때 연장 모달을 표시
+          if (remainingTime <= 300 && !showExtendModal) {
+            setShowExtendModal(true);
+          }
         } else {
           setTimeLeft('Expired');
-          alert("토큰이 만료되었습니다. 다시 로그인해주세요.")
+          alert("토큰이 만료되었습니다. 다시 로그인해주세요.");
           logout(); // Automatically log out the user when the token expires
           navigate('/login'); // Redirect to login page
         }
@@ -47,7 +53,7 @@ const Header = () => {
     const intervalId = setInterval(updateRemainingTime, 1000); // Update every second
 
     return () => clearInterval(intervalId); // Clean up on component unmount
-  }, [expirationTime, logout, navigate]);
+  }, [expirationTime, logout, navigate, showExtendModal]);
 
   const handleLogout = () => {
     logout(); // Log out the user
@@ -62,7 +68,9 @@ const Header = () => {
     callApi(
       config.api.path.extend_extension,
       config.api.method.POST
-    );
+    ).then(() => {
+      setShowExtendModal(false); // 연장 후 모달 닫기
+    });
   };
 
   const handleLock = () => {
@@ -71,7 +79,7 @@ const Header = () => {
       lock()
       navigate('/lock'); // 비밀번호가 있으면 잠금 페이지로 이동
     } else {
-      setShowModal(true)
+      setShowModal(true);
     }
   };
 
@@ -80,10 +88,12 @@ const Header = () => {
   const handleModalSave = () => {
     // 저장 버튼 클릭 시 처리할 작업
     setShowModal(false); // 모달을 닫음
-    setLockPassword(lockPassword)
-    localStorage.setItem(config.localStorage.lockPassword, lockPassword)
-    navigate('/lock')
+    setLockPassword(lockPassword);
+    localStorage.setItem(config.localStorage.lockPassword, lockPassword);
+    navigate('/lock');
   };
+
+  const handleExtendModalClose = () => setShowExtendModal(false);
 
   return (
     <>
@@ -98,7 +108,7 @@ const Header = () => {
           Service Ops
         </Navbar.Brand>
         {isAuthenticated && (
-          <Dropdown align="end">
+          <Dropdown align="end" data-bs-theme={`${theme}`}>
             <Dropdown.Toggle variant={`outline-${theme === "dark" ? "light" : "dark"}`} id="dropdown-basic">
               <i className="bi bi-person-circle"></i>{getUserToken().name}
             </Dropdown.Toggle>
@@ -139,6 +149,21 @@ const Header = () => {
               Save
             </Button>
           </Modal.Footer>
+      </Modal>
+
+      <Modal show={showExtendModal} onHide={handleExtendModalClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>세션 연장</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>세션이 곧 만료됩니다. 연장하시겠습니까?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleExtendModalClose}>
+            취소
+          </Button>
+          <Button variant="primary" onClick={handleExpirationExtension}>
+            확인
+          </Button>
+        </Modal.Footer>
       </Modal>
     </>
   );

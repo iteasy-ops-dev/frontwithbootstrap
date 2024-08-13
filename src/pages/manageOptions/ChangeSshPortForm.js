@@ -1,8 +1,9 @@
 import React from 'react';
 import { Form, InputGroup, Accordion, Row, Col } from 'react-bootstrap';
+import { useTheme } from '../../ThemeContext';
 
 const ChangeSshPortForm = ({handleOptionChange}) => {
-
+	const { theme } = useTheme();
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		handleOptionChange(name, value);
@@ -22,7 +23,7 @@ const ChangeSshPortForm = ({handleOptionChange}) => {
 			<br />
 			<Row className="mb-3">
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>변경할 포트</InputGroup.Text>
 						<Form.Control
 							type="text"

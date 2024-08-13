@@ -1,7 +1,9 @@
 import React from 'react';
 import { Form, InputGroup, Row, Col, Accordion } from 'react-bootstrap';
+import { useTheme } from '../../ThemeContext';
 
 const ChangePasswordForm = ({ handleOptionChange }) => {
+	const { theme } = useTheme();
 	const handleChange = (e) => {
 		handleOptionChange(e.target.name, e.target.value);
 	};
@@ -20,7 +22,7 @@ const ChangePasswordForm = ({ handleOptionChange }) => {
 			<br />
 			<Row>
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>Account</InputGroup.Text>
 						<Form.Control
 							type="text"
@@ -31,7 +33,7 @@ const ChangePasswordForm = ({ handleOptionChange }) => {
 					</InputGroup>
 				</Col>
 				<Col>
-					<InputGroup className="mb-3">
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>Change Password</InputGroup.Text>
 						<Form.Control
 							type="text"

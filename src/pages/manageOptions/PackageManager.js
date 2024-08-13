@@ -1,7 +1,9 @@
 import React from 'react';
 import { Form, InputGroup, Accordion } from 'react-bootstrap';
+import { useTheme } from '../../ThemeContext';
 
 const PackageManager = ({ handleOptionChange }) => {
+	const { theme } = useTheme();
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 
@@ -29,7 +31,7 @@ const PackageManager = ({ handleOptionChange }) => {
 				</Accordion.Item>
 			</Accordion>
 			<br />
-			<InputGroup className="mb-3">
+			<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 				<InputGroup.Text>설치 패키지</InputGroup.Text>
 				<Form.Control
 					as="textarea"
@@ -38,7 +40,7 @@ const PackageManager = ({ handleOptionChange }) => {
 				/>
 			</InputGroup>
 
-			<InputGroup className="mb-3">
+			<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 				<InputGroup.Text>삭제 패키지</InputGroup.Text>
 				<Form.Control
 					as="textarea"
@@ -47,7 +49,7 @@ const PackageManager = ({ handleOptionChange }) => {
 				/>
 			</InputGroup>
 
-			<InputGroup className="mb-3">
+			<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 				<InputGroup.Text>Update</InputGroup.Text>
 				<Form.Select
 					name="perform_update"

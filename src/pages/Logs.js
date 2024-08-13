@@ -3,10 +3,15 @@ import { InputGroup, Table, Alert, Button, Spinner, Form, Modal, Row, Col } from
 import config from '../config';
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
+import { useTheme } from '../ThemeContext';
 
 const Logs = () => {
+  const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
   const { data, loading, error, callApi } = useApi();
   const { functions } = useAuth();
+  const invalidState = functions === null || functions === undefined
 
   const [type, setType] = useState('');
   const [name, setName] = useState('');
@@ -76,35 +81,36 @@ const Logs = () => {
 
   return (
     <>
-      <h1 className="header-title">Logs</h1>
-      <p className="header-description">Here you can view server management history.</p>
+      <h1 className={`header-title ${textColorClass}`}>Logs</h1>
+      <p className={`header-description ${textColorClass}`}>Here you can view server management history.</p>
 
       <Form onSubmit={handleSubmit} className="mb-3">
         <Row>
           <Col>
-            <InputGroup className="mb-3">
-              <InputGroup.Text>Type</InputGroup.Text>
-              <Form.Select
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-              >
-                <option value=''>All</option>
-                {functions && (
-                  functions.length > 0 ? (
-                    functions.data.map((f) => (
-                      <option key={f} value={f}>{f}</option>
-                    ))
-                  ) : (
-                    <option value="">No data available</option>
-                  )
-                )}
-              </Form.Select>
-            </InputGroup>
+            {invalidState ?
+              <Alert key="danger" variant="danger">
+                Network Error: Try Re-Login !
+              </Alert>
+              :
+              <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+                <InputGroup.Text>Type</InputGroup.Text>
+                <Form.Select
+                  value={type}
+                  required
+                  onChange={(e) => setType(e.target.value)}
+                >
+                  <option value=''>- ALL</option>
+                  {functions && functions.data.map((f) => (
+                    <option key={f} value={f}>{f}</option>
+                  ))}
+                </Form.Select>
+              </InputGroup>
+            }
           </Col>
         </Row>
         <Row>
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Name</InputGroup.Text>
               <Form.Control
                 type="text"
@@ -115,7 +121,7 @@ const Logs = () => {
             </InputGroup>
           </Col>
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Email</InputGroup.Text>
               <Form.Control
                 type="text"
@@ -128,7 +134,7 @@ const Logs = () => {
         </Row>
         <Row>
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>IPs</InputGroup.Text>
               <Form.Control
                 as="textarea"
@@ -140,7 +146,7 @@ const Logs = () => {
           </Col>
         </Row>
         <Row>
-          <InputGroup className="mb-3">
+          <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
             <InputGroup.Text>Status</InputGroup.Text>
             <Form.Select
               value={status}
@@ -153,7 +159,7 @@ const Logs = () => {
         </Row>
         <Row>
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Duration</InputGroup.Text>
               <Form.Control
                 type="text"
@@ -164,7 +170,7 @@ const Logs = () => {
             </InputGroup>
           </Col>
           <Col>
-            <InputGroup className="mb-3">
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Comparison</InputGroup.Text>
               <Form.Select
                 value={comparison}
@@ -190,7 +196,7 @@ const Logs = () => {
         <Spinner animation="border" className="mt-3" />
       ) : data ? (
         data.data !== null ? (
-          <Table striped bordered hover className="mt-3">
+          <Table striped bordered hover className="mt-3" variant={`${theme}`}>
             <thead>
               <tr>
                 <th style={{ textAlign: 'center' }}>Type</th>

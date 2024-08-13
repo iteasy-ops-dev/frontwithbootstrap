@@ -4,8 +4,12 @@ import { InputGroup, Button, Form, Alert, Spinner, Row, Col } from 'react-bootst
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
 import config from '../config'
+import { useTheme } from '../ThemeContext';
 
 const Login = () => {
+  const { theme } = useTheme();
+  const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { data, loading, error, callApi } = useApi();
@@ -39,11 +43,11 @@ const Login = () => {
         src="/logo_iteasy.png"
       />{' '}
       Service Ops Center
-      <h1 className="my-4">Login</h1>
+      <h1 className={`my-4 ${textColorClass}`}>Login</h1>
       <Form onSubmit={handleSubmit} className="mb-3">
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3 login-form">
+            <InputGroup className="mb-3 login-form" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Email</InputGroup.Text>
               <Form.Control
                 type="email"
@@ -57,7 +61,7 @@ const Login = () => {
         </Row>
         <Row className="mb-3">
           <Col>
-            <InputGroup className="mb-3 login-form">
+            <InputGroup className="mb-3 login-form" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Password</InputGroup.Text>
               <Form.Control
                 type="password"
