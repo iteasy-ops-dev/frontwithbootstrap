@@ -11,6 +11,7 @@ import PackageManager from './manageOptions/PackageManager';
 import WebHostManager from './manageOptions/WebHostManager';
 import AccountManager from './manageOptions/AccountManager';
 import { validateEmptyObject } from "../utils/validators";
+import { toMultipartFormData } from "../utils/apiUtils";
 import { useTheme } from '../ThemeContext';
 
 const Manage = () => {
@@ -45,6 +46,7 @@ const Manage = () => {
       alert(v.message)
       return;
     }
+
     const payload = {
       type,
       email,
@@ -55,12 +57,21 @@ const Manage = () => {
       options,
     };
 
-    // console.log("payload: ", payload);
+    console.log("payload: ", payload);
 
-    try {
-      await callApi(config.api.path.run, config.api.method.POST, payload);
-    } catch (error) {
-      console.error('API call failed:', error);
+    if (!payload.options.hasOwnProperty("files")) {
+      await callApi(
+        config.api.path.run, 
+        config.api.method.POST, 
+        payload
+      );
+    } else {
+      await callApi(
+        config.api.path.run, 
+        config.api.method.POST, 
+        toMultipartFormData(payload),
+        { 'Content-Type': 'multipart/form-data' }
+      );
     }
   };
 
@@ -158,7 +169,7 @@ const Manage = () => {
         {type === "change_password" && <ChangePasswordForm handleOptionChange={handleOptionChange} />}
         {type === "prune_firewall" && <PruneFirewall />}
         {type === "change_ssh_port" && <ChangeSshPortForm handleOptionChange={handleOptionChange} />}
-        {type === "change_ssl" && <ChangeSslForm />}
+        {type === "change_ssl" && <ChangeSslForm handleOptionChange={handleOptionChange} />}
         {type === "package_manager" && <PackageManager handleOptionChange={handleOptionChange} />}
         {type === "webhost_manager" && <WebHostManager handleOptionChange={handleOptionChange} />}
         {type === "account_manager" && <AccountManager handleOptionChange={handleOptionChange} />}

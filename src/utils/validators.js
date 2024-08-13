@@ -49,3 +49,12 @@ export const validateKoreanName = (name) => {
 	}
 	return validateStatus()
 }
+
+export const validateDomain = (domain) => {
+	// 도메인 형식에 맞는 정규식
+	const domainRegex = /^(?!:\/\/)([a-zA-Z0-9-_]+(\.[a-zA-Z0-9-_]+)+)$/;
+	if (!domainRegex.test(domain)) {
+		return validateStatus('도메인이 올바르지 않습니다. 올바른 형식: example.com')
+	}
+	return validateStatus()
+}

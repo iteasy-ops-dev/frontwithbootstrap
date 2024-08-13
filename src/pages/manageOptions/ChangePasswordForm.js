@@ -4,13 +4,15 @@ import { useTheme } from '../../ThemeContext';
 
 const ChangePasswordForm = ({ handleOptionChange }) => {
 	const { theme } = useTheme();
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+	
 	const handleChange = (e) => {
 		handleOptionChange(e.target.name, e.target.value);
 	};
 
 	return (
 		<>
-			<h4>Options</h4>
+			<h4 className={`${textColorClass}`}>Options</h4>
 			<Accordion data-bs-theme={`${theme}`}>
 				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>

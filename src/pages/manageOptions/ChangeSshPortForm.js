@@ -4,6 +4,8 @@ import { useTheme } from '../../ThemeContext';
 
 const ChangeSshPortForm = ({handleOptionChange}) => {
 	const { theme } = useTheme();
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+	
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		handleOptionChange(name, value);
@@ -11,7 +13,7 @@ const ChangeSshPortForm = ({handleOptionChange}) => {
 
 	return (
 		<>
-			<h4>Options</h4>
+			<h4 className={`${textColorClass}`}>Options</h4>
 			<Accordion data-bs-theme={`${theme}`}>
 				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>

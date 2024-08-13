@@ -6,6 +6,8 @@ import { useTheme } from '../../ThemeContext';
 
 const WebHostManager = ({ handleOptionChange }) => {
 	const { theme } = useTheme();
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+	
 	const [setupType, setSetupType] = useState("");
 	const [url, setUrl] = useState('');
 	const { data, loading, error, callApi } = useApi();
@@ -63,7 +65,7 @@ const WebHostManager = ({ handleOptionChange }) => {
 
 	return (
 		<>
-			<h4>Options</h4>
+			<h4 className={`${textColorClass}`}>Options</h4>
 			<Accordion defaultActiveKey="0" data-bs-theme={`${theme}`}>
 				<Accordion.Item eventKey="0">
 					<Accordion.Header>❗️ 필독</Accordion.Header>
@@ -343,7 +345,7 @@ const SetupFields = ({ formData, onChange }) => {
 const DeleteFields = ({ formData, onChange }) => {
 	const { theme } = useTheme();
 	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
-	
+
 	const [showDbOptions, setShowDbOptions] = useState(false);
 
 	// Handler for toggling database options visibility

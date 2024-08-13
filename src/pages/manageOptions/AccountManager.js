@@ -4,6 +4,7 @@ import { useTheme } from '../../ThemeContext';
 
 const AccountManager = ({ handleOptionChange }) => {
 	const { theme } = useTheme();
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
 
 	const [action, setAction] = useState("");
 
@@ -20,7 +21,7 @@ const AccountManager = ({ handleOptionChange }) => {
 	}
 	return (
 		<>
-			<h4>Options</h4>
+			<h4 className={`${textColorClass}`}>Options</h4>
 			<Accordion data-bs-theme={`${theme}`}>
 				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>
@@ -167,7 +168,7 @@ const CreateFields = ({ onChange }) => {
 const UpdateFields = ({ onChange }) => {
 	const { theme } = useTheme();
 	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
-	
+
 	const [showOptions, setShowOptions] = useState(false);
 	const handleOptionsToggle = () => setShowOptions(prev => !prev);
 
