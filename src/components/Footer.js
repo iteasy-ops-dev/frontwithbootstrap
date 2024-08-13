@@ -13,11 +13,11 @@ const Footer = () => {
       <Nav>
         <Nav.Item className={`text-${theme === "dark" ? "light" : "dark"}`}>
           <p>Contact Information:<br />
-          {adminName} - <a href={`mailto:${adminEmail}`}><i class="bi bi-envelope"></i> {adminEmail}</a></p>
+          {adminName} - <a href={`mailto:${adminEmail}`}><i className="bi bi-envelope"></i> {adminEmail}</a></p>
         </Nav.Item>
       </Nav>
         <Button variant="secondary" onClick={toggleTheme}>
-        <i class="bi bi-arrow-repeat"></i> Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
+        <i className="bi bi-arrow-repeat"></i> Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
         </Button>
     </Navbar>
   );

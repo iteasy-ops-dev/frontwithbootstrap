@@ -49,7 +49,7 @@ const ResetPassword = () => {
 				width="120px"
 				src="/logo_iteasy.png"
 			/>{' '}
-			Service Ops Center
+			<span className={`${textColorClass}`}>Service Ops Center</span>
 			<h1 className={`my-4 ${textColorClass}`}>Reset Password</h1>
 			<Form onSubmit={handleSubmit} className="mb-3">
 				<Row className="mb-3">

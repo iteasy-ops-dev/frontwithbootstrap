@@ -117,7 +117,7 @@ const Header = () => {
             <Dropdown.Menu>
               <Dropdown.Item onClick={handleProfile}><i className="bi bi-person-circle"></i>Profile</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item onClick={handleExpirationExtension}><i class="bi bi-hourglass-split"></i>{timeLeft}</Dropdown.Item>
+              <Dropdown.Item onClick={handleExpirationExtension}><i className="bi bi-hourglass-split"></i>{timeLeft}</Dropdown.Item>
               <Dropdown.Item onClick={handleLock}><i className="bi bi-lock"></i>Lock</Dropdown.Item>
               <Dropdown.Item onClick={handleLogout}><i className="bi bi-power"></i>Logout</Dropdown.Item>
             </Dropdown.Menu>

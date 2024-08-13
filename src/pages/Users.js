@@ -83,7 +83,7 @@ const User = () => {
                     <td style={{ textAlign: 'center' }}>{new Date(user.AtCreateDate * 1000).toLocaleString()}</td>
                     <td style={{ textAlign: 'center' }}>
                       <Button variant="link" onClick={() => handleAccessLogShow(user.AccessLog)}>
-                        <i class="bi bi-info-circle-fill"></i>
+                        <i className="bi bi-info-circle-fill"></i>
                       </Button>
                     </td>
                   </tr>
@@ -95,6 +95,7 @@ const User = () => {
               </tr>
             )}
           </tbody>
+
         </Table>
       )}
 
