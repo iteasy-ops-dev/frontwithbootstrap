@@ -12,7 +12,7 @@ const ChangeSshPortForm = ({handleOptionChange}) => {
 	return (
 		<>
 			<h4>Options</h4>
-			<Accordion>
+			<Accordion data-bs-theme={`${theme}`}>
 				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>
 					<Accordion.Body>

@@ -3,6 +3,8 @@ import { Form, InputGroup, Accordion, Row, Col } from 'react-bootstrap';
 import { useTheme } from '../../ThemeContext';
 
 const AccountManager = ({ handleOptionChange }) => {
+	const { theme } = useTheme();
+
 	const [action, setAction] = useState("");
 
 	const handleChange = (e) => {
@@ -19,7 +21,7 @@ const AccountManager = ({ handleOptionChange }) => {
 	return (
 		<>
 			<h4>Options</h4>
-			<Accordion>
+			<Accordion data-bs-theme={`${theme}`}>
 				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>
 					<Accordion.Body>
@@ -65,6 +67,8 @@ const OptionSelect = ({ action, onChange }) => {
 
 const CreateFields = ({ onChange }) => {
 	const { theme } = useTheme();
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+
 	const [showOptions, setShowOptions] = useState(false);
 	const handleOptionsToggle = () => setShowOptions(prev => !prev);
 
@@ -99,6 +103,7 @@ const CreateFields = ({ onChange }) => {
 						label="추가옵션보기"
 						checked={showOptions}
 						onChange={handleOptionsToggle}
+						className={`${textColorClass}`}
 					/>
 				</Col>
 			</Row>
@@ -161,6 +166,8 @@ const CreateFields = ({ onChange }) => {
 
 const UpdateFields = ({ onChange }) => {
 	const { theme } = useTheme();
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+	
 	const [showOptions, setShowOptions] = useState(false);
 	const handleOptionsToggle = () => setShowOptions(prev => !prev);
 
@@ -195,6 +202,7 @@ const UpdateFields = ({ onChange }) => {
 						label="추가옵션보기"
 						checked={showOptions}
 						onChange={handleOptionsToggle}
+						className={`${textColorClass}`}
 					/>
 				</Col>
 			</Row>

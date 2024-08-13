@@ -55,13 +55,13 @@ const Manage = () => {
       options,
     };
 
-    // console.log("payload: ", payload);
+    console.log("payload: ", payload);
 
-    try {
-      await callApi(config.api.path.run, config.api.method.POST, payload);
-    } catch (error) {
-      console.error('API call failed:', error);
-    }
+    // try {
+    //   await callApi(config.api.path.run, config.api.method.POST, payload);
+    // } catch (error) {
+    //   console.error('API call failed:', error);
+    // }
   };
 
   return (
@@ -175,7 +175,7 @@ const Manage = () => {
       <br />
       {error && <Alert variant="danger" className="mt-3">{error}</Alert>}
       {data &&
-        <Accordion>
+        <Accordion data-bs-theme={`${theme}`}>
           <Accordion.Item>
             <Accordion.Header>{data.data.Status ? "성공 ✅" : "실패 ❌: 아래 로그 확인하세요."}</Accordion.Header>
             <Accordion.Body>

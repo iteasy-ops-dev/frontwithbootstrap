@@ -64,7 +64,7 @@ const WebHostManager = ({ handleOptionChange }) => {
 	return (
 		<>
 			<h4>Options</h4>
-			<Accordion defaultActiveKey="0">
+			<Accordion defaultActiveKey="0" data-bs-theme={`${theme}`}>
 				<Accordion.Item eventKey="0">
 					<Accordion.Header>❗️ 필독</Accordion.Header>
 					<Accordion.Body>
@@ -147,6 +147,7 @@ const OptionSelect = ({ setupType, onChange }) => {
 
 const SetupFields = ({ formData, onChange }) => {
 	const { theme } = useTheme();
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
 	const [showDbOptions, setShowDbOptions] = useState(false);
 	const [showQuotaOptions, setShowQuotaOptions] = useState(false);
 	const [showCbandOptions, setShowCbandOptions] = useState(false);
@@ -216,6 +217,7 @@ const SetupFields = ({ formData, onChange }) => {
 						label="Cband옵션"
 						checked={showCbandOptions}
 						onChange={handleCbandOptionsToggle}
+						className={`${textColorClass}`}
 					/>
 					{showCbandOptions && (
 						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
@@ -238,6 +240,7 @@ const SetupFields = ({ formData, onChange }) => {
 						label="Quota옵션"
 						checked={showQuotaOptions}
 						onChange={handleQuotaOptionsToggle}
+						className={`${textColorClass}`}
 					/>
 					{showQuotaOptions && (
 						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
@@ -260,6 +263,7 @@ const SetupFields = ({ formData, onChange }) => {
 						label="DB옵션"
 						checked={showDbOptions}
 						onChange={handleDbOptionsToggle}
+						className={`${textColorClass}`}
 					/>
 					{showDbOptions && (
 						<>
@@ -338,6 +342,8 @@ const SetupFields = ({ formData, onChange }) => {
 
 const DeleteFields = ({ formData, onChange }) => {
 	const { theme } = useTheme();
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+	
 	const [showDbOptions, setShowDbOptions] = useState(false);
 
 	// Handler for toggling database options visibility
@@ -370,6 +376,7 @@ const DeleteFields = ({ formData, onChange }) => {
 						label="DB옵션"
 						checked={showDbOptions}
 						onChange={handleDbOptionsToggle}
+						className={`${textColorClass}`}
 					/>
 				</Col>
 			</Row>
