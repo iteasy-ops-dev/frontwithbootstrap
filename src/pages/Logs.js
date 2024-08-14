@@ -107,7 +107,11 @@ const Logs = () => {
               </InputGroup>
             }
           </Col>
-          <Col></Col>
+          <Col>
+            <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={loading}>
+              {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Search'}
+            </Button>
+          </Col>
         </Row>
         <Row>
           <Col>
@@ -186,9 +190,6 @@ const Logs = () => {
             </InputGroup>
           </Col>
         </Row>
-        <Button variant="primary" type="submit" className="mt-3" disabled={loading}>
-          {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Search'}
-        </Button>
       </Form>
 
       {error && <Alert variant="danger" className="mt-3">{error}</Alert>}

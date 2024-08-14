@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useApi from '../hooks/useApi';
 import config from '../config';
 import { useAuth } from '../AuthContext';
-import { OverlayTrigger, Popover, Form, Button, Alert, Spinner, InputGroup, Row, Col, Accordion } from 'react-bootstrap';
+import { Badge, OverlayTrigger, Popover, Form, Button, Alert, Spinner, InputGroup, Row, Col, Accordion } from 'react-bootstrap';
 import ChangePasswordForm from './manageOptions/ChangePasswordForm';
 import ChangeSshPortForm from './manageOptions/ChangeSshPortForm';
 import ChangeSslForm from './manageOptions/ChangeSslForm';
@@ -155,7 +155,10 @@ const Manage = () => {
             <Col>
               {type === "" ?
                 <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-                  <InputGroup.Text><i className="bi bi-arrow-left-circle-fill"></i></InputGroup.Text>
+                  <InputGroup.Text>
+                    <i className="bi bi-arrow-left-circle-fill"></i>
+                    <Badge pill bg={`${theme === 'light' ? 'dark' : 'light'}`} text={`${theme}`}>1</Badge>
+                  </InputGroup.Text>
                   <Form.Control
                     type="text"
                     value="작업 타입을 선택합니다."
@@ -166,7 +169,10 @@ const Manage = () => {
                 </InputGroup>
                 :
                 <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-                  <InputGroup.Text><i className="bi bi-arrow-down-circle-fill"></i></InputGroup.Text>
+                  <InputGroup.Text>
+                    <i className="bi bi-arrow-down-circle-fill"></i>
+                    <Badge pill bg={`${theme === 'light' ? 'dark' : 'light'}`} text={`${theme}`}>2</Badge>
+                  </InputGroup.Text>
                   <Form.Control
                     type="text"
                     value="작업할 서버의 접속 정보를 기입합니다."
@@ -242,13 +248,15 @@ const Manage = () => {
         {type === "account_manager" && <AccountManager handleOptionChange={handleOptionChange} />}
         {/* 추가 옵션 확장 */}
         <br />
+
         {type !== '' &&
-          <>
-            <Button variant="primary" type="submit" disabled={loading}>
+          <Row>
+            <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={loading}>
               {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Submit'}
             </Button>
-          </>
+          </Row>
         }
+        
       </Form>
       <br />
       {error && <Alert variant="danger" className="mt-3">{error}</Alert>}

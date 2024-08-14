@@ -36,9 +36,9 @@ const Header = () => {
           const minutes = Math.floor(remainingTime / 60);
           const seconds = remainingTime % 60;
           setTimeLeft(`${minutes}m ${seconds}s`);
-          
+
           // 남은 시간이 5분 이하일 때 연장 모달을 표시
-          if (remainingTime <= 300 && !showExtendModal) {
+          if (remainingTime === 300 && !showExtendModal) {
             setShowExtendModal(true);
           }
         } else {
@@ -51,7 +51,6 @@ const Header = () => {
     };
 
     updateRemainingTime(); // Initial update
-
     const intervalId = setInterval(updateRemainingTime, 1000); // Update every second
 
     return () => clearInterval(intervalId); // Clean up on component unmount
@@ -153,12 +152,12 @@ const Header = () => {
           </Modal.Footer>
       </Modal>
 
-      <Modal data-bs-theme={`${theme}`} how={showExtendModal} onHide={handleExtendModalClose}>
+      <Modal data-bs-theme={`${theme}`} show={showExtendModal} onHide={handleExtendModalClose}>
         <Modal.Header className={`${textColorClass}`} closeButton>
           <Modal.Title>세션 연장</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>세션이 곧 만료됩니다. 연장하시겠습니까?</Modal.Body>
+        <Modal.Body className={`${textColorClass}`}>세션이 곧 만료됩니다. 연장하시겠습니까?</Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={handleExtendModalClose}>

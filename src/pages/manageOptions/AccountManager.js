@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, InputGroup, Accordion, Row, Col } from 'react-bootstrap';
+import { Badge, Form, InputGroup, Accordion, Row, Col } from 'react-bootstrap';
 import { useTheme } from '../../ThemeContext';
 
 const AccountManager = ({ handleOptionChange }) => {
@@ -68,7 +68,10 @@ const OptionSelect = ({ action, onChange }) => {
 			<Col>
 				{action === "" ?
 					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-						<InputGroup.Text><i className="bi bi-arrow-left-circle-fill"></i></InputGroup.Text>
+						<InputGroup.Text>
+							<i className="bi bi-arrow-left-circle-fill"></i>
+							<Badge pill bg={`${theme === 'light' ? 'dark' : 'light'}`} text={`${theme}`}>1</Badge>
+						</InputGroup.Text>
 						<Form.Control
 							type="text"
 							value="작업 타입을 선택합니다."
@@ -79,7 +82,10 @@ const OptionSelect = ({ action, onChange }) => {
 					</InputGroup>
 					:
 					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-						<InputGroup.Text><i className="bi bi-arrow-down-circle-fill"></i></InputGroup.Text>
+						<InputGroup.Text>
+							<i className="bi bi-arrow-down-circle-fill"></i>
+							<Badge pill bg={`${theme === 'light' ? 'dark' : 'light'}`} text={`${theme}`}>2</Badge>
+						</InputGroup.Text>
 						<Form.Control
 							type="text"
 							value="작업 옵션 정보를 기입합니다."
@@ -270,6 +276,7 @@ const UpdateFields = ({ onChange }) => {
 }
 const DeleteFields = ({ onChange }) => {
 	const { theme } = useTheme();
+
 	return (
 		<>
 			<Row className="mb-3">

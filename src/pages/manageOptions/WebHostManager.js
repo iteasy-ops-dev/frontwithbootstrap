@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, InputGroup, Accordion, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
+import { Badge, Form, InputGroup, Accordion, Row, Col, Button, Spinner, Alert } from 'react-bootstrap';
 import config from '../../config';
 import useApi from '../../hooks/useApi';
 import { useTheme } from '../../ThemeContext';
@@ -104,9 +104,9 @@ const WebHostManager = ({ handleOptionChange }) => {
 								type="text"
 								onChange={(e) => setUrl(e.target.value)}
 							/>
-						<Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleButtonClick} disabled={loading}>
-							{loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
-						</Button>
+							<Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleButtonClick} disabled={loading}>
+								{loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
+							</Button>
 						</InputGroup>
 						{error && <Alert variant="danger" className="mt-3">{error}</Alert>}
 						{data && <Alert variant="success" className="mt-3"><i className="bi bi-arrow-down-circle-fill"></i> 하단의 타입을 누르고 내용을 확인하세요.</Alert>}
@@ -150,7 +150,10 @@ const OptionSelect = ({ setupType, onChange }) => {
 				<Col>
 					{setupType === "" ?
 						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-							<InputGroup.Text><i className="bi bi-arrow-left-circle-fill"></i></InputGroup.Text>
+							<InputGroup.Text>
+								<i className="bi bi-arrow-left-circle-fill"></i>
+								<Badge pill bg={`${theme === 'light' ? 'dark' : 'light'}`} text={`${theme}`}>1</Badge>
+							</InputGroup.Text>
 							<Form.Control
 								type="text"
 								value="작업 타입을 선택합니다."
@@ -161,7 +164,10 @@ const OptionSelect = ({ setupType, onChange }) => {
 						</InputGroup>
 						:
 						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-							<InputGroup.Text><i className="bi bi-arrow-down-circle-fill"></i></InputGroup.Text>
+							<InputGroup.Text>
+								<i className="bi bi-arrow-down-circle-fill"></i>
+								<Badge pill bg={`${theme === 'light' ? 'dark' : 'light'}`} text={`${theme}`}>2</Badge>
+							</InputGroup.Text>
 							<Form.Control
 								type="text"
 								value="작업 옵션 정보를 기입합니다."
