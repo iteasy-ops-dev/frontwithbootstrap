@@ -58,7 +58,8 @@ const config = {
 		}
 	},
 	localStorage: {
-		lockPassword: "lockPassword"
+		lockPassword: "lockPassword",
+		functions: "functions"
 	}
 };
 

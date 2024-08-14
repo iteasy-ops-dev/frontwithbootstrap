@@ -7,7 +7,7 @@ import { useTheme } from '../../ThemeContext';
 const WebHostManager = ({ handleOptionChange }) => {
 	const { theme } = useTheme();
 	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
-	
+
 	const [setupType, setSetupType] = useState("");
 	const [url, setUrl] = useState('');
 	const { data, loading, error, callApi } = useApi();
@@ -104,11 +104,12 @@ const WebHostManager = ({ handleOptionChange }) => {
 								type="text"
 								onChange={(e) => setUrl(e.target.value)}
 							/>
-						</InputGroup>
-						<Button variant="primary" onClick={handleButtonClick} disabled={loading}>
+						<Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleButtonClick} disabled={loading}>
 							{loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
 						</Button>
+						</InputGroup>
 						{error && <Alert variant="danger" className="mt-3">{error}</Alert>}
+						{data && <Alert variant="success" className="mt-3"><i className="bi bi-arrow-down-circle-fill"></i> 하단의 타입을 누르고 내용을 확인하세요.</Alert>}
 					</Accordion.Body>
 				</Accordion.Item>
 			</Accordion>
@@ -131,18 +132,47 @@ const OptionSelect = ({ setupType, onChange }) => {
 	const { theme } = useTheme();
 	return (
 		<>
-			<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-				<InputGroup.Text>Type</InputGroup.Text>
-				<Form.Select
-					name="setup"
-					value={setupType}
-					onChange={onChange}
-				>
-					<option value="">- Options</option>
-					<option value="true">생성</option>
-					<option value="false">삭제</option>
-				</Form.Select>
-			</InputGroup>
+			<Row>
+				<Col>
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text>Type</InputGroup.Text>
+						<Form.Select
+							name="setup"
+							value={setupType}
+							onChange={onChange}
+						>
+							<option value="">- Options</option>
+							<option value="true">생성</option>
+							<option value="false">삭제</option>
+						</Form.Select>
+					</InputGroup>
+				</Col>
+				<Col>
+					{setupType === "" ?
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+							<InputGroup.Text><i className="bi bi-arrow-left-circle-fill"></i></InputGroup.Text>
+							<Form.Control
+								type="text"
+								value="작업 타입을 선택합니다."
+								readOnly
+								disabled
+								required
+							/>
+						</InputGroup>
+						:
+						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+							<InputGroup.Text><i className="bi bi-arrow-down-circle-fill"></i></InputGroup.Text>
+							<Form.Control
+								type="text"
+								value="작업 옵션 정보를 기입합니다."
+								readOnly
+								disabled
+								required
+							/>
+						</InputGroup>
+					}
+				</Col>
+			</Row>
 		</>
 	);
 };

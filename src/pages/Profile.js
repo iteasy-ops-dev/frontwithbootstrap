@@ -50,6 +50,7 @@ const Profile = () => {
 
 	const handlerResetLockPassword = () => {
 		localStorage.removeItem(config.localStorage.lockPassword)
+		alert("잠금 비밀번호 초기화 완료.")
 	}
 
 	return (

@@ -49,19 +49,49 @@ export default AccountManager
 const OptionSelect = ({ action, onChange }) => {
 	const { theme } = useTheme();
 	return (
-		<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-			<InputGroup.Text>Type</InputGroup.Text>
-			<Form.Select
-				name="action"
-				value={action}
-				onChange={onChange}
-			>
-				<option value="">- Options</option>
-				<option value="create">생성</option>
-				<option value="update">수정</option>
-				<option value="delete">삭제</option>
-			</Form.Select>
-		</InputGroup>
+		<Row>
+			<Col>
+				<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+					<InputGroup.Text>Type</InputGroup.Text>
+					<Form.Select
+						name="action"
+						value={action}
+						onChange={onChange}
+					>
+						<option value="">- Options</option>
+						<option value="create">생성</option>
+						<option value="update">수정</option>
+						<option value="delete">삭제</option>
+					</Form.Select>
+				</InputGroup>
+			</Col>
+			<Col>
+				{action === "" ?
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text><i className="bi bi-arrow-left-circle-fill"></i></InputGroup.Text>
+						<Form.Control
+							type="text"
+							value="작업 타입을 선택합니다."
+							readOnly
+							disabled
+							required
+						/>
+					</InputGroup>
+					:
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text><i className="bi bi-arrow-down-circle-fill"></i></InputGroup.Text>
+						<Form.Control
+							type="text"
+							value="작업 옵션 정보를 기입합니다."
+							readOnly
+							disabled
+							required
+						/>
+					</InputGroup>
+				}</Col>
+
+		</Row>
+
 	);
 };
 

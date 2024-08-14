@@ -107,6 +107,7 @@ const Logs = () => {
               </InputGroup>
             }
           </Col>
+          <Col></Col>
         </Row>
         <Row>
           <Col>
