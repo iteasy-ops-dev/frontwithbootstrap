@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Logs from './pages/Logs';
 import Users from './pages/Users';
 import Manage from './pages/Manage';
+import Roulette from './pages/Games';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
@@ -49,6 +50,7 @@ const Main = () => {
     '/logs',
     '/users',
     '/manage',
+    '/games',
     '/login',
     '/signup',
     '/reset-password',
@@ -67,6 +69,7 @@ const Main = () => {
             <Route path="/logs" element={<ProtectedRoute element={<Logs />} redirectTo="/login" />} />
             <Route path="/users" element={<ProtectedRoute element={<Users />} redirectTo="/login" />} />
             <Route path="/manage" element={<ProtectedRoute element={<Manage />} redirectTo="/login" />} />
+            <Route path="/games" element={<ProtectedRoute element={<Roulette />} redirectTo="/login" />} />
             <Route path="/login" element={<RedirectToHomeIfAuthenticated element={<Login />} />} />
             <Route path="/signup" element={<RedirectToHomeIfAuthenticated element={<Signup />} />} />
             <Route path="/reset-password" element={<RedirectToHomeIfAuthenticated element={<ResetPassword />} />} />

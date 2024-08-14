@@ -96,7 +96,6 @@ const Logs = () => {
                 <InputGroup.Text>Type</InputGroup.Text>
                 <Form.Select
                   value={type}
-                  required
                   onChange={(e) => setType(e.target.value)}
                 >
                   <option value=''>- ALL</option>
