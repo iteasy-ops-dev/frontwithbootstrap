@@ -28,7 +28,7 @@ const Roulette = () => {
     };
 
     const handleSubField = () => {
-        if (rouletteData.length > 1) {
+        if (rouletteData.length > 2) {
             const newRouletteData = rouletteData.slice(0, -1);
             setRouletteData(newRouletteData);
             setFieldAmount(newRouletteData.length);
@@ -53,7 +53,7 @@ const Roulette = () => {
     return (
         <>
             <h1 className={`header-title ${textColorClass}`}>Roulette</h1>
-            <p className={`header-description ${textColorClass}`}>Joy!</p>
+            <p className={`header-description ${textColorClass}`}>Enjoy!</p>
             <Row>
                 <Col>
                     <Wheel
