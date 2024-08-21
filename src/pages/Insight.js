@@ -38,9 +38,10 @@ const Insight = () => {
 
   const [loading, setLoading] = useState(true);
 
-  // const [fetchStartDate, setFetchStartDate] = useState(new Date());
-  // const [fetchEndDate, setFetchEndDate] = useState(new Date());
+  const [fetchStartDate, setFetchStartDate] = useState(new Date());
+  const [fetchEndDate, setFetchEndDate] = useState(new Date());
   const [company, setCompany] = useState("");
+  const [subCategory, setSubCategory] = useState("");
 
   const fetchDashboard = () => {
     dashboardApi.callApi(
@@ -160,10 +161,14 @@ const Insight = () => {
         $regex: company,
         $options: "i"
       },
-      // registration_date: {
-      //   $gte: `${formatDate(fetchStartDate)} 00:00`,
-      //   $lte: `${formatDate(fetchEndDate)} 23:59`
-      // }
+      sub_category: {
+        $regex: subCategory,
+        $options: "i"
+      },
+      registration_date: {
+        $gte: `${formatDate(fetchStartDate).substring(2)} 00:00`,
+        $lte: `${formatDate(fetchEndDate).substring(2)} 23:59`,
+      }
     });
   };
 
@@ -276,6 +281,43 @@ const Insight = () => {
                 type="text"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>SubCategory</InputGroup.Text>
+              <Form.Control
+                type="text"
+                value={subCategory}
+                onChange={(e) => setSubCategory(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+          <Col sm={2}>
+            
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Start</InputGroup.Text>
+              <DatePicker
+                selected={fetchStartDate}
+                dateFormat="yyyy-MM-dd"
+                onChange={(date) => setFetchStartDate(date)}
+                className="form-control"
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>End</InputGroup.Text>
+              <DatePicker
+                selected={fetchEndDate}
+                dateFormat="yyyy-MM-dd"
+                onChange={(date) => setFetchEndDate(date)}
+                className="form-control"
               />
             </InputGroup>
           </Col>
