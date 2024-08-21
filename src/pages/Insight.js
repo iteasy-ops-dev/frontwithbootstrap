@@ -42,6 +42,7 @@ const Insight = () => {
   const [fetchEndDate, setFetchEndDate] = useState(new Date());
   const [company, setCompany] = useState("");
   const [subCategory, setSubCategory] = useState("");
+  const [requestDetails, setRequestDetails] = useState("");
 
   const fetchDashboard = () => {
     dashboardApi.callApi(
@@ -119,6 +120,7 @@ const Insight = () => {
       config.api.method.POST,
       { start_date: formatDate(start_date), num_days: parseInt(num_days, 10) },
     );
+    alert("업데이트를 시작합니다.")
   };
 
   const formatDate = (date) => {
@@ -168,6 +170,10 @@ const Insight = () => {
       registration_date: {
         $gte: `${formatDate(fetchStartDate).substring(2)} 00:00`,
         $lte: `${formatDate(fetchEndDate).substring(2)} 23:59`,
+      },
+      work_request_details: {
+        $regex: requestDetails,
+        $options: "i"
       }
     });
   };
@@ -194,6 +200,111 @@ const Insight = () => {
     <>
       <h1 className={`header-title ${textColorClass}`}>Insight</h1>
       <p className={`header-description ${textColorClass}`}>Here you can get insights into your work requests.</p>
+      <Row>
+        <p className={`header-description ${textColorClass}`}><strong>Update</strong></p>
+      </Row>
+      <Form onSubmit={handleUpdateSubmit} className="mb-3">
+        <Row>
+          <Col md={6}>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Start Date</InputGroup.Text>
+              <DatePicker
+                selected={start_date}
+                dateFormat="yyyy-MM-dd"
+                onChange={(date) => setStart_date(date)}
+                className="form-control"
+              />
+            </InputGroup>
+          </Col>
+          <Col md={4}>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Range</InputGroup.Text>
+              <Form.Control
+                type="number"
+                value={num_days}
+                onChange={(e) => setNum_days(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+          <Col md={2}>
+            <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={updateApi.loading || !isAdmin}>
+              {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Update'}
+            </Button>
+          </Col>
+        </Row>
+      </Form>
+      <Row>
+        <p className={`header-description ${textColorClass}`}><strong>Search</strong></p>
+      </Row>
+      <Form onSubmit={handleFetchSubmit} className="mb-3">
+        <Row>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Company</InputGroup.Text>
+              <Form.Control
+                type="text"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Sub Category</InputGroup.Text>
+              <Form.Control
+                type="text"
+                value={subCategory}
+                onChange={(e) => setSubCategory(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Start</InputGroup.Text>
+              <DatePicker
+                selected={fetchStartDate}
+                dateFormat="yyyy-MM-dd"
+                onChange={(date) => setFetchStartDate(date)}
+                className="form-control"
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>End</InputGroup.Text>
+              <DatePicker
+                selected={fetchEndDate}
+                dateFormat="yyyy-MM-dd"
+                onChange={(date) => setFetchEndDate(date)}
+                className="form-control"
+              />
+            </InputGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Request Details</InputGroup.Text>
+              <Form.Control
+                type="text"
+                value={requestDetails}
+                onChange={(e) => setRequestDetails(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={fetchApi.loading}>
+              {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
+            </Button>
+          </Col>
+        </Row>
+      </Form>
+
+      <Row>
+        <p className={`header-description ${textColorClass}`}><strong>Chart</strong></p>
+      </Row>
       {loading ? (
         <Spinner animation="border" className="mt-3" />
       ) : (
@@ -236,99 +347,8 @@ const Insight = () => {
           </Alert>
         )
       )}
-      <Row>
-        <p className={`header-description ${textColorClass}`}><strong>Update</strong></p>
-      </Row>
-      <Form onSubmit={handleUpdateSubmit} className="mb-3">
-        <Row>
-          <Col sm={6}>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>Start Date</InputGroup.Text>
-              <DatePicker
-                selected={start_date}
-                dateFormat="yyyy-MM-dd"
-                onChange={(date) => setStart_date(date)}
-                className="form-control"
-              />
-            </InputGroup>
-          </Col>
-          <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>Range</InputGroup.Text>
-              <Form.Control
-                type="number"
-                value={num_days}
-                onChange={(e) => setNum_days(e.target.value)}
-              />
-            </InputGroup>
-          </Col>
-          <Col>
-            <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={updateApi.loading || !isAdmin}>
-              {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Update'}
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-      <Row>
-        <p className={`header-description ${textColorClass}`}><strong>Search</strong></p>
-      </Row>
-      <Form onSubmit={handleFetchSubmit} className="mb-3">
-        <Row>
-          <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>Company</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-              />
-            </InputGroup>
-          </Col>
-          <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>SubCategory</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={subCategory}
-                onChange={(e) => setSubCategory(e.target.value)}
-              />
-            </InputGroup>
-          </Col>
-          <Col sm={2}>
-            
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>Start</InputGroup.Text>
-              <DatePicker
-                selected={fetchStartDate}
-                dateFormat="yyyy-MM-dd"
-                onChange={(date) => setFetchStartDate(date)}
-                className="form-control"
-              />
-            </InputGroup>
-          </Col>
-          <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>End</InputGroup.Text>
-              <DatePicker
-                selected={fetchEndDate}
-                dateFormat="yyyy-MM-dd"
-                onChange={(date) => setFetchEndDate(date)}
-                className="form-control"
-              />
-            </InputGroup>
-          </Col>
-          <Col sm={2}>
-            <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={fetchApi.loading}>
-              {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
-            </Button>
-          </Col>
-        </Row>
-      </Form>
-
+      
+      <br />
       {fetchApi.loading ? (
         <Spinner animation="border" className="mt-3" />
       ) : fetchApi.data && fetchApi.data.data ? (
