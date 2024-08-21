@@ -36,6 +36,12 @@ const NavbarComponent = () => {
           </NavLink>
         </Nav.Item>
         <Nav.Item className="mb-3">
+          <NavLink to="/insight" className={({ isActive }) => getNavLinkClassName(isActive)}>
+            <i class="bi bi-lightbulb-fill"></i>
+            <span className="nav-text">Insight</span>
+          </NavLink>
+        </Nav.Item>
+        <Nav.Item className="mb-3">
           <NavLink to="/dashboard" className={({ isActive }) => getNavLinkClassName(isActive)}>
             <i className="bi bi-speedometer"></i>
             <span className="nav-text">Dashboard</span>
@@ -62,7 +68,7 @@ const NavbarComponent = () => {
         <Nav.Item className="mb-3">
           <NavLink to="/games" className={({ isActive }) => getNavLinkClassName(isActive)}>
             <i className="bi bi-controller"></i>
-            <span className="nav-text">Games</span>
+            <span className="nav-text">Roulette</span>
           </NavLink>
         </Nav.Item>
       </Nav>

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import Insight from './pages/Insight';
 import Dashboard from './pages/Dashboard';
 import Logs from './pages/Logs';
 import Users from './pages/Users';
@@ -45,6 +46,7 @@ const Main = () => {
   const isAuthPage = ['/login', '/signup', '/reset-password', '/lock'].includes(location.pathname);
   const isNotFoundPage = location.pathname !== '/' && ![
     '/home',
+    '/insight',
     '/dashboard',
     '/profile',
     '/logs',
@@ -64,6 +66,7 @@ const Main = () => {
         <div className={`main flex-grow-1 p-3 bg-${theme}`}>
           <Routes>
             <Route path="/home" element={<ProtectedRoute element={<Home />} redirectTo="/login" />} />
+            <Route path="/insight" element={<ProtectedRoute element={<Insight />} redirectTo="/login" />} />
             <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} redirectTo="/login" />} />
             <Route path="/profile" element={<ProtectedRoute element={<Profile />} redirectTo="/login" />} />
             <Route path="/logs" element={<ProtectedRoute element={<Logs />} redirectTo="/login" />} />

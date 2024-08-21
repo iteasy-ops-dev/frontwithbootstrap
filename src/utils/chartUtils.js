@@ -36,6 +36,7 @@ const colors = [
 ];
 
 export const getChartData = (labels, data) => {
+  // console.log(data)
    // 객체 배열을 랜덤으로 섞기
    const shuffledColors = shuffleArray(colors);
 

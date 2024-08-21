@@ -21,6 +21,9 @@ const config = {
 			update_active: "/update_active",
 			run: "/run",
 			erpparser: "/erp-parser",
+			update_work_history: "/update-work-history",
+			get_work_history: "/get-work-history",
+			insight: "/insight",
 		}
 	},
 	jwt: {

@@ -58,3 +58,11 @@ export const validateDomain = (domain) => {
 	}
 	return validateStatus()
 }
+
+export const validateUint = (n) => {
+	
+	if (n <= 0) {
+		return validateStatus('해당 숫자는 0보다 커야 합니다.')
+	}
+	return validateStatus()
+}
