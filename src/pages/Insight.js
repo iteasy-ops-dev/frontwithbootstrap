@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
-import { Modal, InputGroup, Card, Table, Alert, Button, Spinner, Form, Row, Col } from 'react-bootstrap';
+import { Modal, InputGroup, Card, Table, Alert, Button, Spinner, Form, Row, Col, Pagination } from 'react-bootstrap';
 import config from '../config';
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
@@ -38,8 +38,8 @@ const Insight = () => {
 
   const [loading, setLoading] = useState(true);
 
-  const [fetchStartDate, setFetchStartDate] = useState(new Date());
-  const [fetchEndDate, setFetchEndDate] = useState(new Date());
+  // const [fetchStartDate, setFetchStartDate] = useState(new Date());
+  // const [fetchEndDate, setFetchEndDate] = useState(new Date());
   const [company, setCompany] = useState("");
 
   const fetchDashboard = () => {
@@ -138,21 +138,19 @@ const Insight = () => {
     fetchData(currentPage);
   };
 
-  const handlePageChange = (newPage) => {
-    if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
-    }
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
-  const handleDefailsShow = (log) => {
+  const handleDetailsShow = (log) => {
     setSelectedLog(log);
     setShowDetails(true);
-  }
+  };
 
   const handleDetailsClose = () => {
     setShowDetails(false);
     setSelectedLog(null);
-  }
+  };
 
   const handleFetchSubmit = (e) => {
     e.preventDefault();
@@ -166,8 +164,25 @@ const Insight = () => {
       //   $gte: `${formatDate(fetchStartDate)} 00:00`,
       //   $lte: `${formatDate(fetchEndDate)} 23:59`
       // }
-    })
+    });
+  };
 
+  // Pagination component
+  const itemsPerSide = 5; // Number of page buttons to show on each side of the current page
+  const startPage = Math.max(1, currentPage - itemsPerSide)
+  const endPage = Math.min(totalPages, currentPage + itemsPerSide);
+
+  const paginationItems = [];
+  for (let number = startPage; number <= endPage; number++) {
+    paginationItems.push(
+      <Pagination.Item
+        key={number}
+        active={number === currentPage}
+        onClick={() => handlePageChange(number)}
+      >
+        {number}
+      </Pagination.Item>
+    );
   }
 
   return (
@@ -254,28 +269,6 @@ const Insight = () => {
       </Row>
       <Form onSubmit={handleFetchSubmit} className="mb-3">
         <Row>
-          {/* <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>Start</InputGroup.Text>
-              <DatePicker
-                selected={fetchStartDate}
-                dateFormat="yyyy-MM-dd"
-                onChange={(date) => setFetchStartDate(date)}
-                className="form-control"
-              />
-            </InputGroup>
-          </Col>
-          <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>End</InputGroup.Text>
-              <DatePicker
-                selected={fetchEndDate}
-                dateFormat="yyyy-MM-dd"
-                onChange={(date) => setFetchEndDate(date)}
-                className="form-control"
-              />
-            </InputGroup>
-          </Col> */}
           <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Company</InputGroup.Text>
@@ -287,13 +280,12 @@ const Insight = () => {
             </InputGroup>
           </Col>
           <Col sm={2}>
-            <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={updateApi.loading || !isAdmin}>
+            <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={fetchApi.loading}>
               {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
             </Button>
           </Col>
         </Row>
       </Form>
-
 
       {fetchApi.loading ? (
         <Spinner animation="border" className="mt-3" />
@@ -327,8 +319,8 @@ const Insight = () => {
                       <td style={{ textAlign: 'center' }}>{log.ClientCompany}</td>
                       <td style={{ textAlign: 'center' }}>{log.Brand}</td>
                       <td style={{ textAlign: 'center' }}>
-                        <Button variant="link" onClick={() => handleDefailsShow(log)}>
-                          <i class="bi bi-ticket-detailed"></i>
+                        <Button variant="link" onClick={() => handleDetailsShow(log)}>
+                          <i className="bi bi-ticket-detailed"></i>
                         </Button>
                       </td>
                       <td style={{ textAlign: 'center' }}>
@@ -341,15 +333,19 @@ const Insight = () => {
                 ))}
               </tbody>
             </Table>
-            <div className="d-flex justify-content-between mt-3">
-              <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                <i className="bi bi-arrow-left"></i> Previous
-              </Button>
-              <span className={`${textColorClass}`}>Page {currentPage} of {totalPages}</span>
-              <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-                Next <i className="bi bi-arrow-right"></i>
-              </Button>
-            </div>
+            <Row>
+              <Col></Col>
+              <Col>
+                <Pagination className="mt-3" data-bs-theme={`${theme}`}>
+                  <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+                  <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+                  {paginationItems}
+                  <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+                  <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
+                </Pagination>
+              </Col>
+              <Col></Col>
+            </Row>
           </>
         ) : (
           <Alert variant="warning">
