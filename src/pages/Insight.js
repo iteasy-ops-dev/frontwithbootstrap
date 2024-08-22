@@ -110,6 +110,7 @@ const Insight = () => {
   }, [fetchApi]);
 
   useEffect(() => {
+    // console.log(currentPage)
     fetchData(currentPage);
     fetchDashboard();
   }, [currentPage, filter]);
@@ -157,6 +158,8 @@ const Insight = () => {
 
   const handleFetchSubmit = (e) => {
     e.preventDefault();
+    // 페이지를 초기화 해야함
+    setCurrentPage(1);
 
     setFilter({
       client_company: {
