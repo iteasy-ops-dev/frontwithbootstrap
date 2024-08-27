@@ -19,6 +19,7 @@ const Insight = () => {
 
   const [start_date, setStart_date] = useState(new Date());
   const [num_days, setNum_days] = useState(1);
+  
   const [filter, setFilter] = useState({});
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -375,7 +376,7 @@ const Insight = () => {
               </thead>
               <tbody>
                 {fetchApi.data.data.data.map((log) => (
-                  <React.Fragment key={log.ID}>
+                  <React.Fragment key={log.RegistrationDate}>
                     <tr>
                       <td style={{ textAlign: 'center' }}>{log.RegistrationDate}</td>
                       <td style={{ textAlign: 'center' }}>{log.Index}</td>

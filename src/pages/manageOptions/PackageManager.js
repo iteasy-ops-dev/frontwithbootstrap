@@ -28,7 +28,7 @@ const PackageManager = ({ handleOptionChange }) => {
 				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>
 					<Accordion.Body>
-						👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.package_manager' target='_blank'>Repository</a>
+						👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.package_manager' target="_blank" rel="noreferrer">Repository</a>
 					</Accordion.Body>
 				</Accordion.Item>
 			</Accordion>

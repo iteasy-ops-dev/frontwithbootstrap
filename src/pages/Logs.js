@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { InputGroup, Table, Alert, Button, Spinner, Form, Modal, Row, Col } from 'react-bootstrap';
+import { InputGroup, Table, Alert, Button, Spinner, Form, Modal, Row, Col, Pagination } from 'react-bootstrap';
 import config from '../config';
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
@@ -13,10 +13,16 @@ const Logs = () => {
   const { functions } = useAuth();
   const invalidState = functions === null || functions === undefined
 
+  // 검색 옵션
+  const [filter, setFilter] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const pageSize = 10;
+
   const [type, setType] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [ips, setIps] = useState('');
+  // const [ips, setIps] = useState('');
   // const [account, setAccount] = useState('');
   const [status, setStatus] = useState('');
   const [duration, setDuration] = useState('');
@@ -27,24 +33,59 @@ const Logs = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
 
-  const fetchData = () => {
+  const fetchData = (page) => {
     callApi(
       config.api.path.logs,
-      config.api.method.GET,
-      null,
-      null,
-      { type, name, email, status, duration, comparison, ips } // account 삭제
+      config.api.method.POST,
+      { filter, page, pageSize }
     );
-  }
+  };
 
   useEffect(() => {
-    fetchData();
-  }, [type, status, comparison]);
+    if (data) {
+      setTotalPages(data.data.totalPages);
+    }
+  }, [data]);
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [type, status, comparison]);
+
+  useEffect(() => {
+    // console.log(currentPage)
+    fetchData(currentPage);
+  }, [currentPage, filter]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    fetchData();
+    setCurrentPage(1);
+
+    const statusBool = status === 'true' ? true : status === 'false' ? false : '';
+    const durationFilter = duration
+      ? { [`$${comparison}`]: parseFloat(duration) }
+      : { $exists: true };
+
+    setFilter({
+      type: {
+        $regex: type,
+        $options: "i"
+      },
+      name: {
+        $regex: name,
+        $options: "i"
+      },
+      email: {
+        $regex: email,
+        $options: "i"
+      },
+      status: statusBool !== '' ? statusBool : { $exists: true },
+      duration: comparison ? durationFilter : { $exists: true },
+    });
   }
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   const handleUserShow = (log) => {
     // console.log('Selected log:', log); // 디버깅을 위해 로그를 출력합니다.
@@ -79,11 +120,32 @@ const Logs = () => {
     setSelectedLog(null);
   }
 
+  // Pagination component
+  const itemsPerSide = 5; // Number of page buttons to show on each side of the current page
+  const startPage = Math.max(1, currentPage - itemsPerSide)
+  const endPage = Math.min(totalPages, currentPage + itemsPerSide);
+
+  const paginationItems = [];
+  for (let number = startPage; number <= endPage; number++) {
+    paginationItems.push(
+      <Pagination.Item
+        key={number}
+        active={number === currentPage}
+        onClick={() => handlePageChange(number)}
+      >
+        {number}
+      </Pagination.Item>
+    );
+  }
+
   return (
     <>
       <h1 className={`header-title ${textColorClass}`}>Logs</h1>
       <p className={`header-description ${textColorClass}`}>Here you can view server management history.</p>
 
+      <Row>
+        <p className={`header-description ${textColorClass}`}><strong>Search Options</strong></p>
+      </Row>
       <Form onSubmit={handleSubmit} className="mb-3">
         <Row>
           <Col>
@@ -136,7 +198,7 @@ const Logs = () => {
             </InputGroup>
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>IPs</InputGroup.Text>
@@ -148,7 +210,7 @@ const Logs = () => {
               />
             </InputGroup>
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
             <InputGroup.Text>Status</InputGroup.Text>
@@ -156,8 +218,9 @@ const Logs = () => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              <option value="true">성공</option>
-              <option value="false">실패</option>
+              <option value="">- All</option>
+              <option value={true}>성공</option>
+              <option value={false}>실패</option>
             </Form.Select>
           </InputGroup>
         </Row>
@@ -196,48 +259,66 @@ const Logs = () => {
       {loading ? (
         <Spinner animation="border" className="mt-3" />
       ) : data ? (
-        data.data !== null ? (
-          <Table striped bordered hover className="mt-3" variant={`${theme}`}>
-            <thead>
-              <tr>
-                <th style={{ textAlign: 'center' }}>Type</th>
-                <th style={{ textAlign: 'center' }}>Worker</th>
-                <th style={{ textAlign: 'center' }}>Status</th>
-                <th style={{ textAlign: 'center' }}>Duration</th>
-                <th style={{ textAlign: 'center' }}>Timestamp</th>
-                <th style={{ textAlign: 'center' }}>Options</th>
-                <th style={{ textAlign: 'center' }}>Payload</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.data.map((log) => (
-                <React.Fragment key={log.ID}>
-                  <tr>
-                    <td style={{ textAlign: 'center' }}>{log.Type}</td>
-                    <td style={{ textAlign: 'center' }}>
-                      <Button variant="link" onClick={() => handleUserShow(log)}>
-                        {log.Name}
-                      </Button>
-                      {/* {log.Name} */}
-                    </td>
-                    <td style={{ textAlign: 'center' }}>{log.Status ? '🟢' : '🔴'}</td>
-                    <td style={{ textAlign: 'center' }}>{log.Duration} s</td>
-                    <td style={{ textAlign: 'center' }}>{new Date(log.Timestamp * 1000).toLocaleString()}</td>
-                    <td style={{ textAlign: 'center' }}>
-                      <Button variant="link" onClick={() => handleOptionsShow(log)}>
-                        <i className="bi bi-info-circle-fill"></i>
-                      </Button>
-                    </td>
-                    <td style={{ textAlign: 'center' }}>
-                      <Button variant="link" onClick={() => handlePayloadShow(log)}>
-                        <i className="bi bi-info-circle-fill"></i>
-                      </Button>
-                    </td>
-                  </tr>
-                </React.Fragment>
-              ))}
-            </tbody>
-          </Table>
+        data.data.data !== null ? (
+          <>
+            <Row>
+              <p className={`header-description ${textColorClass}`}><strong>History</strong></p>
+            </Row>
+            <Table striped bordered hover className="mt-3" variant={`${theme}`}>
+              <thead>
+                <tr>
+                  <th style={{ textAlign: 'center' }}>Type</th>
+                  <th style={{ textAlign: 'center' }}>Worker</th>
+                  <th style={{ textAlign: 'center' }}>Status</th>
+                  <th style={{ textAlign: 'center' }}>Duration</th>
+                  <th style={{ textAlign: 'center' }}>Timestamp</th>
+                  <th style={{ textAlign: 'center' }}>Options</th>
+                  <th style={{ textAlign: 'center' }}>Payload</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.data.data.map((log) => (
+                  <React.Fragment key={log.ID}>
+                    <tr>
+                      <td style={{ textAlign: 'center' }}>{log.Type}</td>
+                      <td style={{ textAlign: 'center' }}>
+                        <Button variant="link" onClick={() => handleUserShow(log)}>
+                          {log.Name}
+                        </Button>
+                        {/* {log.Name} */}
+                      </td>
+                      <td style={{ textAlign: 'center' }}>{log.Status ? '🟢' : '🔴'}</td>
+                      <td style={{ textAlign: 'center' }}>{log.Duration} s</td>
+                      <td style={{ textAlign: 'center' }}>{new Date(log.Timestamp * 1000).toLocaleString()}</td>
+                      <td style={{ textAlign: 'center' }}>
+                        <Button variant="link" onClick={() => handleOptionsShow(log)}>
+                          <i className="bi bi-info-circle-fill"></i>
+                        </Button>
+                      </td>
+                      <td style={{ textAlign: 'center' }}>
+                        <Button variant="link" onClick={() => handlePayloadShow(log)}>
+                          <i className="bi bi-info-circle-fill"></i>
+                        </Button>
+                      </td>
+                    </tr>
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </Table>
+            <Row>
+              <Col></Col>
+              <Col>
+                <Pagination className="mt-3" data-bs-theme={`${theme}`}>
+                  <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
+                  <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} />
+                  {paginationItems}
+                  <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} />
+                  <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
+                </Pagination>
+              </Col>
+              <Col></Col>
+            </Row>
+          </>
         ) : (
           <Alert key="warning" variant="warning">
             No logs available.
@@ -319,3 +400,5 @@ const Logs = () => {
 };
 
 export default Logs;
+
+

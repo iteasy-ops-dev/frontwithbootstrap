@@ -37,7 +37,7 @@ const NavbarComponent = () => {
         </Nav.Item>
         <Nav.Item className="mb-3">
           <NavLink to="/insight" className={({ isActive }) => getNavLinkClassName(isActive)}>
-            <i class="bi bi-lightbulb-fill"></i>
+            <i className="bi bi-lightbulb-fill"></i>
             <span className="nav-text">Insight</span>
           </NavLink>
         </Nav.Item>

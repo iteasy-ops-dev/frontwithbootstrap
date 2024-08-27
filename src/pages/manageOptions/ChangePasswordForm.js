@@ -17,7 +17,7 @@ const ChangePasswordForm = ({ handleOptionChange }) => {
 				<Accordion.Item>
 					<Accordion.Header>Info</Accordion.Header>
 					<Accordion.Body>
-					👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.change_password' target='_blank'>Repository</a>
+					👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.change_password' target="_blank" rel="noreferrer">Repository</a>
 					</Accordion.Body>
 				</Accordion.Item>
 			</Accordion>

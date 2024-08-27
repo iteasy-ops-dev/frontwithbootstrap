@@ -92,7 +92,7 @@ const WebHostManager = ({ handleOptionChange }) => {
 				<Accordion.Item eventKey="1">
 					<Accordion.Header>Info</Accordion.Header>
 					<Accordion.Body>
-						👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.webhost_manager' target='_blank'>Repository</a>
+						👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.webhost_manager' target="_blank" rel="noreferrer">Repository</a>
 					</Accordion.Body>
 				</Accordion.Item>
 				<Accordion.Item eventKey="2">
