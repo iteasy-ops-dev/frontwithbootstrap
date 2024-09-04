@@ -41,12 +41,27 @@ const ChangeSslForm = ({ handleOptionChange }) => {
 						<InputGroup.Text>Domain</InputGroup.Text>
 						<Form.Control
 							type="text"
-							name="domain"
+							name="domain_name"
 							onChange={handleChange}
 						/>
 					</InputGroup>
 				</Col>
 				<Col>
+				<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+					<InputGroup.Text>WebServer</InputGroup.Text>
+					<Form.Select
+						name="webserver_type"
+						onChange={handleChange}
+					>
+						<option value="">- Options</option>
+						<option value="apache">Apache</option>
+						<option value="nginx">Nginx</option>
+					</Form.Select>
+				</InputGroup>
+				</Col>
+			</Row>
+			<Row>
+			<Col>
 					<Form.Group controlId="formFileMultiple" className="mb-3" data-bs-theme={`${theme}`}>
 						<Form.Control type="file" name="files" onChange={handleLocalFileChange} multiple />
 					</Form.Group>
