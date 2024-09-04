@@ -10,7 +10,7 @@ services:
       - TZ=Asia/Seoul
     volumes:
       - ./nginx/conf.d/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/ssl/2024:/etc/letsencrypt
+      - ./nginx/ssl/2025:/etc/letsencrypt
     ports:
       - "80:80"
       - "443:443"
