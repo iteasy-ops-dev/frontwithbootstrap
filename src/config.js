@@ -22,6 +22,7 @@ const config = {
 			run: "/run",
 			erpparser: "/erp-parser",
 			update_work_history: "/update-work-history",
+			workhistory: "/workhistory",
 			get_work_history: "/get-work-history",
 			insight: "/insight",
 		}

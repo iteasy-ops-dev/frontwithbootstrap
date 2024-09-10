@@ -376,7 +376,7 @@ const Insight = () => {
               </thead>
               <tbody>
                 {fetchApi.data.data.data.map((log) => (
-                  <React.Fragment key={log.RegistrationDate}>
+                  <React.Fragment key={`${log.RegistrationDate}-${log.Index}`}>
                     <tr>
                       <td style={{ textAlign: 'center' }}>{log.RegistrationDate}</td>
                       <td style={{ textAlign: 'center' }}>{log.Index}</td>

@@ -66,6 +66,12 @@ const NavbarComponent = () => {
           </NavLink>
         </Nav.Item>
         <Nav.Item className="mb-3">
+          <NavLink to="/monitor" className={({ isActive }) => getNavLinkClassName(isActive)}>
+            <i className="bi bi-display"></i>
+            <span className="nav-text">Monitor</span>
+          </NavLink>
+        </Nav.Item>
+        <Nav.Item className="mb-3">
           <NavLink to="/games" className={({ isActive }) => getNavLinkClassName(isActive)}>
             <i className="bi bi-controller"></i>
             <span className="nav-text">Roulette</span>

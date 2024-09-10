@@ -28,4 +28,4 @@ docker-compose -f docker-compose.yml -p frontend down --rmi all
   - config.js에 존재하는 환경변수에 대한 관리임
 - nginx 인증서
   - ```cat your_server.crt your_ca.crt > fullchain.pem```
-  - ```cat your_server.key > private.key```
+  - ```cat your_server.key > privkey.pem```
