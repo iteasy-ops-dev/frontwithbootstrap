@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ListGroup, InputGroup, Table, Row, Col, Button, Alert, Spinner, Form } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Stack, InputGroup, Table, Row, Col, Button, Alert, Spinner, Form } from 'react-bootstrap';
 import config from '../config';
 import useApi from '../hooks/useApi';
 import usePushNotification from '../hooks/usePushNotification';  // 알림 훅 추가
@@ -13,10 +13,28 @@ const WorkMonitor = () => {
 	const { data = [], loading, error, callApi } = useApi(); // data 초기값 빈 배열
 	const { fireNotification } = usePushNotification(); // 알림 훅에서 알림 함수 호출
 	const [hasData, setHasData] = useState(false);
-	const [excludedCompanies, setExcludedCompanies] = useState([]); // 알림을 제외할 업체 리스트
+	// const [excludedCompanies, setExcludedCompanies] = useState([
+	// 	"주식회사 쓰리웨이",
+	// 	"(주)웹모아",
+	// ]); // 알림을 제외할 업체 리스트
+	// const [newExcludedCompany, setNewExcludedCompany] = useState(""); // 신규 제외할 업체 입력 값
+	// const [alertThreshold, setAlertThreshold] = useState(10); // 알림 트리거 시간을 상태로 관리 (기본값: 10분)
+	// const [intervalMinutes, setIntervalMinutes] = useState(1); // API 호출 시간 간격(분단위)
+
+	const [excludedCompanies, setExcludedCompanies] = useState(() => {
+		const saved = localStorage.getItem('excludedCompanies');
+		
+		return saved
+			? JSON.parse(saved)
+			: [
+				"주식회사 쓰리웨이",
+				"(주)웹모아",
+			];
+	}); // 알림을 제외할 업체 리스트
+
 	const [newExcludedCompany, setNewExcludedCompany] = useState(""); // 신규 제외할 업체 입력 값
-	const [alertThreshold, setAlertThreshold] = useState(10); // 알림 트리거 시간을 상태로 관리 (기본값: 10분)
-	const [intervalMinutes, setIntervalMinutes] = useState(1); // API 호출 시간 간격(분단위)
+	const [alertThreshold, setAlertThreshold] = useState(localStorage.getItem('alertThreshold', 10)); // 알림 트리거 시간을 상태로 관리 (기본값: 10분)
+	const [intervalMinutes, setIntervalMinutes] = useState(localStorage.getItem('intervalMinutes', 1)); // API 호출 시간 간격(분단위)
 
 	// API 데이터 호출 함수
 	const handleFetchData = async () => {
@@ -48,7 +66,7 @@ const WorkMonitor = () => {
 
 	const checkDateDiff = () => {
 		// 알림을 모을 배열
-		// const alerts = [];
+		const alerts = [];
 
 		// 데이터 순회
 		data.data.forEach((item) => {
@@ -57,16 +75,16 @@ const WorkMonitor = () => {
 				const timeDiff = dateDiff(item.RegistrationDate);
 				if (timeDiff > alertThreshold) {
 					// 알림 메시지를 배열에 추가
-					// alerts.push(`${item.CompanyName}의 작업의뢰 요청이 ${parseInt(timeDiff)}분 지났습니다.`);
-					fireNotification(`작업 지연 알림`, { body: `${item.CompanyName}: ${parseInt(timeDiff)}분 지났습니다.` });
+					alerts.push(`${item.CompanyName}: ${parseInt(timeDiff)}분 지났습니다.`);
+					// fireNotification(`작업 지연 알림`, { body: `${item.CompanyName}: ${parseInt(timeDiff)}분 지났습니다.` });
 				}
 			}
 		});
 
 		// 알림 배열에 내용이 있으면 브라우저 알림을 한 번에 출력
-		// if (alerts.length > 0) {
-		//   fireNotification("작업 요청 알림", alerts.join("\n")); // 알림 훅 사용
-		// }
+		if (alerts.length > 0) {
+			fireNotification("작업 요청 알림", { body: alerts.join("\n") }); // 알림 훅 사용
+		}
 	};
 
 	// 신규 제외할 업체 추가
@@ -106,6 +124,17 @@ const WorkMonitor = () => {
 			checkDateDiff();
 		}
 	}, [data, hasData, alertThreshold, excludedCompanies]);
+
+	const deleteTooltip = (props) => (
+		<Tooltip id="button-tooltip" {...props}>
+			클릭시 삭제!
+		</Tooltip>
+	);
+	const addTooltip = (props) => (
+		<Tooltip id="button-tooltip" {...props}>
+			클릭시 제외 업체 추가!
+		</Tooltip>
+	);
 
 	return (
 		<>
@@ -167,13 +196,18 @@ const WorkMonitor = () => {
 						<p className={`header-description ${textColorClass}`}><strong>제외된 업체 목록</strong></p>
 					</Row>
 					{excludedCompanies.length > 0 ? (
-						<ListGroup>
+						<Stack direction="horizontal" gap={3}>
 							{excludedCompanies.map((company, index) => (
-								<ListGroup.Item variant={`${theme}`} onClick={() => handleRemoveExcludedCompany(company)}>
-									{company}  <i className="bi bi-x-circle"></i>
-								</ListGroup.Item>
+								<OverlayTrigger
+									placement="top"
+									overlay={deleteTooltip}
+								>
+									<div className={`bg-${theme} ${textColorClass}`} onClick={() => handleRemoveExcludedCompany(company)}>
+										{index+1}. {company}  <i className="bi bi-x-circle"></i>  <div className="vr" />
+									</div>
+								</OverlayTrigger>
 							))}
-						</ListGroup>
+						</Stack>
 					) : (
 						<>
 							<Row className="mb-3" md="auto">
@@ -183,7 +217,7 @@ const WorkMonitor = () => {
 					)}
 				</Col>
 			</Row>
-				
+
 			<Row>
 				<p className={`header-description ${textColorClass}`}><strong>Work History</strong></p>
 			</Row>
@@ -196,7 +230,7 @@ const WorkMonitor = () => {
 						<th style={{ textAlign: 'center' }}>지연시간</th>
 						<th style={{ textAlign: 'center' }}>업체명</th>
 						<th style={{ textAlign: 'center' }}>브랜드</th>
-						<th style={{ textAlign: 'center' }}>링크</th>
+						<th style={{ textAlign: 'center' }}>바로가기</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -220,9 +254,16 @@ const WorkMonitor = () => {
 								<td style={{ textAlign: 'center' }}>{item.ProcessingStatus}</td>
 								<td style={{ textAlign: 'center' }}>{item.RegistrationDate}</td>
 								<td style={{ textAlign: 'center' }}>{dateDiff(item.RegistrationDate)}m</td>
-								<td style={{ textAlign: 'center' }} onClick={() => handleExcludeCompany(item.CompanyName)}>{item.CompanyName}<i className="bi bi-plus-circle"></i></td>
+								<OverlayTrigger
+									placement="right"
+									overlay={addTooltip}
+								>
+									<td style={{ textAlign: 'center' }} onClick={() => handleExcludeCompany(item.CompanyName)}>
+										{item.CompanyName}<i className="bi bi-plus-circle"></i>
+									</td>
+								</OverlayTrigger>
 								<td style={{ textAlign: 'center' }}>{item.Brand}</td>
-								<td style={{ textAlign: 'center' }}><a href={`${ERP_URL}${item.RequestLink}`} target="_blank" rel="noopener noreferrer">바로가기</a></td>
+								<td style={{ textAlign: 'center' }}><a href={`${ERP_URL}${item.RequestLink}`} target="_blank" rel="noopener noreferrer"><i className="bi bi-browser-safari"></i></a></td>
 							</tr>
 						))}
 				</tbody>
@@ -232,3 +273,5 @@ const WorkMonitor = () => {
 };
 
 export default WorkMonitor;
+
+
