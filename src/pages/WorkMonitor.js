@@ -13,28 +13,28 @@ const WorkMonitor = () => {
 	const { data = [], loading, error, callApi } = useApi(); // data 초기값 빈 배열
 	const { fireNotification } = usePushNotification(); // 알림 훅에서 알림 함수 호출
 	const [hasData, setHasData] = useState(false);
-	// const [excludedCompanies, setExcludedCompanies] = useState([
-	// 	"주식회사 쓰리웨이",
-	// 	"(주)웹모아",
-	// ]); // 알림을 제외할 업체 리스트
-	// const [newExcludedCompany, setNewExcludedCompany] = useState(""); // 신규 제외할 업체 입력 값
-	// const [alertThreshold, setAlertThreshold] = useState(10); // 알림 트리거 시간을 상태로 관리 (기본값: 10분)
-	// const [intervalMinutes, setIntervalMinutes] = useState(1); // API 호출 시간 간격(분단위)
-
-	const [excludedCompanies, setExcludedCompanies] = useState(() => {
-		const saved = localStorage.getItem('excludedCompanies');
-		
-		return saved
-			? JSON.parse(saved)
-			: [
-				"주식회사 쓰리웨이",
-				"(주)웹모아",
-			];
-	}); // 알림을 제외할 업체 리스트
-
+	const [excludedCompanies, setExcludedCompanies] = useState([
+		"주식회사 쓰리웨이",
+		"(주)웹모아",
+	]); // 알림을 제외할 업체 리스트
 	const [newExcludedCompany, setNewExcludedCompany] = useState(""); // 신규 제외할 업체 입력 값
-	const [alertThreshold, setAlertThreshold] = useState(localStorage.getItem('alertThreshold', 10)); // 알림 트리거 시간을 상태로 관리 (기본값: 10분)
-	const [intervalMinutes, setIntervalMinutes] = useState(localStorage.getItem('intervalMinutes', 1)); // API 호출 시간 간격(분단위)
+	const [alertThreshold, setAlertThreshold] = useState(10); // 알림 트리거 시간을 상태로 관리 (기본값: 10분)
+	const [intervalMinutes, setIntervalMinutes] = useState(1); // API 호출 시간 간격(분단위)
+
+	// const [excludedCompanies, setExcludedCompanies] = useState(() => {
+	// 	const saved = localStorage.getItem('excludedCompanies');
+		
+	// 	return saved
+	// 		? JSON.parse(saved)
+	// 		: [
+	// 			"주식회사 쓰리웨이",
+	// 			"(주)웹모아",
+	// 		];
+	// }); // 알림을 제외할 업체 리스트
+
+	// const [newExcludedCompany, setNewExcludedCompany] = useState(""); // 신규 제외할 업체 입력 값
+	// const [alertThreshold, setAlertThreshold] = useState(localStorage.getItem('alertThreshold', 10)); // 알림 트리거 시간을 상태로 관리 (기본값: 10분)
+	// const [intervalMinutes, setIntervalMinutes] = useState(localStorage.getItem('intervalMinutes', 1)); // API 호출 시간 간격(분단위)
 
 	// API 데이터 호출 함수
 	const handleFetchData = async () => {
@@ -275,3 +275,277 @@ const WorkMonitor = () => {
 export default WorkMonitor;
 
 
+
+// import React, { useEffect, useState } from 'react';
+// import { OverlayTrigger, Tooltip, Stack, InputGroup, Table, Row, Col, Button, Alert, Spinner, Form } from 'react-bootstrap';
+// import config from '../config';
+// import useApi from '../hooks/useApi';
+// import usePushNotification from '../hooks/usePushNotification';  // 알림 훅 추가
+// import { useTheme } from '../ThemeContext';
+
+// const ERP_URL = 'https://admin.ksidc.net';
+
+// const WorkMonitor = () => {
+// 	const { theme } = useTheme();
+// 	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
+// 	const { data = [], loading, error, callApi } = useApi(); // data 초기값 빈 배열
+// 	const { fireNotification } = usePushNotification(); // 알림 훅에서 알림 함수 호출
+// 	const [hasData, setHasData] = useState(false);
+
+// 	// Get initial state from localStorage or fallback to default values
+// 	const getLocalStorageItem = (key, defaultValue) => {
+// 		const storedValue = localStorage.getItem(key);
+// 		return storedValue ? JSON.parse(storedValue) : defaultValue;
+// 	};
+
+// 	// Setters to update localStorage when the state is updated
+// 	const [excludedCompanies, setExcludedCompanies] = useState(getLocalStorageItem('excludedCompanies', [
+// 		"주식회사 쓰리웨이",
+// 		"(주)웹모아",
+// 	])); // 알림을 제외할 업체 리스트
+
+// 	const [newExcludedCompany, setNewExcludedCompany] = useState(""); // 신규 제외할 업체 입력 값
+// 	const [alertThreshold, setAlertThreshold] = useState(getLocalStorageItem('alertThreshold', 10)); // 알림 트리거 시간을 상태로 관리 (기본값: 10분)
+// 	const [intervalMinutes, setIntervalMinutes] = useState(getLocalStorageItem('intervalMinutes', 1)); // API 호출 시간 간격(분단위)
+
+// 	// Update localStorage whenever excludedCompanies, alertThreshold, or intervalMinutes change
+// 	useEffect(() => {
+// 		localStorage.setItem('excludedCompanies', JSON.stringify(excludedCompanies));
+// 	}, [excludedCompanies]);
+
+// 	useEffect(() => {
+// 		localStorage.setItem('alertThreshold', JSON.stringify(alertThreshold));
+// 	}, [alertThreshold]);
+
+// 	useEffect(() => {
+// 		localStorage.setItem('intervalMinutes', JSON.stringify(intervalMinutes));
+// 	}, [intervalMinutes]);
+
+// 	// API 데이터 호출 함수
+// 	const handleFetchData = async () => {
+// 		setHasData(false);
+// 		try {
+// 			await callApi(config.api.path.workhistory, config.api.method.GET);
+// 			setHasData(true);
+// 		} catch (err) {
+// 			console.error("Failed to fetch data", err);
+// 		}
+// 	};
+
+// 	// 날짜 문자열 파싱 함수
+// 	const parseDateString = (dateString) => {
+// 		const [full_day, time] = dateString.split(' ');
+// 		const [year, month, day] = full_day.split('-');
+// 		const full_year = parseInt(year, 10) + 2000;
+
+// 		const formattedDate = `${full_year}-${month}-${day}T${time}:00`;
+// 		return new Date(formattedDate);
+// 	};
+
+// 	const dateDiff = (dateString) => {
+// 		const now = new Date();
+// 		const rdate = parseDateString(dateString);
+// 		const timeDiff = (now - rdate) / 1000 / 60; // 차이를 분 단위로 계산
+// 		return parseInt(timeDiff);
+// 	};
+
+// 	const checkDateDiff = () => {
+// 		// 알림을 모을 배열
+// 		const alerts = [];
+
+// 		// 데이터 순회
+// 		data.data.forEach((item) => {
+// 			// Worker가 없고 제외된 업체가 아닌 경우
+// 			if (item.Worker === "" && !excludedCompanies.includes(item.CompanyName)) {
+// 				const timeDiff = dateDiff(item.RegistrationDate);
+// 				if (timeDiff > alertThreshold) {
+// 					// 알림 메시지를 배열에 추가
+// 					alerts.push(`${item.CompanyName}: ${parseInt(timeDiff)}분 지났습니다.`);
+// 					// fireNotification(`작업 지연 알림`, { body: `${item.CompanyName}: ${parseInt(timeDiff)}분 지났습니다.` });
+// 				}
+// 			}
+// 		});
+
+// 		// 알림 배열에 내용이 있으면 브라우저 알림을 한 번에 출력
+// 		if (alerts.length > 0) {
+// 			fireNotification("작업 요청 알림", { body: alerts.join("\n") }); // 알림 훅 사용
+// 		}
+// 	};
+
+// 	// 신규 제외할 업체 추가
+// 	const handleAddExcludedCompany = () => {
+// 		if (newExcludedCompany && !excludedCompanies.includes(newExcludedCompany)) {
+// 			setExcludedCompanies([...excludedCompanies, newExcludedCompany]);
+// 		}
+// 		setNewExcludedCompany("");
+// 	};
+
+// 	// 업체명 클릭 시 제외 리스트에 추가
+// 	const handleExcludeCompany = (company) => {
+// 		if (!excludedCompanies.includes(company)) {
+// 			setExcludedCompanies([...excludedCompanies, company]);
+// 		}
+// 	};
+
+// 	// 제외할 업체 삭제
+// 	const handleRemoveExcludedCompany = (company) => {
+// 		setExcludedCompanies(excludedCompanies.filter((comp) => comp !== company));
+// 	};
+
+// 	// 컴포넌트가 마운트되면 데이터를 가져오고, 주기적으로 API 호출
+// 	useEffect(() => {
+// 		handleFetchData(); // 첫 번째 호출
+// 		const interval = setInterval(() => {
+// 			handleFetchData();
+// 		}, intervalMinutes * 60 * 1000); // 분단위
+
+// 		return () => clearInterval(interval); // 컴포넌트 언마운트 시 인터벌 제거
+// 	}, [intervalMinutes]); // intervalMinutes가 변경될 때마다 새 인터벌 설정
+
+// 	// 데이터를 받아올 때마다 5분 이상 지난 항목을 체크
+// 	useEffect(() => {
+// 		if (hasData) {
+// 			checkDateDiff();
+// 		}
+// 	}, [data, hasData, alertThreshold, excludedCompanies]);
+
+// 	const deleteTooltip = (props) => (
+// 		<Tooltip id="button-tooltip" {...props}>
+// 			클릭시 삭제!
+// 		</Tooltip>
+// 	);
+// 	const addTooltip = (props) => (
+// 		<Tooltip id="button-tooltip" {...props}>
+// 			클릭시 제외 업체 추가!
+// 		</Tooltip>
+// 	);
+
+// 	return (
+// 		<>
+// 			<h1 className={`header-title ${textColorClass}`}>Work History Monitor</h1>
+// 			<p className={`header-description ${textColorClass}`}>You can monitor your work requests here.</p>
+
+// 			<Row className="mb-3" md="auto">
+// 				<p className={`header-description ${textColorClass}`}><strong>Options</strong></p>
+// 			</Row>
+// 			{/* 알림 기준 시간 및 API 호출 시간 설정 */}
+// 			<Row className="mb-3" md="auto">
+// 				<Col>
+// 					{/* 알림 기준 시간 설정 */}
+// 					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+// 						<InputGroup.Text><i className="bi bi-alarm"></i>  지연알람(분)</InputGroup.Text>
+// 						<Form.Control
+// 							type="number"
+// 							value={alertThreshold}
+// 							onChange={(e) => setAlertThreshold(Number(e.target.value))}
+// 						/>
+// 					</InputGroup>
+// 				</Col>
+// 				<Col>
+// 					{/* API 호출 시간 주기 설정 */}
+// 					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+// 						<InputGroup.Text><i className="bi bi-clock"></i>  반복주기(분)</InputGroup.Text>
+// 						<Form.Control
+// 							type="number"
+// 							value={intervalMinutes}
+// 							onChange={(e) => setIntervalMinutes(Number(e.target.value))}
+// 							placeholder="API 호출 간격 (분 단위)"
+// 						/>
+// 					</InputGroup>
+// 				</Col>
+// 				<Col>
+// 					{/* 업체명 제외 관리 UI */}
+// 					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+// 						<InputGroup.Text><i className="bi bi-building-x"></i></InputGroup.Text>
+// 						<Form.Control
+// 							type="text"
+// 							placeholder="제외할 업체명 입력"
+// 							value={newExcludedCompany}
+// 							onChange={(e) => setNewExcludedCompany(e.target.value)}
+// 						/>
+// 					</InputGroup>
+// 				</Col>
+// 				<Col>
+// 					<Button onClick={handleAddExcludedCompany} className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`}>업체 추가</Button>
+// 				</Col>
+// 				<Col>
+// 					<Button onClick={handleFetchData} className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`}>
+// 						<i className="bi bi-arrow-clockwise"></i>
+// 					</Button>
+// 				</Col>
+// 			</Row>
+// 			<hr />
+// 			{error && <Alert variant="danger">{error}</Alert>}
+// 			{loading ? (
+// 				<Spinner animation="border" role="status">
+// 					<span className="visually-hidden">Loading...</span>
+// 				</Spinner>
+// 			) : (
+// 				<>
+// 					{data?.data && (
+// 						<>
+// 							<Table striped bordered hover variant={theme} responsive>
+// 								<thead>
+// 									<tr>
+// 										<th>#</th>
+// 										<th>업체명</th>
+// 										<th>작업자</th>
+// 										<th>작업상태</th>
+// 										<th>등록일자</th>
+// 										<th>제외</th>
+// 									</tr>
+// 								</thead>
+// 								<tbody>
+// 									{data.data.map((item, index) => (
+// 										<tr key={index}>
+// 											<td>{index + 1}</td>
+// 											<td>{item.CompanyName}</td>
+// 											<td>{item.Worker || "작업자 미등록"}</td>
+// 											<td>{item.Status}</td>
+// 											<td>{item.RegistrationDate}</td>
+// 											<td>
+// 												<OverlayTrigger placement="top" overlay={deleteTooltip}>
+// 													<Button
+// 														variant={`outline-${theme === 'light' ? 'danger' : 'light'}`}
+// 														size="sm"
+// 														onClick={() => handleExcludeCompany(item.CompanyName)}
+// 														disabled={excludedCompanies.includes(item.CompanyName)}
+// 													>
+// 														{excludedCompanies.includes(item.CompanyName) ? "제외됨" : "제외"}
+// 													</Button>
+// 												</OverlayTrigger>
+// 											</td>
+// 										</tr>
+// 									))}
+// 								</tbody>
+// 							</Table>
+// 							{/* 제외된 업체 목록 */}
+// 							{excludedCompanies.length > 0 && (
+// 								<>
+// 									<h4 className={textColorClass}>제외된 업체 목록</h4>
+// 									<Stack direction="horizontal" gap={3}>
+// 										{excludedCompanies.map((company, index) => (
+// 											<div key={index}>
+// 												<OverlayTrigger placement="top" overlay={addTooltip}>
+// 													<Button
+// 														variant={`outline-${theme === 'light' ? 'danger' : 'light'}`}
+// 														size="sm"
+// 														onClick={() => handleRemoveExcludedCompany(company)}
+// 													>
+// 														{company} <i className="bi bi-x-circle"></i>
+// 													</Button>
+// 												</OverlayTrigger>
+// 											</div>
+// 										))}
+// 									</Stack>
+// 								</>
+// 							)}
+// 						</>
+// 					)}
+// 				</>
+// 			)}
+// 		</>
+// 	);
+// };
+
+// export default WorkMonitor;
