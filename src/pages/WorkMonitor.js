@@ -107,7 +107,7 @@ const WorkMonitor = () => {
 		// 데이터 순회
 		data.data.forEach((item) => {
 			// Worker가 없고 제외된 업체가 아닌 경우
-			if (item.Worker === "" && !excludedCompanies.includes(item.CompanyName)) {
+			if (item.Worker === "" && !excludedCompanies.includes(item.CompanyName) && item.RequestLink) {
 				const timeDiff = dateDiff(item.RegistrationDate);
 				if (timeDiff > alertThreshold) {
 					// 알림 메시지를 배열에 추가
@@ -156,22 +156,27 @@ const WorkMonitor = () => {
 	// 데이터를 받아올 때마다 5분 이상 지난 항목을 체크
 	useEffect(() => {
 		if (hasData) {
-			// console.log(data)
+			console.log(data)
 			checkDateDiff();
 			localStorage.setItem(config.localStorage.monitor.excludedCompanies, JSON.stringify(excludedCompanies));
 			localStorage.setItem(config.localStorage.monitor.alertThreshold, JSON.stringify(alertThreshold));
 			localStorage.setItem(config.localStorage.monitor.intervalMinutes, JSON.stringify(intervalMinutes));
 		}
-	}, [data, hasData, alertThreshold, excludedCompanies]);
+	}, [data, hasData, alertThreshold, excludedCompanies]); // alertThreshold, excludedCompanies
 
 	const deleteTooltip = (props) => (
 		<Tooltip id="button-tooltip" {...props}>
-			클릭시 삭제!
+			제외 업체 삭제!
 		</Tooltip>
 	);
 	const addTooltip = (props) => (
 		<Tooltip id="button-tooltip" {...props}>
-			클릭시 제외 업체 추가!
+			제외 업체 추가!
+		</Tooltip>
+	);
+	const moveTooltip = (props) => (
+		<Tooltip id="button-tooltip" {...props}>
+			작업의뢰 페이지로 이동!
 		</Tooltip>
 	);
 
@@ -286,7 +291,7 @@ const WorkMonitor = () => {
 						</td>
 					)}
 					{hasData && data.data
-						.filter(item => item.Worker === "") // Worker가 빈 문자열인 항목만 필터링
+						.filter(item => item.Worker === "" && item.RequestLink) // Worker가 빈 문자열인 항목만 필터링
 						.map((item) => (
 							<tr key={item.Index}>
 								<td style={{ textAlign: 'center' }}>{item.Index}</td>
@@ -302,7 +307,16 @@ const WorkMonitor = () => {
 									</td>
 								</OverlayTrigger>
 								<td style={{ textAlign: 'center' }}>{item.Brand}</td>
-								<td style={{ textAlign: 'center' }}><a href={`${ERP_URL}${item.RequestLink}`} target="_blank" rel="noopener noreferrer"><i className="bi bi-browser-safari"></i></a></td>
+								<td style={{ textAlign: 'center' }}>
+									<OverlayTrigger
+										placement="top"
+										overlay={moveTooltip}
+									>
+										<a href={`${ERP_URL}${item.RequestLink}`} target="_blank" rel="noopener noreferrer">
+											<i className="bi bi-browser-safari"></i>
+										</a>
+									</OverlayTrigger>
+								</td>
 							</tr>
 						))}
 				</tbody>
