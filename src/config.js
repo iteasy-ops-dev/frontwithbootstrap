@@ -1,6 +1,6 @@
 const config = {
 	admin: process.env.REACT_APP_ADMIN || "iteasy.ops.dev@gmail.com",
-  api: {
+	api: {
 		baseUrl: process.env.REACT_APP_API_URL || "http://localhost:8080",
 		method: {
 			GET: "GET",
@@ -63,7 +63,12 @@ const config = {
 	},
 	localStorage: {
 		lockPassword: "lockPassword",
-		functions: "functions"
+		functions: "functions",
+		monitor: {
+			excludedCompanies: "excludedCompanies",
+			alertThreshold: "alertThreshold",
+			intervalMinutes: "intervalMinutes"
+		}
 	}
 };
 
