@@ -1,7 +1,7 @@
 const config = {
 	admin: process.env.REACT_APP_ADMIN || "iteasy.ops.dev@gmail.com",
 	ws: {
-		url: process.env.REACT_WS_API_URL || "ws://localhost:8080/ws"
+		url: process.env.REACT_APP_WS_API_URL || "ws://localhost:8080/ws"
 	},
 	api: {
 		baseUrl: process.env.REACT_APP_API_URL || "http://localhost:8080",
