@@ -109,6 +109,7 @@ const WebConsole = () => {
 	return (
 		<>
 			<h1 className={`header-title ${textColorClass}`}>Web Console</h1>
+			<p className={`header-description ${textColorClass}`}>매니지드 VPN과 연결된 서버에 접속 할 수 있습니다.</p>
 			<Accordion data-bs-theme={`${theme}`}>
 				<Accordion.Item eventKey="0">
 					<Accordion.Header>Info</Accordion.Header>
