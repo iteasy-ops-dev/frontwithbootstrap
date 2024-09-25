@@ -208,13 +208,13 @@ const Manage = () => {
                     placeholder="작업할 서버의 IP를 작성합니다."
                     onChange={(e) => setIps(e.target.value)}
                   />
-                  <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} >
+                  {/* <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} > */}
                     <TerminalOffcanvas
                       ips={ips}
                       account={account}
                       password={password}
                     />
-                  </Button>
+                  {/* </Button> */}
                 </InputGroup>
               </Col>
             </Row>

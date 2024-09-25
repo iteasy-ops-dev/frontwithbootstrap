@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Offcanvas } from 'react-bootstrap';
 import { useTheme } from '../ThemeContext';
-import OffcanvasWebConsole from '../components/OffcanvasWebConsole'; // 새로 만든 WebConsole 컴포넌트 import
+import OffcanvasWebConsole from './OffcanvasWebConsole'; // 새로 만든 WebConsole 컴포넌트 import
+import { NewBadge } from './Badges'
 
 const TerminalOffcanvas = ({ ips, account, password }) => {
 	const [ip, port] = ips.split(':');
@@ -28,7 +29,7 @@ const TerminalOffcanvas = ({ ips, account, password }) => {
 		<>
 			{/* 오프캔버스를 여는 버튼 */}
 			<Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`}  onClick={handleShow}>
-				Open Terminal
+				Open Terminal <NewBadge />
 			</Button>
 
 			{/* Offcanvas 컴포넌트 */}

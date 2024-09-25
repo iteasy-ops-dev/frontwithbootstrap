@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Nav, Button } from 'react-bootstrap';
+import { Badge, Nav, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useTheme } from '../ThemeContext';
+import { NewBadge } from './Badges'
 
 const NavbarComponent = () => {
   const { theme } = useTheme();
@@ -68,18 +69,21 @@ const NavbarComponent = () => {
         <Nav.Item className="mb-3">
           <NavLink to="/console" className={({ isActive }) => getNavLinkClassName(isActive)}>
             <i className="bi bi-terminal-fill"></i>
+            <NewBadge />
             <span className="nav-text">Console</span>
           </NavLink>
         </Nav.Item>
         <Nav.Item className="mb-3">
           <NavLink to="/monitor" className={({ isActive }) => getNavLinkClassName(isActive)}>
             <i className="bi bi-display"></i>
+            <NewBadge />
             <span className="nav-text">Monitor</span>
           </NavLink>
         </Nav.Item>
         <Nav.Item className="mb-3">
           <NavLink to="/games" className={({ isActive }) => getNavLinkClassName(isActive)}>
             <i className="bi bi-controller"></i>
+            <NewBadge />
             <span className="nav-text">Roulette</span>
           </NavLink>
         </Nav.Item>
