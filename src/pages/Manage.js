@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useApi from '../hooks/useApi';
 import config from '../config';
 import { useAuth } from '../AuthContext';
-import { Badge, OverlayTrigger, Popover, Form, Button, Alert, Spinner, InputGroup, Row, Col, Accordion } from 'react-bootstrap';
+import { OverlayTrigger, Tooltip, Badge, Popover, Form, Button, Alert, Spinner, InputGroup, Row, Col, Accordion } from 'react-bootstrap';
 import ChangePasswordForm from './manageOptions/ChangePasswordForm';
 import ChangeSshPortForm from './manageOptions/ChangeSshPortForm';
 import ChangeSslForm from './manageOptions/ChangeSslForm';
@@ -75,7 +75,6 @@ const Manage = () => {
       );
     }
   };
-
 
   const popover = (
     <Popover data-bs-theme={`${theme}`}>
@@ -208,13 +207,13 @@ const Manage = () => {
                     placeholder="작업할 서버의 IP를 작성합니다."
                     onChange={(e) => setIps(e.target.value)}
                   />
-                  {/* <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} > */}
+                  {/* 웹 터미널  */}
                     <TerminalOffcanvas
                       ips={ips}
                       account={account}
                       password={password}
                     />
-                  {/* </Button> */}
+                  {/* 웹 터미널  */}
                 </InputGroup>
               </Col>
             </Row>
