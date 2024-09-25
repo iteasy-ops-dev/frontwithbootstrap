@@ -10,6 +10,7 @@ import PruneFirewall from './manageOptions/PruneFirewall';
 import PackageManager from './manageOptions/PackageManager';
 import WebHostManager from './manageOptions/WebHostManager';
 import AccountManager from './manageOptions/AccountManager';
+import TerminalOffcanvas from '../components/TerminalOffcanvas'
 import { validateEmptyObject } from "../utils/validators";
 import { toMultipartFormData } from "../utils/apiUtils";
 import { useTheme } from '../ThemeContext';
@@ -100,6 +101,7 @@ const Manage = () => {
     <>
       <h1 className={`header-title ${textColorClass}`}>Manage</h1>
       <p className={`header-description ${textColorClass}`}>You can manage the server.</p>
+
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col>
@@ -206,6 +208,13 @@ const Manage = () => {
                     placeholder="작업할 서버의 IP를 작성합니다."
                     onChange={(e) => setIps(e.target.value)}
                   />
+                  <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} >
+                    <TerminalOffcanvas
+                      ips={ips}
+                      account={account}
+                      password={password}
+                    />
+                  </Button>
                 </InputGroup>
               </Col>
             </Row>
@@ -256,7 +265,7 @@ const Manage = () => {
             </Button>
           </Row>
         }
-        
+
       </Form>
       <br />
       {error && <Alert variant="danger" className="mt-3">{error}</Alert>}

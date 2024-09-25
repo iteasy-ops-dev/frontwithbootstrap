@@ -61,8 +61,14 @@ const NavbarComponent = () => {
         </Nav.Item>
         <Nav.Item className="mb-3">
           <NavLink to="/manage" className={({ isActive }) => getNavLinkClassName(isActive)}>
-            <i className="bi bi-terminal-fill"></i>
+            <i className="bi bi-motherboard-fill"></i>
             <span className="nav-text">Manage</span>
+          </NavLink>
+        </Nav.Item>
+        <Nav.Item className="mb-3">
+          <NavLink to="/console" className={({ isActive }) => getNavLinkClassName(isActive)}>
+            <i className="bi bi-terminal-fill"></i>
+            <span className="nav-text">Console</span>
           </NavLink>
         </Nav.Item>
         <Nav.Item className="mb-3">

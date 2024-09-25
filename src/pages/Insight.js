@@ -208,8 +208,8 @@ const Insight = () => {
         <p className={`header-description ${textColorClass}`}><strong>Update</strong></p>
       </Row>
       <Form onSubmit={handleUpdateSubmit} className="mb-3">
-        <Row>
-          <Col md={6}>
+        <Row md>
+          <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Start Date</InputGroup.Text>
               <DatePicker
@@ -220,7 +220,7 @@ const Insight = () => {
               />
             </InputGroup>
           </Col>
-          <Col md={4}>
+          <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Range</InputGroup.Text>
               <Form.Control
@@ -230,7 +230,7 @@ const Insight = () => {
               />
             </InputGroup>
           </Col>
-          <Col md={2}>
+          <Col>
             <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={updateApi.loading || !isAdmin}>
               {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Update'}
             </Button>
@@ -241,28 +241,6 @@ const Insight = () => {
         <p className={`header-description ${textColorClass}`}><strong>Search</strong></p>
       </Row>
       <Form onSubmit={handleFetchSubmit} className="mb-3">
-        <Row>
-          <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>Company</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={company}
-                onChange={(e) => setCompany(e.target.value)}
-              />
-            </InputGroup>
-          </Col>
-          <Col>
-            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-              <InputGroup.Text>Sub Category</InputGroup.Text>
-              <Form.Control
-                type="text"
-                value={subCategory}
-                onChange={(e) => setSubCategory(e.target.value)}
-              />
-            </InputGroup>
-          </Col>
-        </Row>
         <Row>
           <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
@@ -287,7 +265,27 @@ const Insight = () => {
             </InputGroup>
           </Col>
         </Row>
-        <Row>
+        <Row md="auto">
+        <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Company</InputGroup.Text>
+              <Form.Control
+                type="text"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
+          <Col>
+            <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+              <InputGroup.Text>Sub Category</InputGroup.Text>
+              <Form.Control
+                type="text"
+                value={subCategory}
+                onChange={(e) => setSubCategory(e.target.value)}
+              />
+            </InputGroup>
+          </Col>
           <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Request Details</InputGroup.Text>
@@ -303,6 +301,8 @@ const Insight = () => {
               {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
             </Button>
           </Col>
+        </Row>
+        <Row>
         </Row>
       </Form>
 

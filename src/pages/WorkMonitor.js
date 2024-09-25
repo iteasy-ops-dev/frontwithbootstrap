@@ -156,7 +156,7 @@ const WorkMonitor = () => {
 	// 데이터를 받아올 때마다 5분 이상 지난 항목을 체크
 	useEffect(() => {
 		if (hasData) {
-			console.log(data)
+			// console.log(data)
 			checkDateDiff();
 			localStorage.setItem(config.localStorage.monitor.excludedCompanies, JSON.stringify(excludedCompanies));
 			localStorage.setItem(config.localStorage.monitor.alertThreshold, JSON.stringify(alertThreshold));
