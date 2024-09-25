@@ -3,6 +3,7 @@ import { OverlayTrigger, Tooltip, Button, Offcanvas } from 'react-bootstrap';
 import { useTheme } from '../ThemeContext';
 import OffcanvasWebConsole from './OffcanvasWebConsole'; // 새로 만든 WebConsole 컴포넌트 import
 import { NewBadge } from './Badges'
+import { consoleTooltip } from './Tooltips'
 
 const TerminalOffcanvas = ({ ips, account, password }) => {
 	const [ip, port] = ips.split(':');
@@ -24,13 +25,13 @@ const TerminalOffcanvas = ({ ips, account, password }) => {
 	const handleShow = () => setShow(true);
 
 	// Tooltip 수정
-	const consoleTooltip = (props) => {
-		return (
-			<Tooltip id="button-tooltip" {...props}>
-				작업할 서버의 접속 정보를 입력하고 눌러주세요!
-			</Tooltip>
-		);
-	}
+	// const consoleTooltip = (props) => {
+	// 	return (
+	// 		<Tooltip id="button-tooltip" {...props}>
+	// 			작업할 서버의 접속 정보를 입력하고 눌러주세요!
+	// 		</Tooltip>
+	// 	);
+	// }
 
 	return (
 		<>
@@ -44,7 +45,7 @@ const TerminalOffcanvas = ({ ips, account, password }) => {
 					variant={`outline-${theme === 'light' ? 'dark' : 'light'}`}
 					onClick={handleShow}
 				>
-					Open Terminal <NewBadge />
+					<span>Open Terminal</span><NewBadge />
 				</Button>
 			</OverlayTrigger>
 

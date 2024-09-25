@@ -3,7 +3,7 @@ import { Badge } from 'react-bootstrap';
 export const NewBadge = () => {
 	return (
 		<>
-			<Badge pill bg="danger">N</Badge>
+			{' '}<Badge pill bg="danger">N</Badge>
 		</>
 	)
 }
@@ -11,7 +11,7 @@ export const NewBadge = () => {
 export const InfoBadge = () => {
 	return (
 		<>
-			<Badge pill bg="info">I</Badge>
+			{' '}<Badge pill bg="info">I</Badge>
 		</>
 	)
 }
@@ -19,7 +19,7 @@ export const InfoBadge = () => {
 export const UpdateBadge = () => {
 	return (
 		<>
-			<Badge pill bg="success">U</Badge>
+			{' '}<Badge pill bg="success">U</Badge>
 		</>
 	)
 }
