@@ -39,7 +39,11 @@ const TerminalOffcanvas = ({ ips, account, password }) => {
 				placement="top"
 				overlay={consoleTooltip}
 			>
-				<Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleShow}>
+				<Button
+					disabled={!connectionInfo.host || !connectionInfo.username || !connectionInfo.password}
+					variant={`outline-${theme === 'light' ? 'dark' : 'light'}`}
+					onClick={handleShow}
+				>
 					Open Terminal <NewBadge />
 				</Button>
 			</OverlayTrigger>
