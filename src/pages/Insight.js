@@ -208,7 +208,7 @@ const Insight = () => {
         <p className={`header-description ${textColorClass}`}><strong>Update</strong></p>
       </Row>
       <Form onSubmit={handleUpdateSubmit} className="mb-3">
-        <Row md>
+        <Row>
           <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Start Date</InputGroup.Text>
@@ -230,6 +230,8 @@ const Insight = () => {
               />
             </InputGroup>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={updateApi.loading || !isAdmin}>
               {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Update'}
@@ -265,7 +267,7 @@ const Insight = () => {
             </InputGroup>
           </Col>
         </Row>
-        <Row md="auto">
+        <Row>
         <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Company</InputGroup.Text>
@@ -296,13 +298,13 @@ const Insight = () => {
               />
             </InputGroup>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={fetchApi.loading}>
               {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
             </Button>
           </Col>
-        </Row>
-        <Row>
         </Row>
       </Form>
 

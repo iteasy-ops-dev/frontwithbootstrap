@@ -21,6 +21,7 @@ import ResetPassword from './pages/ResetPassword';
 import { ThemeProvider, useTheme } from './ThemeContext';
 import { AuthProvider, useAuth } from './AuthContext';
 
+// import './styles copy.css';
 import './styles.css';
 
 const ProtectedRoute = ({ element, redirectTo }) => {

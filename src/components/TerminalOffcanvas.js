@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { OverlayTrigger, Tooltip, Button, Offcanvas } from 'react-bootstrap';
+import { OverlayTrigger, Button, Offcanvas } from 'react-bootstrap';
 import { useTheme } from '../ThemeContext';
 import OffcanvasWebConsole from './OffcanvasWebConsole'; // 새로 만든 WebConsole 컴포넌트 import
 import { NewBadge } from './Badges'
@@ -8,6 +8,7 @@ import { consoleTooltip } from './Tooltips'
 const TerminalOffcanvas = ({ ips, account, password }) => {
 	const [ip, port] = ips.split(':');
 	const { theme } = useTheme();  // 테마 정보
+	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
 	const [show, setShow] = useState(false);  // Offcanvas 열고 닫는 상태
 	const [consoleState, setConsoleState] = useState("");  // 터미널의 상태
 
@@ -23,15 +24,6 @@ const TerminalOffcanvas = ({ ips, account, password }) => {
 
 	// Offcanvas 열기
 	const handleShow = () => setShow(true);
-
-	// Tooltip 수정
-	// const consoleTooltip = (props) => {
-	// 	return (
-	// 		<Tooltip id="button-tooltip" {...props}>
-	// 			작업할 서버의 접속 정보를 입력하고 눌러주세요!
-	// 		</Tooltip>
-	// 	);
-	// }
 
 	return (
 		<>
@@ -59,7 +51,7 @@ const TerminalOffcanvas = ({ ips, account, password }) => {
 				scroll={true}  // 스크롤 가능
 				style={{
 					width: 'auto', // Offcanvas 폭 설정
-					height: '380px',
+					height: '395px',
 					backgroundColor: "black",
 					borderRadius: "10px", // 모서리를 둥글게
 				}}

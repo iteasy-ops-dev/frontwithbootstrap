@@ -3,7 +3,7 @@ import { useTheme } from '../ThemeContext';
 import { Terminal } from "xterm";
 import { FitAddon } from "xterm-addon-fit";
 import "xterm/css/xterm.css";  // xterm 스타일 적용
-import { Accordion, Modal, Button, Form } from 'react-bootstrap'; // React Bootstrap import
+import { Row, Accordion, Modal, Button, Form } from 'react-bootstrap'; // React Bootstrap import
 import config from '../config';
 
 const WebConsole = () => {
@@ -109,18 +109,7 @@ const WebConsole = () => {
 	return (
 		<>
 			<h1 className={`header-title ${textColorClass}`}>Web Console</h1>
-			<p className={`header-description ${textColorClass}`}>매니지드 VPN과 연결된 서버에 접속 할 수 있습니다.</p>
-			<Accordion data-bs-theme={`${theme}`}>
-				<Accordion.Item eventKey="0">
-					<Accordion.Header>Info</Accordion.Header>
-					<Accordion.Body>
-						<p className={`header-description ${textColorClass}`}><strong>HOST: </strong>{connectionInfo.host}</p>
-						<p className={`header-description ${textColorClass}`}><strong>PORT: </strong>{connectionInfo.port}</p>
-						<p className={`header-description ${textColorClass}`}><strong>USER: </strong>{connectionInfo.username}</p>
-						<p className={`header-description ${textColorClass}`}><strong>PWD: </strong>{connectionInfo.password}</p>
-					</Accordion.Body>
-				</Accordion.Item>
-			</Accordion>
+			{/* <p className={`header-description ${textColorClass}`}>매니지드 VPN과 연결된 서버에 접속 할 수 있습니다.</p> */}
 
 			{/* 모달창 - 호스트, 포트, 아이디, 비밀번호 입력 */}
 			<Modal show={showModal} onHide={() => setShowModal(false)}>
@@ -183,7 +172,18 @@ const WebConsole = () => {
 					</Form>
 				</Modal.Body>
 			</Modal>
-
+			<Accordion data-bs-theme={`${theme}`}>
+				<Accordion.Item eventKey="0">
+					<Accordion.Header>Access Info</Accordion.Header>
+					<Accordion.Body>
+						<p className={`header-description ${textColorClass}`}><strong>HOST: </strong>{connectionInfo.host}</p>
+						<p className={`header-description ${textColorClass}`}><strong>PORT: </strong>{connectionInfo.port}</p>
+						<p className={`header-description ${textColorClass}`}><strong>USER: </strong>{connectionInfo.username}</p>
+						<p className={`header-description ${textColorClass}`}><strong>PWD: </strong>{connectionInfo.password}</p>
+					</Accordion.Body>
+				</Accordion.Item>
+			</Accordion>
+			<hr></hr>
 			{/* 터미널 출력 */}
 			{isSocketReady && (
 				<div
@@ -194,7 +194,7 @@ const WebConsole = () => {
 						backgroundColor: "black",
 						borderRadius: "10px", // 모서리를 둥글게
 						padding: "10px", // 안쪽 여백 추가
-						boxSizing: "border-box" // padding이 너비에 포함되도록 설정 
+						boxSizing: "border-box", // padding이 너비에 포함되도록 설정 
 					}}
 				></div>
 			)}

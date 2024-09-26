@@ -6,7 +6,9 @@
   z-index: 1000;
   background-color: #fff; /* 명시적으로 설정 */
   color: #000; /* 명시적으로 설정 */
-  height: 60px;
+  height: 75px;
+  border-bottom: 1px solid #323a49; /* Add a top border */
+  padding: 25px;
 }
 
 .navbar-brand {
@@ -17,6 +19,10 @@
   margin-right: 2%;
 }
 
+.navbar-brand {
+  text-align-last:justify;
+}
+
 .login-form {
   max-width: 500px;
 }
@@ -24,34 +30,39 @@
 .bi {
   margin-right: 5px;
   margin-left: 3px;
+  font-size: 18px;
 }
 
 .bi-list {
   margin-right: 3px;
   margin-left: 3px;
+  width: 50px;
+  height: 50px;
+}
+
+.offcanvas {
+  margin-top: 75px;
 }
 
 .sidebar {
   position: fixed;
-  top: 60px;
-  left: 0;
-  width: 150px;
+  top: 70px;
+  padding: 40px;
+  padding-top: 50px;
+  width: 255px;
   height: calc(100vh - 60px);
   overflow-y: auto;
   background-color: #f4f4f4; /* 명시적으로 설정 */
   color: #333; /* 명시적으로 설정 */
   z-index: 800;
   transition: width 0.3s ease;
+  border-right: 1px solid #323a49; /* Add a top border */
 }
 
 .main {
-  margin-top: 80px;
-  margin-left: 170px;
-  margin-right: 40px;
-  min-height: calc(100vh - 60px);
-  padding-bottom: 60px;
-  overflow-y: auto;
-  transition: margin-left 0.3s ease;
+  margin-top: 120px;
+  margin-left: 330px;
+  margin-right: 275px;
 }
 
 .footer {
@@ -60,8 +71,10 @@
   width: 100%;
   background-color: #fff; /* 명시적으로 설정 */
   color: #000; /* 명시적으로 설정 */
-  z-index: 900;
-  padding-bottom: 60px;
+  z-index: 700;
+  padding: 25px;
+  padding-left: 300px;
+  border-top: 1px solid #323a49; /* Add a top border */
 }
 
 .header-title {
@@ -81,6 +94,10 @@
 
 .card-body {
   text-align: center;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
 }
 
 @media (max-width: 768px) {

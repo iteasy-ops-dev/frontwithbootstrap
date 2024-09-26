@@ -7,7 +7,7 @@ import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
 
   const { isAuthenticated, logout, getUserToken, lock } = useAuth();
@@ -108,10 +108,16 @@ const Header = () => {
           />{' '}
           Service Ops
         </Navbar.Brand>
+
+        <Navbar.Collapse className="justify-content-end flex-grow-1 pe-3">
+          <Button variant={`outline-${theme === "dark" ? "light" : "dark"}`} onClick={toggleTheme}>
+            <i className="bi bi-moon-stars"></i>{theme === 'light' ?  <i class="bi bi-toggle2-on"></i> : <i class="bi bi-toggle2-off"></i>}<i className="bi bi-brightness-high"></i>
+          </Button>
+        </Navbar.Collapse>
         {isAuthenticated && (
           <Dropdown align="end" data-bs-theme={`${theme}`}>
             <Dropdown.Toggle variant={`outline-${theme === "dark" ? "light" : "dark"}`} id="dropdown-basic">
-              <i className="bi bi-person-circle"></i>{getUserToken().name}
+              <i className="bi bi-person-circle"></i>{' '}{getUserToken().name}
             </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item onClick={handleProfile}><i className="bi bi-person-circle"></i>Profile</Dropdown.Item>
@@ -125,31 +131,31 @@ const Header = () => {
       </Navbar>
 
       <Modal data-bs-theme={`${theme}`} show={showModal} onHide={handleModalClose}>
-          <Modal.Header className={`${textColorClass}`}closeButton onHide={handleModalClose}>
-            <Modal.Title>Lock Password</Modal.Title>
-          </Modal.Header>
+        <Modal.Header className={`${textColorClass}`} closeButton onHide={handleModalClose}>
+          <Modal.Title>Lock Password</Modal.Title>
+        </Modal.Header>
 
-          <Modal.Body>
-            <Form>
-              <Form.Group>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter Lock Password."
-                  value={lockPassword}
-                  onChange={(e) => setLockPassword(e.target.value)}
-                />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
+        <Modal.Body>
+          <Form>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder="Enter Lock Password."
+                value={lockPassword}
+                onChange={(e) => setLockPassword(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
 
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleModalClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleModalSave}>
-              Save
-            </Button>
-          </Modal.Footer>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleModalSave}>
+            Save
+          </Button>
+        </Modal.Footer>
       </Modal>
 
       <Modal data-bs-theme={`${theme}`} show={showExtendModal} onHide={handleExtendModalClose}>
