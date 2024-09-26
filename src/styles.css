@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 900;
   background-color: #fff; /* 명시적으로 설정 */
   color: #000; /* 명시적으로 설정 */
   height: 75px;
@@ -12,15 +12,16 @@
 }
 
 .navbar-brand {
-  margin-left: 2%;
+  margin: 2%;
+}
+
+.navbar-brand-text {
+  font-size: small;
+  padding-left: 20px;
 }
 
 .dropdown {
   margin-right: 2%;
-}
-
-.navbar-brand {
-  text-align-last:justify;
 }
 
 .login-form {
@@ -28,8 +29,8 @@
 }
 
 .bi {
-  margin-right: 5px;
-  margin-left: 3px;
+  margin-right: 10px;
+  margin-left: 10px;
   font-size: 18px;
 }
 
@@ -46,15 +47,15 @@
 
 .sidebar {
   position: fixed;
-  top: 70px;
+  top: 0px;
   padding: 40px;
   padding-top: 50px;
   width: 255px;
-  height: calc(100vh - 60px);
+  height: 100%;
   overflow-y: auto;
   background-color: #f4f4f4; /* 명시적으로 설정 */
   color: #333; /* 명시적으로 설정 */
-  z-index: 800;
+  z-index: 1000;
   transition: width 0.3s ease;
   border-right: 1px solid #323a49; /* Add a top border */
 }

@@ -36,6 +36,18 @@ const NavbarComponent = () => {
         </Button>
       </div>
       <Nav className={`d-md-block ${isCollapsed ? 'collapse' : 'collapse show'}`}>
+        <Nav.Item className="mb-3">
+          <img
+            alt=""
+            height="25px"
+            width="140px"
+            src="/logo_iteasy.png"
+          />
+          <br />
+          <span className='navbar-brand-text'>Service Ops Center</span>
+        </Nav.Item>
+        <br />
+        <br />
         {/* 각 NavLink 항목을 함수 호출로 처리 */}
         {renderNavLink('/home', 'bi-house', 'Home')}
         {renderNavLink('/insight', 'bi-lightbulb', 'Insight')}

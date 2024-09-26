@@ -99,15 +99,16 @@ const Header = () => {
   return (
     <>
       <Navbar bg={theme} variant={theme} className="header justify-content-between">
-        <Navbar.Brand>
+        {/* <Navbar.Brand>
           <img
             alt=""
-            height="20px"
-            width="120px"
+            height="25px"
+            width="140px"
             src="/logo_iteasy.png"
-          />{' '}
-          Service Ops
-        </Navbar.Brand>
+          />
+          <br/>
+          <span className='navbar-brand-text'>Service Ops Center</span>
+        </Navbar.Brand> */}
 
         <Navbar.Collapse className="justify-content-end flex-grow-1 pe-3">
           <Button variant={`outline-${theme === "dark" ? "light" : "dark"}`} onClick={toggleTheme}>

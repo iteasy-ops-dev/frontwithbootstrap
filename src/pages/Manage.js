@@ -208,11 +208,11 @@ const Manage = () => {
                     onChange={(e) => setIps(e.target.value)}
                   />
                   {/* 웹 터미널  */}
-                    <TerminalOffcanvas
-                      ips={ips}
-                      account={account}
-                      password={password}
-                    />
+                  <TerminalOffcanvas
+                    ips={ips}
+                    account={account}
+                    password={password}
+                  />
                   {/* 웹 터미널  */}
                 </InputGroup>
               </Col>
@@ -259,9 +259,11 @@ const Manage = () => {
 
         {type !== '' &&
           <Row>
-            <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={loading}>
-              {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Submit'}
-            </Button>
+            <Col>
+              <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={loading}>
+                {loading ? <Spinner as="span" animation="border" size="sm" /> : 'Submit'}
+              </Button>
+            </Col>
           </Row>
         }
 

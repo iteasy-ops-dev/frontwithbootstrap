@@ -19,7 +19,7 @@ const Insight = () => {
 
   const [start_date, setStart_date] = useState(new Date());
   const [num_days, setNum_days] = useState(1);
-  
+
   const [filter, setFilter] = useState({});
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -268,7 +268,7 @@ const Insight = () => {
           </Col>
         </Row>
         <Row>
-        <Col>
+          <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Company</InputGroup.Text>
               <Form.Control
@@ -288,6 +288,8 @@ const Insight = () => {
               />
             </InputGroup>
           </Col>
+        </Row>
+        <Row>
           <Col>
             <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
               <InputGroup.Text>Request Details</InputGroup.Text>
@@ -298,11 +300,9 @@ const Insight = () => {
               />
             </InputGroup>
           </Col>
-        </Row>
-        <Row>
           <Col>
             <Button className="w-100" variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} type="submit" disabled={fetchApi.loading}>
-              {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Fetch'}
+              {updateApi.loading ? <Spinner as="span" animation="border" size="sm" /> : 'Search'}
             </Button>
           </Col>
         </Row>
@@ -353,7 +353,7 @@ const Insight = () => {
           </Alert>
         )
       )}
-      
+
       <br />
       {fetchApi.loading ? (
         <Spinner animation="border" className="mt-3" />
