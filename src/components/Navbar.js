@@ -35,11 +35,11 @@ const NavbarComponent = () => {
           <i className="bi-list"></i>
         </Button>
       </div>
-      <Nav className={`d-md-block ${isCollapsed ? 'collapse' : 'collapse show'}`}>
-        <Nav.Item className="mb-3">
+      <Nav className={`navbar-brand d-md-block ${isCollapsed ? 'collapse' : 'collapse show'}`}>
+        <Nav.Item className="mb-3" style={{paddingLeft: "20px"}}>
           <img
             alt=""
-            height="25px"
+            height="23px"
             width="140px"
             src="/logo_iteasy.png"
           />

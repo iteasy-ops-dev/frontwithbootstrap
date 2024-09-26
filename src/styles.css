@@ -6,13 +6,9 @@
   z-index: 900;
   background-color: #fff; /* 명시적으로 설정 */
   color: #000; /* 명시적으로 설정 */
-  height: 75px;
+  height: 65px;
   border-bottom: 1px solid #323a49; /* Add a top border */
   padding: 25px;
-}
-
-.navbar-brand {
-  margin: 2%;
 }
 
 .navbar-brand-text {
@@ -48,7 +44,7 @@
 .sidebar {
   position: fixed;
   top: 0px;
-  padding: 40px;
+  padding: 30px;
   padding-top: 50px;
   width: 255px;
   height: 100%;
