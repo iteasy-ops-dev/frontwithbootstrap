@@ -21,6 +21,11 @@ docker-compose -f docker-compose.yml -p frontend up -d
 docker-compose -f docker-compose.yml -p frontend down --rmi all
 ```
 
+업데이트 방법
+---------
+1. `/src/pages/Manage`에서 `추가 옵션 확장` 부분 추가
+2. `/src/pages/manageOptions`에 해당 옵션에 맞는 옵션 페이지 추가
+
 주의 사항
 ---------
 - docker repository에 대한 내용이 정리 되기 전까지 

@@ -51,7 +51,7 @@ const TerminalOffcanvas = ({ ips, account, password }) => {
 				scroll={true}  // 스크롤 가능
 				style={{
 					width: 'auto', // Offcanvas 폭 설정
-					height: '395px',
+					height: '415px',
 					backgroundColor: "black",
 					borderRadius: "10px", // 모서리를 둥글게
 				}}
