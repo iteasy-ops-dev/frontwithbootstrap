@@ -4,6 +4,7 @@ import config from '../config';
 import useApi from '../hooks/useApi';
 import { useAuth } from '../AuthContext';
 import { useTheme } from '../ThemeContext';
+import { translateManageType } from "../utils/utils";
 
 const Logs = () => {
   const { theme } = useTheme();
@@ -161,8 +162,15 @@ const Logs = () => {
                   onChange={(e) => setType(e.target.value)}
                 >
                   <option value=''>- ALL</option>
-                  {functions && functions.data.map((f) => (
+                  {/* {functions && functions.data.map((f) => (
                     <option key={f} value={f}>{f}</option>
+                  ))} */}
+                  {functions && functions.data.map((f) => (
+                    <option key={f} value={f}>
+                    {
+                      translateManageType(f)
+                    }
+                    </option>
                   ))}
                 </Form.Select>
               </InputGroup>

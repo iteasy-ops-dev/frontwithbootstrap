@@ -132,7 +132,7 @@ const Dashboard = () => {
                   <tbody>
                     {types.map((type) => (
                       <tr key={type._id}>
-                        <td style={{ textAlign: 'center' }}>{type._id}</td>
+                        <td style={{ textAlign: 'center' }}>{(type._id)}</td>
                         <td style={{ textAlign: 'center' }}>{type.totalCount}</td>
                         <td style={{ textAlign: 'center' }}>{type.totalDuration}</td>
                         <td style={{ textAlign: 'center' }}>{type.successCount}</td>
