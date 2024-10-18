@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import Logs from './pages/Logs';
 import Users from './pages/Users';
 import Manage from './pages/Manage';
+import Sentinel from './pages/SentinelOne';
 import WebConsole from './pages/WebConsole';
 import WorkMonitor from './pages/WorkMonitor';
 import Roulette from './pages/Games';
@@ -55,6 +56,7 @@ const Main = () => {
     '/logs',
     '/users',
     '/manage',
+    '/sentinel',
     '/console',
     '/monitor',
     '/games',
@@ -77,6 +79,7 @@ const Main = () => {
             <Route path="/logs" element={<ProtectedRoute element={<Logs />} redirectTo="/login" />} />
             <Route path="/users" element={<ProtectedRoute element={<Users />} redirectTo="/login" />} />
             <Route path="/manage" element={<ProtectedRoute element={<Manage />} redirectTo="/login" />} />
+            <Route path="/sentinel" element={<ProtectedRoute element={<Sentinel />} redirectTo="/login" />} />
             <Route path="/console" element={<ProtectedRoute element={<WebConsole />} redirectTo="/login" />} />
             <Route path="/monitor" element={<ProtectedRoute element={<WorkMonitor />} redirectTo="/login" />} />
             <Route path="/games" element={<ProtectedRoute element={<Roulette />} redirectTo="/login" />} />

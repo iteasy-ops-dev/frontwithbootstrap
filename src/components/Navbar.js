@@ -55,9 +55,10 @@ const NavbarComponent = () => {
         {renderNavLink('/logs', 'bi-file-text', 'Logs')}
         {renderNavLink('/users', 'bi-people', 'Users')}
         {renderNavLink('/manage', 'bi-person-workspace', 'Manage', UpdateBadge)}
-        {renderNavLink('/console', 'bi-terminal', 'Console', NewBadge)}
-        {renderNavLink('/monitor', 'bi-display', 'Monitor', NewBadge)}
-        {renderNavLink('/games', 'bi-controller', 'Roulette', NewBadge)}
+        {renderNavLink('/sentinel', 'bi bi-shield', 'Sentinel', NewBadge)}
+        {renderNavLink('/console', 'bi-terminal', 'Console')}
+        {renderNavLink('/monitor', 'bi-display', 'Monitor')}
+        {renderNavLink('/games', 'bi-controller', 'Roulette')}
       </Nav>
     </div>
   );

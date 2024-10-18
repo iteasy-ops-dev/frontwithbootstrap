@@ -98,8 +98,10 @@ const ThreewayManager = ({ handleOptionChange }) => {
 				onChange={handleChange}
 			/>
 			<br />
-			{setupType === "true" && <SetupFields formData={formData} onChange={handleChange} />}
-			{setupType === "false" && <DeleteFields formData={formData} onChange={handleChange} />}
+			{setupType === "create" && <SetupFields formData={formData} onChange={handleChange} />}
+			{setupType === "update-cband" && <UpdateCbandFields formData={formData} onChange={handleChange} />}
+			{setupType === "update-access" && <UpdateAccessFiels formData={formData} onChange={handleChange} />}
+			{setupType === "remove" && <DeleteFields formData={formData} onChange={handleChange} />}
 		</>
 	)
 }
@@ -120,8 +122,10 @@ const OptionSelect = ({ setupType, onChange }) => {
 							onChange={onChange}
 						>
 							<option value="">- Options</option>
-							<option value="true">생성</option>
-							<option value="false">삭제</option>
+							<option value="create">생성(계정,DB,conf)</option>
+							<option value="update-cband">트래픽제한변경</option>
+							<option value="update-access">접속환경변경(계정비밀번호,iptable)</option>
+							<option value="remove">삭제(계정,DB,conf)</option>
 						</Form.Select>
 					</InputGroup>
 				</Col>
@@ -163,15 +167,6 @@ const OptionSelect = ({ setupType, onChange }) => {
 
 const SetupFields = ({ formData, onChange }) => {
 	const { theme } = useTheme();
-	// const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
-	// const [showDbOptions, setShowDbOptions] = useState(false);
-	// const [showQuotaOptions, setShowQuotaOptions] = useState(false);
-	// const [showCbandOptions, setShowCbandOptions] = useState(false);
-
-	// // Handler for toggling options visibility
-	// const handleDbOptionsToggle = () => setShowDbOptions(prev => !prev);
-	// const handleQuotaOptionsToggle = () => setShowQuotaOptions(prev => !prev);
-	// const handleCbandOptionsToggle = () => setShowCbandOptions(prev => !prev);
 
 	return (
 		<>
@@ -184,7 +179,7 @@ const SetupFields = ({ formData, onChange }) => {
 							name="user_id"
 							value={formData.user_id || ""}
 							onChange={onChange}
-							placeholder="Enter Account"
+						// placeholder="Enter Account"
 						/>
 					</InputGroup>
 				</Col>
@@ -196,7 +191,7 @@ const SetupFields = ({ formData, onChange }) => {
 							name="user_pass"
 							value={formData.user_pass || ""}
 							onChange={onChange}
-							placeholder="Enter Password"
+						// placeholder="Enter Password"
 						/>
 					</InputGroup>
 				</Col>
@@ -209,7 +204,7 @@ const SetupFields = ({ formData, onChange }) => {
 							type="text"
 							name="mysql_root_user"
 							onChange={onChange}
-							placeholder="Enter Root Account"
+						// placeholder="Enter Root Account"
 						/>
 					</InputGroup>
 				</Col>
@@ -220,7 +215,7 @@ const SetupFields = ({ formData, onChange }) => {
 							type="text"
 							name="mysql_root_password"
 							onChange={onChange}
-							placeholder="Enter Root Password"
+						// placeholder="Enter Root Password"
 						/>
 					</InputGroup>
 				</Col>
@@ -234,7 +229,7 @@ const SetupFields = ({ formData, onChange }) => {
 							name="db_user"
 							value={formData.db_user || ""}
 							onChange={onChange}
-							placeholder="Enter Create DB Account"
+						// placeholder="Enter Create DB Account"
 						/>
 					</InputGroup>
 				</Col>
@@ -246,7 +241,7 @@ const SetupFields = ({ formData, onChange }) => {
 							name="db_password"
 							value={formData.db_password || ""}
 							onChange={onChange}
-							placeholder="Enter Create DB Account Password"
+						// placeholder="Enter Create DB Account Password"
 						/>
 					</InputGroup>
 				</Col>
@@ -260,179 +255,104 @@ const SetupFields = ({ formData, onChange }) => {
 							name="db_name"
 							value={formData.db_name || ""}
 							onChange={onChange}
-							placeholder="Enter Create DB Name"
+						// placeholder="Enter Create DB Name"
 						/>
 					</InputGroup>
 				</Col>
 			</Row>
-			{/* <Row className="mb-3">
-				<Col>
-					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-						<InputGroup.Text>vhost</InputGroup.Text>
-						<Form.Control
-							type="text"
-							name="vhost_domain"
-							value={formData.vhost_domain || ""}
-							onChange={onChange}
-							placeholder="Enter vhost"
-						/>
-					</InputGroup>
-				</Col>
-				<Col>
-					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-						<InputGroup.Text>listen Port</InputGroup.Text>
-						<Form.Control
-							type="text"
-							name="listen_port"
-							onChange={onChange}
-							placeholder="Default Port: 80"
-						/>
-					</InputGroup>
-				</Col>
-			</Row> */}
-			{/* <Row className="mb-3">
-				<Col>
-					<Form.Check
-						type="checkbox"
-						label="Cband옵션"
-						checked={showCbandOptions}
-						onChange={handleCbandOptionsToggle}
-						className={`${textColorClass}`}
-					/>
-					{showCbandOptions && (
-						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-							<InputGroup.Text>Cband_limit</InputGroup.Text>
-							<Form.Control
-								type="text"
-								name="cband_limit"
-								value={formData.cband_limit || ""}
-								onChange={onChange}
-								placeholder="Enter Cband limit(GB)"
-							/>
-						</InputGroup>
-					)}
-				</Col>
-			</Row>
-			<Row className="mb-3">
-				<Col>
-					<Form.Check
-						type="checkbox"
-						label="Quota옵션"
-						checked={showQuotaOptions}
-						onChange={handleQuotaOptionsToggle}
-						className={`${textColorClass}`}
-					/>
-					{showQuotaOptions && (
-						<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-							<InputGroup.Text>Quota Limit</InputGroup.Text>
-							<Form.Control
-								type="text"
-								name="disk_quota"
-								value={formData.disk_quota || ""}
-								onChange={onChange}
-								placeholder="Enter Qouta(GB)"
-							/>
-						</InputGroup>
-					)}
-				</Col>
-			</Row> */}
-			{/* <Row className="mb-3">
-				<Col>
-					<Form.Check
-						type="checkbox"
-						label="DB옵션"
-						checked={showDbOptions}
-						onChange={handleDbOptionsToggle}
-						className={`${textColorClass}`}
-					/>
-					{showDbOptions && (
-						<>
-							<Row className="mb-3">
-								<Col>
-									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-										<InputGroup.Text>db admin</InputGroup.Text>
-										<Form.Control
-											type="text"
-											name="mysql_root_user"
-											onChange={onChange}
-											placeholder="Enter Root Account"
-										/>
-									</InputGroup>
-								</Col>
-								<Col>
-									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-										<InputGroup.Text>db admin 비밀번호</InputGroup.Text>
-										<Form.Control
-											type="text"
-											name="mysql_root_password"
-											onChange={onChange}
-											placeholder="Enter Root Password"
-										/>
-									</InputGroup>
-								</Col>
-							</Row>
-							<Row className="mb-3">
-								<Col>
-									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-										<InputGroup.Text>db 계정</InputGroup.Text>
-										<Form.Control
-											type="text"
-											name="db_user"
-											value={formData.db_user || ""}
-											onChange={onChange}
-											placeholder="Enter Create DB Account"
-										/>
-									</InputGroup>
-								</Col>
-								<Col>
-									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-										<InputGroup.Text>db 계정 비밀번호</InputGroup.Text>
-										<Form.Control
-											type="text"
-											name="db_password"
-											value={formData.db_password || ""}
-											onChange={onChange}
-											placeholder="Enter Create DB Account Password"
-										/>
-									</InputGroup>
-								</Col>
-							</Row>
-							<Row>
-								<Col>
-									<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-										<InputGroup.Text>db 이름</InputGroup.Text>
-										<Form.Control
-											type="text"
-											name="db_name"
-											value={formData.db_name || ""}
-											onChange={onChange}
-											placeholder="Enter Create DB Name"
-										/>
-									</InputGroup>
-								</Col>
-							</Row>
-						</>
-					)}
-				</Col>
-			</Row> */}
 		</>
 	);
 };
 
-const DeleteFields = ({ formData, onChange }) => {
+const UpdateCbandFields = ({ formData, onChange }) => {
 	const { theme } = useTheme();
-	const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
-
-	const [showDbOptions, setShowDbOptions] = useState(false);
-
-	// Handler for toggling database options visibility
-	const handleDbOptionsToggle = () => setShowDbOptions(prev => !prev);
 
 	return (
 		<>
-			{/* <Alert key="warning" variant="warning">
-				WARM: 수동으로 생성된 계정에 대해서 오류가 날 수 있습니다.
-			</Alert> */}
+			<Row className='mb-3'>
+				<Col>
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text>변경할 계정</InputGroup.Text>
+						<Form.Control
+							type="text"
+							name="user_id"
+							value={formData.user_id || ""}
+							onChange={onChange}
+						// placeholder="Enter Account"
+						/>
+					</InputGroup>
+				</Col>
+				<Col>
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text>트래픽제한량(GB)</InputGroup.Text>
+						<Form.Control
+							type="text"
+							name="cband_limit"
+							value={formData.cband_limit || ""}
+							onChange={onChange}
+						// placeholder="Enter Cband limit(GB)"
+						/>
+					</InputGroup>
+				</Col>
+			</Row>
+		</>
+	)
+}
+const UpdateAccessFiels = ({ formData, onChange }) => {
+	const { theme } = useTheme();
+
+	return (
+		<>
+			<Row className='mb-3'>
+				<Col>
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text>변경할 계정</InputGroup.Text>
+						<Form.Control
+							type="text"
+							name="user_id"
+							value={formData.user_id || ""}
+							onChange={onChange}
+						// placeholder="Enter Account"
+						/>
+					</InputGroup>
+				</Col>
+				<Col>
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text>변경할 비밀번호</InputGroup.Text>
+						<Form.Control
+							type="text"
+							name="user_pass"
+							value={formData.user_pass || ""}
+							onChange={onChange}
+						// placeholder="Enter Password"
+						/>
+					</InputGroup>
+				</Col>
+			</Row>
+			<Row>
+				<Col>
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text>IP관리</InputGroup.Text>
+						<Form.Control
+							type="text"
+							// name="user_pass"
+							// value={formData.user_pass || ""}
+							onChange={onChange}
+							placeholder="구현중. 아직 안되요"
+							disabled
+						/>
+					</InputGroup>
+				</Col>
+			</Row>
+		</>
+	)
+}
+
+const DeleteFields = ({ formData, onChange }) => {
+	const { theme } = useTheme();
+
+	return (
+		<>
 			<Row className="mb-3">
 				<Col>
 					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
@@ -442,7 +362,7 @@ const DeleteFields = ({ formData, onChange }) => {
 							name="user_id"
 							value={formData.user_id || ""}
 							onChange={onChange}
-							placeholder="Enter Account"
+						// placeholder="Enter Account"
 						/>
 					</InputGroup>
 				</Col>
@@ -455,7 +375,7 @@ const DeleteFields = ({ formData, onChange }) => {
 							type="text"
 							name="mysql_root_user"
 							onChange={onChange}
-							placeholder="Enter DB Root Account"
+						// placeholder="Enter DB Root Account"
 						/>
 					</InputGroup>
 				</Col>
@@ -466,7 +386,7 @@ const DeleteFields = ({ formData, onChange }) => {
 							type="text"
 							name="mysql_root_password"
 							onChange={onChange}
-							placeholder="Enter DB Root Password"
+						// placeholder="Enter DB Root Password"
 						/>
 					</InputGroup>
 				</Col>
@@ -480,7 +400,7 @@ const DeleteFields = ({ formData, onChange }) => {
 							name="db_user"
 							value={formData.db_user || ""}
 							onChange={onChange}
-							placeholder="Enter DB User"
+						// placeholder="Enter DB User"
 						/>
 					</InputGroup>
 				</Col>
@@ -492,78 +412,11 @@ const DeleteFields = ({ formData, onChange }) => {
 							name="db_name"
 							value={formData.db_name || ""}
 							onChange={onChange}
-							placeholder="Enter DB Name"
+						// placeholder="Enter DB Name"
 						/>
 					</InputGroup>
 				</Col>
 			</Row>
-			{/* 
-			<Row className="mb-3">
-				<Col>
-					<Form.Check
-						type="checkbox"
-						label="DB옵션"
-						checked={showDbOptions}
-						onChange={handleDbOptionsToggle}
-						className={`${textColorClass}`}
-					/>
-				</Col>
-			</Row>
-
-			{showDbOptions && (
-				<>
-					<Row className="mb-3">
-						<Col>
-							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-								<InputGroup.Text>db admin</InputGroup.Text>
-								<Form.Control
-									type="text"
-									name="mysql_root_user"
-									onChange={onChange}
-									placeholder="Enter DB Root Account"
-								/>
-							</InputGroup>
-						</Col>
-						<Col>
-							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-								<InputGroup.Text>db admin 비밀번호</InputGroup.Text>
-								<Form.Control
-									type="text"
-									name="mysql_root_password"
-									onChange={onChange}
-									placeholder="Enter DB Root Password"
-								/>
-							</InputGroup>
-						</Col>
-					</Row>
-					<Row className="mb-3">
-						<Col>
-							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-								<InputGroup.Text>db 계정</InputGroup.Text>
-								<Form.Control
-									type="text"
-									name="db_user"
-									value={formData.db_user || ""}
-									onChange={onChange}
-									placeholder="Enter DB User"
-								/>
-							</InputGroup>
-						</Col>
-						<Col>
-							<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-								<InputGroup.Text>db 이름</InputGroup.Text>
-								<Form.Control
-									type="text"
-									name="db_name"
-									value={formData.db_name || ""}
-									onChange={onChange}
-									placeholder="Enter DB Name"
-								/>
-							</InputGroup>
-						</Col>
-					</Row>
-				</>
-			)} */}
 		</>
 	);
 };

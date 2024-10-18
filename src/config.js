@@ -28,6 +28,9 @@ const config = {
 			workhistory: "/workhistory",
 			get_work_history: "/get-work-history",
 			insight: "/insight",
+			sentinelone: {
+				update: "/sentinelone/update"
+			}
 		}
 	},
 	jwt: {

@@ -69,9 +69,23 @@ export const validateDomain = (domain) => {
 }
 
 export const validateUint = (n) => {
-	
+
 	if (n <= 0) {
 		return validateStatus('해당 숫자는 0보다 커야 합니다.')
 	}
 	return validateStatus()
+}
+
+
+export const validateSentinelOneKey = (key) => {
+	const SentinelOneKeyRegex = /^[A-Za-z0-9_-]{60}.[A-Za-z0-9_-]{240}.[A-Za-z0-9_-]{86}/;
+	// 공백 제거
+	const cleanedKey = key.trim();
+
+	// 정규 표현식을 사용하여 JWT 형식 및 각 부분의 길이를 확인
+	if (!SentinelOneKeyRegex.test(cleanedKey)) {
+		return validateStatus('유효한 키가 아닙니다.');
+	}
+
+	return validateStatus();
 }

@@ -101,7 +101,7 @@ const Header = () => {
       <Navbar bg={theme} variant={theme} className="header justify-content-between">
         <Navbar.Collapse className="justify-content-end flex-grow-1 pe-3">
           <Button variant={`outline-${theme === "dark" ? "light" : "dark"}`} onClick={toggleTheme}>
-            <i className="bi bi-moon-stars"></i>{theme === 'light' ?  <i class="bi bi-toggle2-on"></i> : <i class="bi bi-toggle2-off"></i>}<i className="bi bi-brightness-high"></i>
+            <i className="bi bi-moon-stars"></i>{theme === 'light' ?  <i className="bi bi-toggle2-on"></i> : <i className="bi bi-toggle2-off"></i>}<i className="bi bi-brightness-high"></i>
           </Button>
         </Navbar.Collapse>
         {isAuthenticated && (
