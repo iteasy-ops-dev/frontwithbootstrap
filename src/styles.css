@@ -16,6 +16,11 @@
   padding-left: 20px;
 }
 
+.nav-sub-text {
+  font-size: small;
+  padding-left: 40px;
+}
+
 .dropdown {
   margin-right: 2%;
 }

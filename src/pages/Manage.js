@@ -32,6 +32,7 @@ const Manage = () => {
   const [ips, setIps] = useState('');
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
+  const [becomePassword, setBecomePassword] = useState('');
   const [options, setOptions] = useState({});
 
   useEffect(() => {
@@ -58,6 +59,7 @@ const Manage = () => {
       ips: ips.split(/[\n,]+/).map(ip => ip.trim()).filter(ip => ip),
       account,
       password,
+      becomePassword,
       options,
     };
 
@@ -152,9 +154,9 @@ const Manage = () => {
                   <option value=''>- Choose Type</option>
                   {functions && functions.data.map((f) => (
                     <option key={f} value={f}>
-                    {
-                      translateManageType(f)
-                    }
+                      {
+                        translateManageType(f)
+                      }
                     </option>
                   ))}
                 </Form.Select>
@@ -250,6 +252,23 @@ const Manage = () => {
                 </InputGroup>
               </Col>
             </Row>
+            {
+              account != "root" &&
+              <Row>
+                <Col>
+                  <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+                    <InputGroup.Text>Root Password</InputGroup.Text>
+                    <Form.Control
+                      type="becomePassword"
+                      value={becomePassword}
+                      required
+                      onChange={(e) => setBecomePassword(e.target.value)}
+                    />
+                  </InputGroup>
+                </Col>
+              </Row>
+            }
+
           </>
         }
 

@@ -38,7 +38,7 @@ const ChangeSslForm = ({ handleOptionChange }) => {
 			<Row className="mb-3">
 				<Col>
 					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-						<InputGroup.Text>Domain</InputGroup.Text>
+						<InputGroup.Text>도메인</InputGroup.Text>
 						<Form.Control
 							type="text"
 							name="domain_name"
@@ -48,14 +48,13 @@ const ChangeSslForm = ({ handleOptionChange }) => {
 				</Col>
 				<Col>
 				<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-					<InputGroup.Text>WebServer</InputGroup.Text>
+					<InputGroup.Text>재시작여부</InputGroup.Text>
 					<Form.Select
 						name="webserver_type"
 						onChange={handleChange}
 					>
-						<option value="">- Options</option>
-						<option value="apache">Apache</option>
-						<option value="nginx">Nginx</option>
+						<option value="1">false</option>
+						<option value="0">true</option>
 					</Form.Select>
 				</InputGroup>
 				</Col>
