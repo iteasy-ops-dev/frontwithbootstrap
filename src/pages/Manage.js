@@ -66,12 +66,14 @@ const Manage = () => {
     // console.log("payload: ", payload);
 
     if (!payload.options.hasOwnProperty("files")) {
+      // console.log("파일 없음")
       await callApi(
         config.api.path.run,
         config.api.method.POST,
         payload
       );
     } else {
+      // console.log("파일 있음")
       await callApi(
         config.api.path.run,
         config.api.method.POST,

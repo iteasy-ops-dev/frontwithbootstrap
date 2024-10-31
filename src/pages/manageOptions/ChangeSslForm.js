@@ -8,8 +8,8 @@ const ChangeSslForm = ({ handleOptionChange }) => {
 
 	const handleLocalFileChange = (e) => {
 		const files = Array.from(e.target.files);
-
-		// Update formData with files as a new key-value pair
+		// TODO:
+		// 파일의 갯수가 3개여야만 정상
 		handleChange({
 			target: {
 				name: 'files',
@@ -47,22 +47,24 @@ const ChangeSslForm = ({ handleOptionChange }) => {
 					</InputGroup>
 				</Col>
 				<Col>
-				<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-					<InputGroup.Text>재시작여부</InputGroup.Text>
-					<Form.Select
-						name="webserver_type"
-						onChange={handleChange}
-					>
-						<option value="1">false</option>
-						<option value="0">true</option>
-					</Form.Select>
-				</InputGroup>
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text>재시작여부</InputGroup.Text>
+						<Form.Select
+							name="webserver_type"
+							onChange={handleChange}
+						>
+							<option value="1">false</option>
+							<option value="0">true</option>
+						</Form.Select>
+					</InputGroup>
 				</Col>
 			</Row>
+
 			<Row>
-			<Col>
+				<Col>
 					<Form.Group controlId="formFileMultiple" className="mb-3" data-bs-theme={`${theme}`}>
-						<Form.Control type="file" name="files" onChange={handleLocalFileChange} multiple />
+						<Form.Label className={`${textColorClass}`}><a href='https://www.sslcert.co.kr/guides/kb/54' target="_blank" rel="noreferrer">업로드 가능 파일: 도메인__<strong>key.pem</strong>, 도메인__<strong>crt.pem</strong>, 도메인__<strong>ca.pem</strong></a></Form.Label>
+						<Form.Control type="file" name="files" onChange={handleLocalFileChange} multiple accept=".pem"/>
 					</Form.Group>
 				</Col>
 			</Row>
