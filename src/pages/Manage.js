@@ -28,9 +28,9 @@ const Manage = () => {
 
   const [name] = useState(getUserToken().name);
   const [email] = useState(getUserToken().email);
-  const [type, setType] = useState('');
+  const [type, setType] = useState('3way_manager');
   const [ips, setIps] = useState('');
-  const [account, setAccount] = useState('');
+  const [account, setAccount] = useState('root');
   const [password, setPassword] = useState('');
   const [becomePassword, setBecomePassword] = useState('');
   const [options, setOptions] = useState({});
@@ -154,11 +154,18 @@ const Manage = () => {
                   onChange={(e) => setType(e.target.value)}
                 >
                   <option value=''>- Choose Type</option>
-                  {functions && functions.data.map((f) => (
-                    <option key={f} value={f}>
+                  {/* {functions && functions.data.map((f) => (
+                    <option key={f.Name} value={f.Name}>
                       {
-                        translateManageType(f)
+                        translateManageType(f.Name)
                       }
+                    </option>
+                  ))} */}
+                  {functions && Object.keys(functions.data).map((f) => (
+                    <option key={f} value={f}>
+                    {
+                      translateManageType(f)
+                    }
                     </option>
                   ))}
                 </Form.Select>
@@ -255,7 +262,7 @@ const Manage = () => {
               </Col>
             </Row>
             {
-              account != "root" &&
+              account != "root" && functions.data[type] &&
               <Row>
                 <Col>
                   <InputGroup className="mb-3" data-bs-theme={`${theme}`}>

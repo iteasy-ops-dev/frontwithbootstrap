@@ -165,7 +165,14 @@ const Logs = () => {
                   {/* {functions && functions.data.map((f) => (
                     <option key={f} value={f}>{f}</option>
                   ))} */}
-                  {functions && functions.data.map((f) => (
+                  {/* {functions && functions.data.map((f) => (
+                    <option key={f.Name} value={f.Name}>
+                    {
+                      translateManageType(f.Name)
+                    }
+                    </option>
+                  ))} */}
+                  {functions && Object.keys(functions.data).map((f) => (
                     <option key={f} value={f}>
                     {
                       translateManageType(f)
