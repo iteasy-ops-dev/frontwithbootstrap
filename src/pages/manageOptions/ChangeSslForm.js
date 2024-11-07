@@ -8,14 +8,19 @@ const ChangeSslForm = ({ handleOptionChange }) => {
 
 	const handleLocalFileChange = (e) => {
 		const files = Array.from(e.target.files);
-		// TODO:
-		// 파일의 갯수가 3개여야만 정상
-		handleChange({
-			target: {
-				name: 'files',
-				value: files
-			}
-		});
+		
+		if (files.length === 3) {
+			handleChange({
+				target: {
+					name: 'files',
+					value: files
+				}
+			});
+		} else {
+			alert("pem 확장자를 가진 3개의 파일이 필요합니다.")
+			return
+		}
+
 	}
 
 	const handleChange = (e) => {
