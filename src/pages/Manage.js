@@ -40,6 +40,11 @@ const Manage = () => {
     setOptions({});
   }, [type]);
 
+  useEffect(() => {
+    // Reset options whenever the type changes
+    setBecomePassword(password)
+  }, [password]);
+
   const handleOptionChange = (key, value) => {
     setOptions(prevOptions => ({ ...prevOptions, [key]: value }));
   };
