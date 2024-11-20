@@ -34,6 +34,9 @@ const Monitor = () => {
   const [selectedLog, setSelectedLog] = useState(null);
 
   const fetchData = (page) => {
+    console.log(filter)
+    console.log(page)
+    console.log(pageSize)
     callApi(
       config.mm_api.path.list,
       config.mm_api.method.GET,
