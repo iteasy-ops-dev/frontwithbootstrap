@@ -203,6 +203,7 @@ const SetupFields = ({ formData, onChange }) => {
 						<Form.Control
 							type="text"
 							name="mysql_root_user"
+							// value="root"
 							onChange={onChange}
 						// placeholder="Enter Root Account"
 						/>
@@ -366,6 +367,18 @@ const DeleteFields = ({ formData, onChange }) => {
 						/>
 					</InputGroup>
 				</Col>
+				{/* <Col>
+					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+						<InputGroup.Text>삭제할 도메인</InputGroup.Text>
+						<Form.Control
+							type="text"
+							name="domain"
+							value={formData.domain || ""}
+							onChange={onChange}
+							placeholder="도메인 한개만 적으세요!"
+						/>
+					</InputGroup>
+				</Col> */}
 			</Row>
 			<Row className="mb-3">
 				<Col>
@@ -374,6 +387,7 @@ const DeleteFields = ({ formData, onChange }) => {
 						<Form.Control
 							type="text"
 							name="mysql_root_user"
+							// value="root"
 							onChange={onChange}
 						// placeholder="Enter DB Root Account"
 						/>

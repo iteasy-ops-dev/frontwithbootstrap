@@ -12,6 +12,7 @@ import Manage from './pages/Manage';
 // import Sentinel from './pages/SentinelOne';
 import WebConsole from './pages/WebConsole';
 import WorkMonitor from './pages/WorkMonitor';
+import Monitor from './pages/Monitor';
 import Roulette from './pages/Games';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
@@ -58,6 +59,7 @@ const Main = () => {
     '/manage',
     // '/sentinel/setting',
     '/console',
+    '/workboard',
     '/monitor',
     '/games',
     '/login',
@@ -81,7 +83,8 @@ const Main = () => {
             <Route path="/manage" element={<ProtectedRoute element={<Manage />} redirectTo="/login" />} />
             {/* <Route path="/sentinel/setting" element={<ProtectedRoute element={<Sentinel />} redirectTo="/login" />} /> */}
             <Route path="/console" element={<ProtectedRoute element={<WebConsole />} redirectTo="/login" />} />
-            <Route path="/monitor" element={<ProtectedRoute element={<WorkMonitor />} redirectTo="/login" />} />
+            <Route path="/workboard" element={<ProtectedRoute element={<WorkMonitor />} redirectTo="/login" />} />
+            <Route path="/monitor" element={<ProtectedRoute element={<Monitor />} redirectTo="/login" />} />
             <Route path="/games" element={<ProtectedRoute element={<Roulette />} redirectTo="/login" />} />
             <Route path="/login" element={<RedirectToHomeIfAuthenticated element={<Login />} />} />
             <Route path="/signup" element={<RedirectToHomeIfAuthenticated element={<Signup />} />} />

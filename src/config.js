@@ -33,6 +33,18 @@ const config = {
 			}
 		}
 	},
+	mm_api: {
+		baseUrl: process.env.REACT_APP_MANAGED_MONITOR_API_URL || "http://localhost:8081/monitor",
+		method: {
+			GET: "GET",
+			POST: "POST"
+		},
+		path: {
+			list: "/list",
+			start: "/start",
+			done: "/done"
+		}
+	},
 	jwt: {
 		key: process.env.REACT_APP_JWT_KEY || "OPST"
 	},

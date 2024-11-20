@@ -99,7 +99,8 @@ const NavbarComponent = () => {
           {renderSentinelSubMenu()}
         </Nav.Item> */}
         {renderNavLink('/console', 'bi-terminal', 'Console')}
-        {renderNavLink('/monitor', 'bi-display', 'Monitor')}
+        {renderNavLink('/workboard', 'bi-display', 'Workboard')}
+        {renderNavLink('/monitor', 'bi-display', 'Monitor', NewBadge)}
         {renderNavLink('/games', 'bi-controller', 'Roulette')}
       </Nav>
     </div>

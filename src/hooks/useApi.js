@@ -2,15 +2,15 @@ import { useState } from 'react';
 import axios from 'axios';
 import config from '../config';
 
-const api = axios.create({
-  baseURL: config.api.baseUrl,
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  }
-});
+const useApi = (url = config.api.baseUrl) => {
+  const api = axios.create({
+    baseURL: url,
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json',
+    }
+  });
 
-const useApi = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
