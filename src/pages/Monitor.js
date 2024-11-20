@@ -37,7 +37,7 @@ const Monitor = () => {
   const fetchData = (page) => {
     callApi(
       config.mm_api.path.list,
-      config.mm_api.method.POST,
+      config.mm_api.method.GET,
       { filter, page, pageSize }
     );
   };
