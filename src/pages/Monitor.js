@@ -39,7 +39,7 @@ const Monitor = () => {
     console.log(pageSize)
     callApi(
       config.mm_api.path.list,
-      config.mm_api.method.GET,
+      config.mm_api.method.POST,
       { filter, page, pageSize }
     );
   };
