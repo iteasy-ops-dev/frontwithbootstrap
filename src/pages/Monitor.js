@@ -11,8 +11,7 @@ const Monitor = () => {
   const textColorClass = theme === 'light' ? 'text-dark' : 'text-light';
 
   const { data, loading, error, callApi } = useApi(config.mm_api.baseUrl);
-  const { functions, getUserToken } = useAuth();
-  const invalidState = functions === null || functions === undefined
+  const { getUserToken } = useAuth();
 
   const [name] = useState(getUserToken().name);
   const [email] = useState(getUserToken().email);
@@ -66,22 +65,22 @@ const Monitor = () => {
     //   ? { [`$${comparison}`]: parseFloat(duration) }
     //   : { $exists: true };
 
-    // setFilter({
-    //   type: {
-    //     $regex: type,
-    //     $options: "i"
-    //   },
-    //   name: {
-    //     $regex: name,
-    //     $options: "i"
-    //   },
-    //   email: {
-    //     $regex: email,
-    //     $options: "i"
-    //   },
-    //   status: statusBool !== '' ? statusBool : { $exists: true },
-    //   duration: comparison ? durationFilter : { $exists: true },
-    // });
+    setFilter({
+      AlarmType: {
+        $regex: searchType,
+        $options: "i"
+      },
+      // name: {
+      //   $regex: name,
+      //   $options: "i"
+      // },
+      // email: {
+      //   $regex: email,
+      //   $options: "i"
+      // },
+      // status: statusBool !== '' ? statusBool : { $exists: true },
+      // duration: comparison ? durationFilter : { $exists: true },
+    });
   }
 
   const handlePageChange = (page) => {
