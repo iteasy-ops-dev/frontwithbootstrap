@@ -265,25 +265,25 @@ const Monitor = () => {
             <Table striped bordered hover className="mt-3" variant={`${theme}`}>
               <thead>
                 <tr>
-                  <th style={{ textAlign: 'center' }}>Type</th>
-                  <th style={{ textAlign: 'center' }}>Worker</th>
-                  <th style={{ textAlign: 'center' }}>Status</th>
+                  <th style={{ textAlign: 'center' }}>발생시간</th>
+                  <th style={{ textAlign: 'center' }}>메세지</th>
+                  {/* <th style={{ textAlign: 'center' }}>Status</th>
                   <th style={{ textAlign: 'center' }}>Duration</th>
                   <th style={{ textAlign: 'center' }}>Timestamp</th>
                   <th style={{ textAlign: 'center' }}>Options</th>
-                  <th style={{ textAlign: 'center' }}>Payload</th>
+                  <th style={{ textAlign: 'center' }}>Payload</th> */}
                 </tr>
               </thead>
               <tbody>
                 {data.data.data.map((log) => (
                   <React.Fragment key={log.ID}>
                     <tr>
-                      <td style={{ textAlign: 'center' }}>{log.Type}</td>
-                      <td style={{ textAlign: 'center' }}>
+                      <td style={{ textAlign: 'center' }}>{log.CreatedAt}</td>
+                      <td style={{ textAlign: 'center' }}>{log.Message}</td>
+                      {/* <td style={{ textAlign: 'center' }}>
                         <Button variant="link" onClick={() => handleUserShow(log)}>
                           {log.Name}
                         </Button>
-                        {/* {log.Name} */}
                       </td>
                       <td style={{ textAlign: 'center' }}>{log.Status ? '🟢' : '🔴'}</td>
                       <td style={{ textAlign: 'center' }}>{log.Duration} s</td>
@@ -297,7 +297,7 @@ const Monitor = () => {
                         <Button variant="link" onClick={() => handlePayloadShow(log)}>
                           <i className="bi bi-info-circle-fill"></i>
                         </Button>
-                      </td>
+                      </td> */}
                     </tr>
                   </React.Fragment>
                 ))}
