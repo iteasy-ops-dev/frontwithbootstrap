@@ -266,7 +266,9 @@ const Monitor = () => {
               <thead>
                 <tr>
                   <th style={{ textAlign: 'center' }}>발생시간</th>
-                  <th style={{ textAlign: 'center' }}>메세지</th>
+                  <th style={{ textAlign: 'center' }}>IP</th>
+                  <th style={{ textAlign: 'center' }}>내용</th>
+                  <th style={{ textAlign: 'center' }}>상태</th>
                   {/* <th style={{ textAlign: 'center' }}>Status</th>
                   <th style={{ textAlign: 'center' }}>Duration</th>
                   <th style={{ textAlign: 'center' }}>Timestamp</th>
@@ -278,8 +280,16 @@ const Monitor = () => {
                 {data.data.data.map((log) => (
                   <React.Fragment key={log.ID}>
                     <tr>
-                      <td style={{ textAlign: 'center' }}>{log.CreatedAt}</td>
+                      <td style={{ textAlign: 'center' }}>{new Date(log.CreatedAt * 1000).toLocaleString()}</td>
+                      <td style={{ textAlign: 'center' }}>{log.Ip}</td>
                       <td style={{ textAlign: 'center' }}>{log.Message}</td>
+                      <td style={{ textAlign: 'center' }}>
+                        {log.CurrentStatus === -1
+                          ? 'Pending'
+                          : log.CurrentStatus === 0
+                          ? 'In Progress'
+                          : 'Completed'} 
+                      </td>
                       {/* <td style={{ textAlign: 'center' }}>
                         <Button variant="link" onClick={() => handleUserShow(log)}>
                           {log.Name}
