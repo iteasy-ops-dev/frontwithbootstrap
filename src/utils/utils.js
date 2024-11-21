@@ -36,3 +36,61 @@ export const translateManageType = (type) => {
 
   return kor
 }
+
+export const translateMonitorAlarmType = (type) => {
+  let kor
+
+  switch (type) {
+    case "resource":
+      kor = "서버 자원 점유"
+      break;
+    case "url":
+      kor = "URL 응답"
+      break;
+    case "data_gathering":
+      kor = "데이터 미수집"
+      break;
+    case "erp":
+      kor = "ERP 알람"
+      break;
+    case "port":
+      kor = "포트 응답"
+      break;
+    default:
+      kor = type
+      break;
+  }
+
+  return kor
+}
+
+export const viewMonitorDetail = (obj) => {
+  switch (obj.AlarmType) {
+    case "url":
+      return `URL: ${obj.Url}`
+    case "port":
+      return `Port: ${obj.Port}`
+    case "erp":
+    case "resource":
+    case "data_gathering":
+    default:
+      return ""
+  }
+}
+
+export const viewUnixtime = (t) => {
+  const date = new Date(t * 1000);
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+}
+
+export const translateMonitorCurrentStatus = (n) => {
+  switch (n) {
+    case -1:
+      return "❌"
+    case 0:
+      return "⚠️"
+    case 1:
+      return "✅"
+  } 
+  
+}

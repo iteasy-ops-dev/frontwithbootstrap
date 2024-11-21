@@ -42,6 +42,7 @@ const config = {
 		path: {
 			list: "/list",
 			start: "/start",
+			updateStatus: "/updateStatus",
 			done: "/done"
 		}
 	},

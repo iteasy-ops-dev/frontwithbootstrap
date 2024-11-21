@@ -100,7 +100,7 @@ const NavbarComponent = () => {
         </Nav.Item> */}
         {renderNavLink('/console', 'bi-terminal', 'Console')}
         {renderNavLink('/workboard', 'bi-display', 'Workboard')}
-        {renderNavLink('/monitor', 'bi-display', 'Monitor', NewBadge)}
+        {renderNavLink('/monitor', 'bi-eyeglasses', 'Monitor', NewBadge)}
         {renderNavLink('/games', 'bi-controller', 'Roulette')}
       </Nav>
     </div>

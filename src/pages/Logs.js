@@ -365,7 +365,7 @@ const Logs = () => {
         </Modal.Footer>
       </Modal>
 
-      <Modal show={showPayload} onHide={handlePayloadClose}>
+      <Modal size="lg" show={showPayload} onHide={handlePayloadClose}>
         <Modal.Header closeButton>
           <Modal.Title>Log Details-Payload</Modal.Title>
         </Modal.Header>

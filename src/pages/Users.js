@@ -252,7 +252,7 @@ const User = () => {
         </>
       )}
 
-      <Modal show={showAccessLog} onHide={handleAccessLogClose}>
+      <Modal size="lg" show={showAccessLog} onHide={handleAccessLogClose}>
         <Modal.Header closeButton>
           <Modal.Title>Access Logs</Modal.Title>
         </Modal.Header>
