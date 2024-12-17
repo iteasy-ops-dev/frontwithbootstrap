@@ -168,9 +168,9 @@ const Manage = () => {
                   ))} */}
                   {functions && Object.keys(functions.data).map((f) => (
                     <option key={f} value={f}>
-                    {
-                      translateManageType(f)
-                    }
+                      {
+                        translateManageType(f)
+                      }
                     </option>
                   ))}
                 </Form.Select>

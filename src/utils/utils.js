@@ -12,7 +12,7 @@ export const translateManageType = (type) => {
       kor = "SSH 포트 변경"
       break;
     case "change_ssl":
-      kor = "✅ SSL 연장(테스트 중)"
+      kor = "✅ SSL 연장"
       break;
     case "web_conf_scout":
       kor = "✅ 웹서버 탐색기"
@@ -35,6 +35,10 @@ export const translateManageType = (type) => {
   }
 
   return kor
+}
+
+export const replaceWord = (str, prev, next) => {
+  return str.replaceAll(prev, next)
 }
 
 export const translateMonitorAlarmType = (type) => {
@@ -91,6 +95,6 @@ export const translateMonitorCurrentStatus = (n) => {
       return "⚠️"
     case 1:
       return "✅"
-  } 
-  
+  }
+
 }
