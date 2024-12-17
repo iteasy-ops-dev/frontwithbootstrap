@@ -15,13 +15,15 @@ const Monitor = () => {
   const startApi = useApi(config.mm_api.baseUrl);
   const updateStatusApi = useApi(config.mm_api.baseUrl);
   const finishApi = useApi(config.mm_api.baseUrl);
+  const connectApi = useApi(config.mm_api.baseUrl);
   const { getUserToken } = useAuth();
 
   const [name] = useState(getUserToken().name);
   const [email] = useState(getUserToken().email);
 
   // 검색 옵션
-  const [filter, setFilter] = useState({ CurrentStatus: -1 }); // 조치 전 기본값
+  // const [filter, setFilter] = useState({ CurrentStatus: -1 }); // 조치 전 기본값
+  const [filter, setFilter] = useState(); // 조치 전 기본값
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const pageSize = 10;
@@ -33,6 +35,7 @@ const Monitor = () => {
   const [searchStatus, setSearchStatus] = useState('-1');
 
   const [showDetail, setshowDetail] = useState(false);
+  const [showConnect, setShowConnect] = useState(false);
   const [selectedLog, setSelectedLog] = useState(null);
 
   const [actionDetail, setActionDetail] = useState("")
@@ -96,6 +99,16 @@ const Monitor = () => {
     }
   }, [selectedLog]);
 
+  useEffect(() => {
+    console.log(objectIDs)
+    if (objectIDs.length === 2) {
+      setShowConnect(true)
+    } else {
+      setShowConnect(false)
+    }
+    console.log(showConnect)
+  }, [objectIDs])
+
   // useEffect(() => {
   //   fetchData();
   // }, [type, status, comparison]);
@@ -105,7 +118,7 @@ const Monitor = () => {
     fetchData(currentPage);
     setSelectAll(false)
     setObjectIDs([])
-  }, [currentPage, filter, showDetail, updateStatusApi.data]);
+  }, [currentPage, filter, showDetail, updateStatusApi.data, connectApi.data]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -123,14 +136,14 @@ const Monitor = () => {
     setFilter(filter);
   }
 
-  const handleMonitorConfirm = () => {
+  const handleToNormalization = () => {
     if (objectIDs.length === 0) {
       alert("체크된 알람이 없습니다.")
       return;
     }
 
-    if(parseInt(setStatus) === 1 && !window.confirm("선택된 알람이 자동 정상화로 변경됩니다. 계속하시겠습니까?")) {
-    	return;
+    if (parseInt(setStatus) === 1 && !window.confirm("선택된 알람이 자동 정상화로 변경됩니다. 계속하시겠습니까?")) {
+      return;
     }
     updateStatusApi.callApi(
       config.mm_api.path.updateStatus,
@@ -141,6 +154,28 @@ const Monitor = () => {
         Status: parseInt(setStatus)
       }
     )
+  }
+
+  const handleConnectAlarm = () => {
+    if (objectIDs.length !== 2) {
+      alert("반드시 두개만 체크하세요.")
+      return;
+    }
+
+    if (!window.confirm("선택된 두개의 내역이 연결됩니다.")) {
+      return;
+    }
+
+    connectApi.callApi(
+      config.mm_api.path.connect,
+      config.mm_api.method.POST,
+      {
+        ObjectIDs: objectIDs,
+        Worker: name,
+      }
+    )
+
+    setShowConnect(false)
   }
 
   const handlePageChange = (page) => {
@@ -156,6 +191,10 @@ const Monitor = () => {
   const handleDetailClose = () => {
     setshowDetail(false);
     setSelectedLog(null);
+  }
+
+  const handleConnectClose = () => {
+    setShowConnect(false)
   }
 
   const actionStart = (id) => {
@@ -297,8 +336,8 @@ const Monitor = () => {
               >
                 <option value="">- All</option>
                 <option value="-1">{translateMonitorCurrentStatus(-1)} 조치 전</option>
-                    <option value="0">{translateMonitorCurrentStatus(0)} 조치 중</option>
-                    <option value="1">{translateMonitorCurrentStatus(1)} 조치 완료</option>
+                <option value="0">{translateMonitorCurrentStatus(0)} 조치 중</option>
+                <option value="1">{translateMonitorCurrentStatus(1)} 조치 완료</option>
               </Form.Select>
             </InputGroup>
           </Col>
@@ -332,7 +371,7 @@ const Monitor = () => {
                     <option value="0">{translateMonitorCurrentStatus(0)} 조치 중</option>
                     <option value="1">{translateMonitorCurrentStatus(1)} 조치 완료</option>
                   </Form.Select>
-                  <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleMonitorConfirm}>
+                  <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleToNormalization}>
                     (으)로 변경하기
                   </Button>
                 </InputGroup>
@@ -476,6 +515,20 @@ const Monitor = () => {
         ) : (
           <Spinner animation="border" />
         )}
+      </Modal>
+
+      <Modal size='md' show={showConnect} onHide={handleConnectClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Alert</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <strong>두개를 병합하시겠습니까?</strong>
+          {objectIDs}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='primary' onClick={handleConnectAlarm}>병합</Button>
+          <Button variant="secondary" onClick={handleConnectClose}>닫기 (ESC)</Button>
+        </Modal.Footer>
       </Modal>
     </>
   );
