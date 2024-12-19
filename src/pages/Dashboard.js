@@ -101,7 +101,7 @@ const Monitoring = ({ start, end }) => {
       //         )
       //       }
       if (c.length !== 0) {
-        const removeNullArray = c.filter((e) => e._id !== null || e._id !== "")
+        const removeNullArray = c.filter((e) => e._id !== null && e._id !== "")
         setChartByCompany(
           getChartData(
             removeNullArray.map((item) => item._id),
