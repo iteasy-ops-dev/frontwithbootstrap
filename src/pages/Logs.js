@@ -174,9 +174,9 @@ const Logs = () => {
                   ))} */}
                   {functions && Object.keys(functions.data).map((f) => (
                     <option key={f} value={f}>
-                    {
-                      translateManageType(f)
-                    }
+                      {
+                        translateManageType(f)
+                      }
                     </option>
                   ))}
                 </Form.Select>
@@ -295,7 +295,7 @@ const Logs = () => {
                 {data.data.data.map((log) => (
                   <React.Fragment key={log.ID}>
                     <tr>
-                      <td style={{ textAlign: 'center' }}>{log.Type}</td>
+                      <td style={{ textAlign: 'center' }}>{translateManageType(log.Type)}</td>
                       <td style={{ textAlign: 'center' }}>
                         <Button variant="link" onClick={() => handleUserShow(log)}>
                           {log.Name}

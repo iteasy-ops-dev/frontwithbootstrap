@@ -12,7 +12,7 @@ const config = {
     path: {
       login: "/login",
       extend_extension: "/extend_extension",
-      dashboad: "/dashboad",
+      dashboard: "/dashboard",
       logout: "/logout",
       signup: "/signup",
       resetPassword: "reset_password",
@@ -44,7 +44,8 @@ const config = {
       start: "/start",
       updateStatus: "/updateStatus",
       done: "/done",
-      connect: "/connect"
+      connect: "/connect",
+      dashboard: "/dashboard"
     }
   },
   jwt: {

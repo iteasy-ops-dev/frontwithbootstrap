@@ -358,11 +358,11 @@ const Monitor = () => {
           <>
             <Row>
               <Col>
-                <p className={`header-description ${textColorClass}`}><strong>History</strong></p>
+                <p className={`header-description ${textColorClass}`}><strong>Monitoring List</strong></p>
               </Col>
               <Col>
                 <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
-                  <InputGroup.Text>체크된 알림의 상태를</InputGroup.Text>
+                  <InputGroup.Text>체크된 알림을</InputGroup.Text>
                   <Form.Select
                     value={setStatus}
                     onChange={(e) => setSetStatus(e.target.value)}
@@ -373,6 +373,9 @@ const Monitor = () => {
                   </Form.Select>
                   <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleToNormalization}>
                     (으)로 변경하기
+                  </Button>
+                  <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleConnectAlarm} disabled={!showConnect}>
+                    병합하기
                   </Button>
                 </InputGroup>
               </Col>
@@ -516,20 +519,6 @@ const Monitor = () => {
           <Spinner animation="border" />
         )}
       </Modal>
-
-      <Modal size='md' show={showConnect} onHide={handleConnectClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Alert</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <strong>두개를 병합하시겠습니까?</strong>
-          {objectIDs}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='primary' onClick={handleConnectAlarm}>병합</Button>
-          <Button variant="secondary" onClick={handleConnectClose}>닫기 (ESC)</Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 };
@@ -537,3 +526,16 @@ const Monitor = () => {
 export default Monitor;
 
 
+//       <Modal size='md' show={showConnect} onHide={handleConnectClose}>
+//         <Modal.Header closeButton>
+//           <Modal.Title>Alert</Modal.Title>
+//         </Modal.Header>
+//         <Modal.Body>
+//           <strong>두개를 병합하시겠습니까?</strong>
+//           {objectIDs}
+//         </Modal.Body>
+//         <Modal.Footer>
+//           <Button variant='primary' onClick={handleConnectAlarm}>병합</Button>
+//           <Button variant="secondary" onClick={handleConnectClose}>닫기 (ESC)</Button>
+//         </Modal.Footer>
+//       </Modal>

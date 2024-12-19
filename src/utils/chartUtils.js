@@ -36,24 +36,23 @@ const colors = [
 ];
 
 export const getChartData = (labels, data) => {
-  // console.log(data)
-   // 객체 배열을 랜덤으로 섞기
-   const shuffledColors = shuffleArray(colors);
+  // 객체 배열을 랜덤으로 섞기
+  const shuffledColors = shuffleArray(colors);
 
-   // 섞인 객체 배열에서 backgroundColor와 borderColor 배열 분리하기
-   const backgroundColor = shuffledColors.map(color => color.backgroundColor);
-   const borderColor = shuffledColors.map(color => color.borderColor);
+  // 섞인 객체 배열에서 backgroundColor와 borderColor 배열 분리하기
+  const backgroundColor = shuffledColors.map(color => color.backgroundColor);
+  const borderColor = shuffledColors.map(color => color.borderColor);
 
   return {
     labels,
     datasets: [
       {
-				labels,
+        labels,
         data,
         backgroundColor,
         borderColor,
         borderWidth: 1,
       },
-    ],
+    ]
   }
 }
