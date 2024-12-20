@@ -94,8 +94,13 @@ const Monitor = () => {
       setActionDetail(selectedLog.ActionDetails || ""); // ActionDetails 값 초기화
       // 초기 버튼 상태 설정
       // setIsStartDisabled(selectedLog.CurrentStatus !== -1);
-      setIsFinishDisabled(selectedLog.CurrentStatus !== 0);
-      setIsProcessingDisabled(selectedLog.CurrentStatus === -1 || selectedLog.CurrentStatus === 1);
+      if (selectedLog.CurrentStatus === 100) {
+        setIsFinishDisabled(true)
+        setIsProcessingDisabled(true)
+      } else {
+        setIsFinishDisabled(selectedLog.CurrentStatus !== 0);
+        setIsProcessingDisabled(selectedLog.CurrentStatus === -1 || selectedLog.CurrentStatus === 1);
+      }
     }
   }, [selectedLog]);
 
@@ -142,7 +147,25 @@ const Monitor = () => {
       return;
     }
 
-    if (parseInt(setStatus) === 1 && !window.confirm("선택된 알람이 자동 정상화로 변경됩니다. 계속하시겠습니까?")) {
+    let s = ""
+    switch (setStatus) {
+      case "-1":
+        s = "조치 전"
+        break;
+      case "0":
+        s = "조치 중"
+        break;
+      case "1":
+        s = "조치 완료"
+        break;
+      case "100":
+        s = "자동 정상화"
+        break;
+
+      default:
+        break;
+    }
+    if (!window.confirm(`선택된 알람이 ${s} 상태로 변경됩니다. 계속하시겠습니까?`)) {
       return;
     }
     updateStatusApi.callApi(
@@ -338,6 +361,7 @@ const Monitor = () => {
                 <option value="-1">{translateMonitorCurrentStatus(-1)} 조치 전</option>
                 <option value="0">{translateMonitorCurrentStatus(0)} 조치 중</option>
                 <option value="1">{translateMonitorCurrentStatus(1)} 조치 완료</option>
+                <option value="100">{translateMonitorCurrentStatus(100)} 자동 정상화</option>
               </Form.Select>
             </InputGroup>
           </Col>
@@ -370,6 +394,7 @@ const Monitor = () => {
                     <option value="-1">{translateMonitorCurrentStatus(-1)} 조치 전</option>
                     <option value="0">{translateMonitorCurrentStatus(0)} 조치 중</option>
                     <option value="1">{translateMonitorCurrentStatus(1)} 조치 완료</option>
+                    <option value="100">{translateMonitorCurrentStatus(100)} 자동 정상화</option>
                   </Form.Select>
                   <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleToNormalization}>
                     (으)로 변경하기

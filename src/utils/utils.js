@@ -95,6 +95,9 @@ export const translateMonitorCurrentStatus = (n) => {
       return "⚠️"
     case 1:
       return "✅"
+    case 100:
+      return "🔄"
+
   }
 
 }

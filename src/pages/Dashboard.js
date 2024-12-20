@@ -7,7 +7,7 @@ import config from '../config';
 import useApi from '../hooks/useApi';
 import { getChartData } from "../utils/chartUtils";
 import { useTheme } from '../ThemeContext';
-import { translateManageType } from '../utils/utils';
+import { translateMonitorAlarmType, translateManageType } from '../utils/utils';
 
 
 const Dashboard = () => {
@@ -62,10 +62,13 @@ const Monitoring = ({ start, end }) => {
 
   const { data, loading, error, callApi } = useApi(config.mm_api.baseUrl)
   // monitoring dashboard
+
+  const [overall, setOverall] = useState([]);
   const [byAlarmType, setByAlarmType] = useState([]);
   const [byCompany, setByCompany] = useState([]);
   const [byIP, setByIP] = useState([]);
 
+  const [chartOverall, setChartOverall] = useState(null);
   const [chartByAlarmType, setChartByAlarmType] = useState(null);
   const [chartByCompany, setChartByCompany] = useState(null);
   const [chartByIP, setChartByIP] = useState(null);
@@ -76,30 +79,31 @@ const Monitoring = ({ start, end }) => {
 
   useEffect(() => {
     if (data && data.data && data.data.overall !== null) {
+      const o = data.data.overall[0]
       const a = data.data.byAlarmType
       const c = data.data.byCompany
       const i = data.data.byIP
 
+      setOverall(o)
       setByAlarmType(a)
       setByCompany(c)
       setByIP(i)
 
+      setChartOverall(
+        getChartData(
+          ["조치 전", "조치 중", "조치 완료", "자동 정상화"],
+          [o.before, o.processing, o.normal, o.auto]
+        )
+      )
+
       if (a.length !== 0) {
         setChartByAlarmType(
           getChartData(
-            a.map((item) => item._id),
+            a.map((item) => translateMonitorAlarmType(item._id)),
             a.map((item) => item.totalCount)
           )
         )
       }
-      //       if (c.length !== 0) {
-      //         setChartByCompany(
-      //           getChartData(
-      //             c.map((item) => item._id === null ? item._id = "Unkown" : item._id), // null 값은 에러를 발생시키므로 기본값을 할당한다.
-      //             c.map((item) => item.totalCount)
-      //           )
-      //         )
-      //       }
       if (c.length !== 0) {
         const removeNullArray = c.filter((e) => e._id !== null && e._id !== "")
         setChartByCompany(
@@ -136,11 +140,21 @@ const Monitoring = ({ start, end }) => {
           <h3 className={`header-title ${textColorClass}`}>모니터링 Dashboard</h3>
           <Row>
             <Col>
-              <Card className={`text-center bg-${theme}`}>
+              <Card style={{ width: '25rem' }} className={`text-center bg-${theme}`}>
+                <Card.Header className={`${textColorClass}`}>Total: {overall.totalCount}</Card.Header>
+                <Card.Body>
+                  {chartOverall && (
+                    <Doughnut data={chartOverall} />
+                  )}
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col>
+              <Card style={{ width: '25rem' }} className={`text-center bg-${theme}`}>
                 <Card.Header className={`${textColorClass}`}>Monitoring by Alarm Type</Card.Header>
                 <Card.Body>
                   {chartByAlarmType && (
-                    <Bar data={chartByAlarmType} />
+                    <Doughnut data={chartByAlarmType} />
                   )}
                 </Card.Body>
               </Card>
@@ -249,7 +263,7 @@ const Manage = ({ start, end }) => {
         <>
           <Row xs="auto">
             <Col>
-              <Card style={{ width: '20rem' }} className={`text-center bg-${theme}`}>
+              <Card style={{ width: '25rem' }} className={`text-center bg-${theme}`}>
                 <Card.Header className={`${textColorClass}`}>Total Count</Card.Header>
                 <Card.Body>
                   <Card.Title className={`${textColorClass}`}>{overall.totalCount} ea</Card.Title>
@@ -262,7 +276,7 @@ const Manage = ({ start, end }) => {
               </Card>
             </Col>
             <Col>
-              <Card style={{ width: '20rem' }} className={`text-center bg-${theme}`}>
+              <Card style={{ width: '25rem' }} className={`text-center bg-${theme}`}>
                 <Card.Header className={`${textColorClass}`}>Total Duration</Card.Header>
                 <Card.Body>
                   <Card.Title className={`${textColorClass}`}>{overall.totalDuration} s</Card.Title>
@@ -295,7 +309,7 @@ const Manage = ({ start, end }) => {
       ) : (
         !loading && !error && (
           <Alert variant="warning">
-            No Overall available.
+            No Data available.
           </Alert>
         )
       )}
