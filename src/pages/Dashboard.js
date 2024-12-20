@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
-import { Row, Col, Card, Table, Alert, Spinner } from 'react-bootstrap';
+import { Form, Row, Col, Card, Table, Alert, Spinner } from 'react-bootstrap';
 import { Doughnut, Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 import config from '../config';
@@ -16,38 +16,52 @@ const Dashboard = () => {
 
   const [fetchStartDate, setFetchStartDate] = useState(new Date());
   const [fetchEndDate, setFetchEndDate] = useState(new Date());
+  const [outputType, setOutputType] = useState(true)
 
   return (
     <>
       <h1 className={`header-title ${textColorClass}`}>Dashboard</h1>
       <p className={`header-description ${textColorClass}`}>Here you can monitor the overall activity of the API.</p>
       <hr />
-      <Row xs="auto">
-        <Col>
-          <h3 className={`header-title ${textColorClass}`}>Date</h3>
-        </Col>
-        <Col>
-          <DatePicker
-            selected={fetchStartDate}
-            dateFormat="yyyy-MM-dd"
-            onChange={(date) => setFetchStartDate(date)}
-            className="form-control"
-          />
-        </Col>
-        <Col>
-          <h3 className={`header-title ${textColorClass}`}>~</h3>
-        </Col>
-        <Col>
-          <DatePicker
-            selected={fetchEndDate}
-            dateFormat="yyyy-MM-dd"
-            onChange={(date) => setFetchEndDate(date)}
-            className="form-control"
-          />
-        </Col>
-      </Row>
-      <Monitoring start={fetchStartDate} end={fetchEndDate} />
-      <Manage start={fetchStartDate} end={fetchEndDate} />
+      <Form>
+        <Row className="mb-3">
+          <Form.Group as={Col} data-bs-theme={`${theme}`}>
+            <Form.Label className={`header-description ${textColorClass}`}>Start Date</Form.Label>
+            <DatePicker
+              selected={fetchStartDate}
+              dateFormat="yyyy-MM-dd"
+              onChange={(date) => setFetchStartDate(date)}
+              className="form-control"
+            />
+          </Form.Group>
+          <Form.Group as={Col} data-bs-theme={`${theme}`}>
+            <Form.Label className={`header-description ${textColorClass}`}>End Date</Form.Label>
+            <DatePicker
+              selected={fetchEndDate}
+              dateFormat="yyyy-MM-dd"
+              onChange={(date) => setFetchEndDate(date)}
+              className="form-control"
+            />
+          </Form.Group>
+          <Form.Group as={Col} data-bs-theme={`${theme}`}>
+            <Form.Label className={`header-description ${textColorClass}`}>대시보드 타입</Form.Label>
+            <Form.Select
+              value={outputType}
+              onChange={(e) => setOutputType(e.target.value === 'true')}
+            >
+              <option value="true">모니터링</option>
+              <option value="false">자동화</option>
+            </Form.Select>
+
+          </Form.Group>
+        </Row>
+      </Form>
+      <hr />
+      {outputType ? (
+        <Monitoring start={fetchStartDate} end={fetchEndDate} />
+      ) : (
+        <Manage start={fetchStartDate} end={fetchEndDate} />
+      )}
     </>
 
   );
@@ -137,7 +151,7 @@ const Monitoring = ({ start, end }) => {
       {/* 데이터가 있는 경우 차트 및 테이블 표시 */}
       {chartByAlarmType && chartByCompany && chartByIP ? (
         <>
-          <h3 className={`header-title ${textColorClass}`}>모니터링 Dashboard</h3>
+          <p className={`header-description ${textColorClass}`}><strong>매니지드 모니터링</strong></p>
           <Row>
             <Col>
               <Card style={{ width: '25rem' }} className={`text-center bg-${theme}`}>
@@ -250,7 +264,7 @@ const Manage = ({ start, end }) => {
 
   return (
     <>
-      <h3 className={`header-title ${textColorClass}`}>자동화 Dashboard</h3>
+      <p className={`header-description ${textColorClass}`}><strong>자동화 통계</strong></p>
       {/* work request dashboard */}
       {/* 데이터 로딩 중에 스피너 표시 */}
       {loading && <Spinner animation="border" />}

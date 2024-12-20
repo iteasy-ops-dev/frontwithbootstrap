@@ -26,13 +26,14 @@ const Monitor = () => {
   const [filter, setFilter] = useState(); // 조치 전 기본값
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const pageSize = 10;
+  //  const pageSize = 10;
+  const [pageSize, setPageSize] = useState(10)
 
   const [searchType, setSearchType] = useState('');
   const [searchName, setSearchName] = useState('');
   const [searchIp, setSearchIp] = useState('');
   const [searchCompany, setSearchCompany] = useState('');
-  const [searchStatus, setSearchStatus] = useState('-1');
+  const [searchStatus, setSearchStatus] = useState('');
 
   const [showDetail, setshowDetail] = useState(false);
   const [showConnect, setShowConnect] = useState(false);
@@ -74,7 +75,7 @@ const Monitor = () => {
     });
   };
 
-  const fetchData = (page) => {
+  const fetchData = (page, pageSize) => {
     listApi.callApi(
       config.mm_api.path.list,
       config.mm_api.method.POST,
@@ -120,10 +121,10 @@ const Monitor = () => {
 
   useEffect(() => {
     // console.log(currentPage)
-    fetchData(currentPage);
+    fetchData(currentPage, Number(pageSize));
     setSelectAll(false)
     setObjectIDs([])
-  }, [currentPage, filter, showDetail, updateStatusApi.data, connectApi.data]);
+  }, [currentPage, pageSize, filter, showDetail, updateStatusApi.data, connectApi.data]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -382,7 +383,22 @@ const Monitor = () => {
           <>
             <Row>
               <Col>
-                <p className={`header-description ${textColorClass}`}><strong>Monitoring List</strong></p>
+                <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
+                  <InputGroup.Text>모니터링 목록을</InputGroup.Text>
+                  <Form.Select
+                    value={pageSize}
+                    onChange={(e) => setPageSize(e.target.value)}
+                  >
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </Form.Select>
+                  <Button variant={`outline-${theme === 'light' ? 'dark' : 'light'}`} onClick={handleToNormalization}>
+                    개씩 보기
+                  </Button>
+
+                </InputGroup>
               </Col>
               <Col>
                 <InputGroup className="mb-3" data-bs-theme={`${theme}`}>
