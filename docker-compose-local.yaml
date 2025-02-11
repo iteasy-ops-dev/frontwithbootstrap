@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  install:
+    build: 
+      context: .
+      dockerfile: dockerfile.local
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/app
+    command: [ "install" ]
+  dev:
+    build: 
+      context: .
+      dockerfile: dockerfile.local
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./:/app
+    ports:
+      - 8000:8000
+    command: [ "start" ]

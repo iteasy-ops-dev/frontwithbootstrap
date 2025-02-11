@@ -48,6 +48,16 @@ const config = {
       dashboard: "/dashboard"
     }
   },
+  whm_api: {
+    baseUrl: process.env.REACT_APP_WORKHISTORY_MONITOR_API_URL || "http://localhost:8082",
+    method: {
+      GET: "GET",
+      POST: "POST"
+    },
+    path: {
+      dashboard: "/dashboard"
+    }
+  },
   jwt: {
     key: process.env.REACT_APP_JWT_KEY || "OPST"
   },

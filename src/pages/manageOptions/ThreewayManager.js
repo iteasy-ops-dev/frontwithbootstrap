@@ -69,6 +69,12 @@ const ThreewayManager = ({ handleOptionChange }) => {
       <h4 className={`${textColorClass}`}>Options</h4>
       <Accordion defaultActiveKey="0" data-bs-theme={`${theme}`}>
         <Accordion.Item eventKey="0">
+          <Accordion.Header>쓰리웨이 도메인 관리 페이지</Accordion.Header>
+          <Accordion.Body>
+            🏚️ <a href='http://58.229.240.8' target="_blank" rel="noreferrer">PowerDNS</a>
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey="1">
           <Accordion.Header>Info</Accordion.Header>
           <Accordion.Body>
             👋 <a href='https://github.com/iteasy-ops-dev/ansible.roles.3way_manager' target="_blank" rel="noreferrer">Repository</a>
