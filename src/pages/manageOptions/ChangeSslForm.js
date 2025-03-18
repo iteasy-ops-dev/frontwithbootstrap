@@ -55,7 +55,7 @@ const ChangeSslForm = ({ handleOptionChange }) => {
 					<InputGroup className="mb-3" data-bs-theme={`${theme}`}>
 						<InputGroup.Text>재시작여부</InputGroup.Text>
 						<Form.Select
-							name="webserver_type"
+							name="isRestart"
 							onChange={handleChange}
 						>
 							<option value="1">false</option>
