@@ -58,8 +58,8 @@ const ChangeSslForm = ({ handleOptionChange }) => {
 							name="isRestart"
 							onChange={handleChange}
 						>
-							<option value="1">false</option>
 							<option value="0">true</option>
+							<option value="1">false</option>
 						</Form.Select>
 					</InputGroup>
 				</Col>
